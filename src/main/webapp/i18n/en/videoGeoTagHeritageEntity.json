@@ -1,0 +1,30 @@
+{
+    "heritageMapperAppApp": {
+        "videoGeoTagHeritageEntity" : {
+            "home": {
+                "title": "VideoGeoTagHeritageEntitys",
+                "createLabel": "Create a new VideoGeoTagHeritageEntity",
+                "createOrEditLabel": "Create or edit a VideoGeoTagHeritageEntity"
+            },
+            "created": "A new VideoGeoTagHeritageEntity is created with identifier {{ param }}",
+            "updated": "A VideoGeoTagHeritageEntity is updated with identifier {{ param }}",
+            "deleted": "A VideoGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete VideoGeoTagHeritageEntity {{ id }}?"
+            },
+            "detail": {
+                "title": "VideoGeoTagHeritageEntity"
+            },
+            "title": "Title",
+            "description": "Description",
+            "address": "Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "consolidatedTags": "ConsolidatedTags",
+            "urlOrfileLink": "UrlOrfileLink",
+            "videoFile": "VideoFile",
+            "heritageCategory": "HeritageCategory",
+            "heritageLanguage": "HeritageLanguage"
+        }
+    }
+}

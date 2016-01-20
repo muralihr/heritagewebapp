@@ -1,0 +1,55 @@
+<div>
+    <h2 translate="heritageMapperAppApp.heritageCategory.home.title">HeritageCategorys</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="heritageCategory.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="heritageMapperAppApp.heritageCategory.home.createLabel">Create a new HeritageCategory</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="categoryName"><span translate="heritageMapperAppApp.heritageCategory.categoryName">CategoryName</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="categoryIcon"><span translate="heritageMapperAppApp.heritageCategory.categoryIcon">CategoryIcon</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="categoryDecription"><span translate="heritageMapperAppApp.heritageCategory.categoryDecription">CategoryDecription</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="heritageCategory in heritageCategorys track by heritageCategory.id">
+                    <td><a ui-sref="heritageCategory.detail({id:heritageCategory.id})">{{heritageCategory.id}}</a></td>
+                    <td>{{heritageCategory.categoryName}}</td>
+                    <td>
+                        <img data-ng-src="{{'data:' + heritageCategory.categoryIconContentType + ';base64,' + heritageCategory.categoryIcon}}" style="max-height: 30px;" ng-if="heritageCategory.categoryIcon"/> {{heritageCategory.categoryIconContentType}} {{byteSize(heritageCategory.categoryIcon)}}
+                    </td>
+                    <td>{{heritageCategory.categoryDecription}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="heritageCategory.detail({id:heritageCategory.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="heritageCategory.edit({id:heritageCategory.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="heritageCategory.delete({id:heritageCategory.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <uib-pager total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pager>
+</div>

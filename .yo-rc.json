@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "HeritageMapperApp",
+    "packageName": "org.janastu.heritageapp",
+    "packageFolder": "org/janastu/heritageapp",
+    "authenticationType": "xauth",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": true,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "f8cc66c540868fdfe97e02abb0fd08638a5284ea",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+    "heritageMapperAppApp": {
+        "heritageLanguage" : {
+            "home": {
+                "title": "HeritageLanguages",
+                "createLabel": "Create a new HeritageLanguage",
+                "createOrEditLabel": "Create or edit a HeritageLanguage"
+            },
+            "created": "A new HeritageLanguage is created with identifier {{ param }}",
+            "updated": "A HeritageLanguage is updated with identifier {{ param }}",
+            "deleted": "A HeritageLanguage is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete HeritageLanguage {{ id }}?"
+            },
+            "detail": {
+                "title": "HeritageLanguage"
+            },
+            "heritageLanguage": "HeritageLanguage"
+        }
+    }
+}

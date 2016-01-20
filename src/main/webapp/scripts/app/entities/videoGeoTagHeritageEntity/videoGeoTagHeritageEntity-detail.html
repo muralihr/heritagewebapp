@@ -1,0 +1,103 @@
+
+<div>
+    <h2><span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.detail.title">VideoGeoTagHeritageEntity</span> {{videoGeoTagHeritageEntity.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.title">Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.address">Address</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.address}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.latitude">Latitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.latitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.longitude">Longitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.longitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.consolidatedTags">ConsolidatedTags</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.consolidatedTags}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.urlOrfileLink">UrlOrfileLink</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.urlOrfileLink}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.videoFile">VideoFile</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{videoGeoTagHeritageEntity.videoFile}}</span>
+                    <div>{{videoGeoTagHeritageEntity.videoFileContentType}}  {{byteSize(videoGeoTagHeritageEntity.videoFile)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.heritageCategory">heritageCategory</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageCategory.detail({id:videoGeoTagHeritageEntity.heritageCategoryId})">{{videoGeoTagHeritageEntity.heritageCategoryCategoryName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritageMapperAppApp.videoGeoTagHeritageEntity.heritageLanguage">heritageLanguage</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageLanguage.detail({id:videoGeoTagHeritageEntity.heritageLanguageId})">{{videoGeoTagHeritageEntity.heritageLanguageHeritageLanguage}}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

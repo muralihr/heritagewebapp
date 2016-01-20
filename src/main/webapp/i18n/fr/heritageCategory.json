@@ -1,0 +1,24 @@
+{
+    "heritageMapperAppApp": {
+        "heritageCategory" : {
+            "home": {
+                "title": "HeritageCategorys",
+                "createLabel": "Créer un nouveau HeritageCategory",
+                "createOrEditLabel": "Créer ou éditer un HeritageCategory"
+            },
+            "created": "Un nouveau HeritageCategory a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageCategory avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageCategory avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageCategory {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageCategory"
+            },
+            "categoryName": "CategoryName",
+            "categoryIcon": "CategoryIcon",
+            "categoryDecription": "CategoryDecription"
+        }
+    }
+}
+

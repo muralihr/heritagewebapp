@@ -1,0 +1,31 @@
+{
+    "heritageMapperAppApp": {
+        "imageGeoTagHeritageEntity" : {
+            "home": {
+                "title": "ImageGeoTagHeritageEntitys",
+                "createLabel": "Créer un nouveau ImageGeoTagHeritageEntity",
+                "createOrEditLabel": "Créer ou éditer un ImageGeoTagHeritageEntity"
+            },
+            "created": "Un nouveau ImageGeoTagHeritageEntity a été créé avec l'identifiant {{ param }}",
+            "updated": "Le ImageGeoTagHeritageEntity avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le ImageGeoTagHeritageEntity avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le ImageGeoTagHeritageEntity {{ id }} ?"
+            },
+            "detail": {
+                "title": "ImageGeoTagHeritageEntity"
+            },
+            "title": "Title",
+            "description": "Description",
+            "address": "Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "consolidatedTags": "ConsolidatedTags",
+            "urlOrfileLink": "UrlOrfileLink",
+            "photo": "Photo",
+            "heritageCategory": "HeritageCategory",
+            "heritageLanguage": "HeritageLanguage"
+        }
+    }
+}
+

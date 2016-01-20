@@ -1,0 +1,148 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myVideoGeoTagHeritageEntityLabel" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.home.createOrEditLabel">Create or edit a VideoGeoTagHeritageEntity</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="videoGeoTagHeritageEntity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="videoGeoTagHeritageEntity.title"
+                    required ng-minlength="5" />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                    This field is required to be at least 5 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="videoGeoTagHeritageEntity.description"
+                    required ng-minlength="5" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                    This field is required to be at least 5 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="videoGeoTagHeritageEntity.address"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.latitude" for="field_latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" id="field_latitude"
+                    ng-model="videoGeoTagHeritageEntity.latitude"
+                    required />
+            <div ng-show="editForm.latitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.longitude" for="field_longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" id="field_longitude"
+                    ng-model="videoGeoTagHeritageEntity.longitude"
+                    required />
+            <div ng-show="editForm.longitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.consolidatedTags" for="field_consolidatedTags">ConsolidatedTags</label>
+            <input type="text" class="form-control" name="consolidatedTags" id="field_consolidatedTags"
+                    ng-model="videoGeoTagHeritageEntity.consolidatedTags"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.urlOrfileLink" for="field_urlOrfileLink">UrlOrfileLink</label>
+            <input type="text" class="form-control" name="urlOrfileLink" id="field_urlOrfileLink"
+                    ng-model="videoGeoTagHeritageEntity.urlOrfileLink"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setVideoFile($file, videoGeoTagHeritageEntity)">
+            <label class="control-label" translate="heritageMapperAppApp.videoGeoTagHeritageEntity.videoFile" for="field_videoFile">VideoFile</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{abbreviate(videoGeoTagHeritageEntity.videoFile)}} {{videoGeoTagHeritageEntity.videoFileContentType}} {{byteSize(videoGeoTagHeritageEntity.videoFile)}}</span>
+                    <button ng-click="videoGeoTagHeritageEntity.videoFile=null;videoGeoTagHeritageEntity.videoFileContentType=null;"
+                            ng-if="videoGeoTagHeritageEntity.videoFile"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setVideoFile($file, videoGeoTagHeritageEntity)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="videoFile" id="field_videoFile"
+                    ng-model="videoGeoTagHeritageEntity.videoFile"
+                    required />
+            <input type="hidden" class="form-control" name="videoFileContentType" id="field_videoFileContentType"
+                    ng-model="videoGeoTagHeritageEntity.videoFileContentType" />
+            <div ng-show="editForm.videoFile.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.videoFile.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="heritageMapperAppApp.videoGeoTagHeritageEntity.heritageCategory" for="field_heritageCategory">heritageCategory</label>
+            <select class="form-control" id="field_heritageCategory" name="heritageCategory" ng-model="videoGeoTagHeritageEntity.heritageCategoryId" ng-options="heritageCategory.id as heritageCategory.categoryName for heritageCategory in heritagecategorys">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritageMapperAppApp.videoGeoTagHeritageEntity.heritageLanguage" for="field_heritageLanguage">heritageLanguage</label>
+            <select class="form-control" id="field_heritageLanguage" name="heritageLanguage" ng-model="videoGeoTagHeritageEntity.heritageLanguageId" ng-options="heritageLanguage.id as heritageLanguage.heritageLanguage for heritageLanguage in heritagelanguages">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
