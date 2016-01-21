@@ -1,0 +1,30 @@
+{
+    "heritageMapperAppApp": {
+        "audioGeoTagHeritageEntity" : {
+            "home": {
+                "title": "AudioGeoTagHeritageEntitys",
+                "createLabel": "Create a new AudioGeoTagHeritageEntity",
+                "createOrEditLabel": "Create or edit a AudioGeoTagHeritageEntity"
+            },
+            "created": "A new AudioGeoTagHeritageEntity is created with identifier {{ param }}",
+            "updated": "A AudioGeoTagHeritageEntity is updated with identifier {{ param }}",
+            "deleted": "A AudioGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete AudioGeoTagHeritageEntity {{ id }}?"
+            },
+            "detail": {
+                "title": "AudioGeoTagHeritageEntity"
+            },
+            "title": "Title",
+            "description": "Description",
+            "address": "Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "consolidatedTags": "ConsolidatedTags",
+            "urlOrfileLink": "UrlOrfileLink",
+            "audioFile": "AudioFile",
+            "heritageCategory": "HeritageCategory",
+            "heritageLanguage": "HeritageLanguage"
+        }
+    }
+}

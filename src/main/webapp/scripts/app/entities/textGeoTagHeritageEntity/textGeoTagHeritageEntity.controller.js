@@ -1,36 +1,17 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('VideoGeoTagHeritageEntityController', function ($scope, $state, Principal, DataUtils, VideoGeoTagHeritageEntity,sharedGeoProperties, ParseLinks) {
+    .controller('TextGeoTagHeritageEntityController', function ($scope, $state, TextGeoTagHeritageEntity,sharedGeoProperties, ParseLinks) {
 
-        $scope.videoGeoTagHeritageEntitys = [];
+        $scope.textGeoTagHeritageEntitys = [];
         $scope.predicate = 'id';
         $scope.reverse = true;
-        $scope.isAdmin = false;
         $scope.page = 1;
         $scope.loadAll = function() {
-            VideoGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+            TextGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
-                $scope.videoGeoTagHeritageEntitys = result;
-                
-                
-                
-                Principal.hasAuthority('ROLE_ADMIN')
-                .then(function (result) {
-                    if (result) {
-                    	
-                    	
-                    	 $scope.isAdmin = true;
-                    	 console.log("$scope.isAdmin true" );
-                    } else {
-                    	$scope.isAdmin = false;
-                    	console.log("$scope.isAdmin false" );
-                    }
-                });
-                
-                
-                console.log("$scope.isAdmin"+$scope.isAdmin);
+                $scope.textGeoTagHeritageEntitys = result;
             });
         };
         $scope.loadPage = function(page) {
@@ -46,25 +27,18 @@ angular.module('heritageMapperAppApp')
         };
 
         $scope.clear = function () {
-            $scope.videoGeoTagHeritageEntity = {
+            $scope.textGeoTagHeritageEntity = {
                 title: null,
                 description: null,
                 address: null,
                 latitude: null,
                 longitude: null,
                 consolidatedTags: null,
-                urlOrfileLink: null,
-                videoFile: null,
-                videoFileContentType: null,
+                textDetails: null,
                 id: null
             };
         };
-
-        $scope.abbreviate = DataUtils.abbreviate;
-
-        $scope.byteSize = DataUtils.byteSize;
-        
-        //MAPP functions --- TO BE INTRODUCED IN ALL THE FILES
+///MAP FOUNCTIONS
         
         $scope.lat2 = 0;
         $scope.lat222 = 1110;
@@ -97,4 +71,6 @@ angular.module('heritageMapperAppApp')
               }); 
 
 		};
+		
+		//MAP FUNCTIOSN END
     });

@@ -1,36 +1,17 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('VideoGeoTagHeritageEntityController', function ($scope, $state, Principal, DataUtils, VideoGeoTagHeritageEntity,sharedGeoProperties, ParseLinks) {
+    .controller('AudioGeoTagHeritageEntityController', function ($scope, $state, DataUtils,sharedGeoProperties, AudioGeoTagHeritageEntity, ParseLinks) {
 
-        $scope.videoGeoTagHeritageEntitys = [];
+        $scope.audioGeoTagHeritageEntitys = [];
         $scope.predicate = 'id';
         $scope.reverse = true;
-        $scope.isAdmin = false;
         $scope.page = 1;
         $scope.loadAll = function() {
-            VideoGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
+            AudioGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
-                $scope.videoGeoTagHeritageEntitys = result;
-                
-                
-                
-                Principal.hasAuthority('ROLE_ADMIN')
-                .then(function (result) {
-                    if (result) {
-                    	
-                    	
-                    	 $scope.isAdmin = true;
-                    	 console.log("$scope.isAdmin true" );
-                    } else {
-                    	$scope.isAdmin = false;
-                    	console.log("$scope.isAdmin false" );
-                    }
-                });
-                
-                
-                console.log("$scope.isAdmin"+$scope.isAdmin);
+                $scope.audioGeoTagHeritageEntitys = result;
             });
         };
         $scope.loadPage = function(page) {
@@ -46,7 +27,7 @@ angular.module('heritageMapperAppApp')
         };
 
         $scope.clear = function () {
-            $scope.videoGeoTagHeritageEntity = {
+            $scope.audioGeoTagHeritageEntity = {
                 title: null,
                 description: null,
                 address: null,
@@ -54,8 +35,8 @@ angular.module('heritageMapperAppApp')
                 longitude: null,
                 consolidatedTags: null,
                 urlOrfileLink: null,
-                videoFile: null,
-                videoFileContentType: null,
+                audioFile: null,
+                audioFileContentType: null,
                 id: null
             };
         };
@@ -63,8 +44,7 @@ angular.module('heritageMapperAppApp')
         $scope.abbreviate = DataUtils.abbreviate;
 
         $scope.byteSize = DataUtils.byteSize;
-        
-        //MAPP functions --- TO BE INTRODUCED IN ALL THE FILES
+///MAP FOUNCTIONS
         
         $scope.lat2 = 0;
         $scope.lat222 = 1110;
@@ -97,4 +77,6 @@ angular.module('heritageMapperAppApp')
               }); 
 
 		};
+		
+		//MAP FUNCTIOSN END
     });

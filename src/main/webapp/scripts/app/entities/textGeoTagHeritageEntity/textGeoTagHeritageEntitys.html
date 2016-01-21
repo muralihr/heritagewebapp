@@ -1,0 +1,82 @@
+<div>
+    <h2 translate="heritageMapperAppApp.textGeoTagHeritageEntity.home.title">TextGeoTagHeritageEntitys</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+        
+        <map center=" 12.969593,77.59310400000004"  on-click="addMarker()"  zoom="10">
+   
+    
+   
+   			   </map> 
+   			     <h1> Latitude  {{  lat2 }}</h1>
+   			      <h1> Longitude  {{ lng2 }}</h1>
+   			       
+   			  
+   			  
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="textGeoTagHeritageEntity.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span translate="heritageMapperAppApp.textGeoTagHeritageEntity.home.createLabel">Create a new TextGeoTagHeritageEntity</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.title">Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="address"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.address">Address</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="latitude"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.latitude">Latitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="longitude"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.longitude">Longitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="consolidatedTags"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.consolidatedTags">ConsolidatedTags</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="textDetails"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.textDetails">TextDetails</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="heritageCategoryCategoryName"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.heritageCategory">heritageCategory</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="heritageLanguageHeritageLanguage"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.heritageLanguage">heritageLanguage</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="textGeoTagHeritageEntity in textGeoTagHeritageEntitys track by textGeoTagHeritageEntity.id">
+                    <td><a ui-sref="textGeoTagHeritageEntity.detail({id:textGeoTagHeritageEntity.id})">{{textGeoTagHeritageEntity.id}}</a></td>
+                    <td>{{textGeoTagHeritageEntity.title}}</td>
+                    <td>{{textGeoTagHeritageEntity.description}}</td>
+                    <td>{{textGeoTagHeritageEntity.address}}</td>
+                    <td>{{textGeoTagHeritageEntity.latitude}}</td>
+                    <td>{{textGeoTagHeritageEntity.longitude}}</td>
+                    <td>{{textGeoTagHeritageEntity.consolidatedTags}}</td>
+                    <td>{{textGeoTagHeritageEntity.textDetails}}</td>
+                    <td>
+                        <a ui-sref="heritageCategory.detail({id:textGeoTagHeritageEntity.heritageCategoryId})">{{textGeoTagHeritageEntity.heritageCategoryCategoryName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="heritageLanguage.detail({id:textGeoTagHeritageEntity.heritageLanguageId})">{{textGeoTagHeritageEntity.heritageLanguageHeritageLanguage}}</a>
+                    </td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="textGeoTagHeritageEntity.detail({id:textGeoTagHeritageEntity.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="textGeoTagHeritageEntity.edit({id:textGeoTagHeritageEntity.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="textGeoTagHeritageEntity.delete({id:textGeoTagHeritageEntity.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

@@ -82,7 +82,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/audits/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/imageGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/videoGeoTagHeritageEntitys").permitAll()
-            .antMatchers("/api/imageGeoTagHeritageEntitys").permitAll()
+            .antMatchers("/api/audioGeoTagHeritageEntitys").permitAll()
+            .antMatchers("/api/textGeoTagHeritageEntitys").permitAll()
             
             .antMatchers("/api/**").authenticated()
           

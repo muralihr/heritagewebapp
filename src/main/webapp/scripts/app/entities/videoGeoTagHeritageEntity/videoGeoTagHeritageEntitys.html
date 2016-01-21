@@ -22,8 +22,11 @@
             </div>
         </div>
     </div>
-
+    
+    
+  
     <div class="table-responsive">
+    <div  ng-show="isAdmin"> 
         <table class="table table-striped">
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
@@ -78,6 +81,7 @@
                 </tr>
             </tbody>
         </table>
+        </div> 
     </div>
     <div class="text-center">
         <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>

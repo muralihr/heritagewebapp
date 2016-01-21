@@ -1,0 +1,148 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myAudioGeoTagHeritageEntityLabel" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.home.createOrEditLabel">Create or edit a AudioGeoTagHeritageEntity</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="audioGeoTagHeritageEntity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="audioGeoTagHeritageEntity.title"
+                    required ng-minlength="5" />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                    This field is required to be at least 5 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="audioGeoTagHeritageEntity.description"
+                    required ng-minlength="5" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.description.$error.minlength" translate="entity.validation.minlength" translate-value-min="5">
+                    This field is required to be at least 5 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="audioGeoTagHeritageEntity.address"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.latitude" for="field_latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" id="field_latitude"
+                    ng-model="audioGeoTagHeritageEntity.latitude"
+                    required />
+            <div ng-show="editForm.latitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.longitude" for="field_longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" id="field_longitude"
+                    ng-model="audioGeoTagHeritageEntity.longitude"
+                    required />
+            <div ng-show="editForm.longitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.consolidatedTags" for="field_consolidatedTags">ConsolidatedTags</label>
+            <input type="text" class="form-control" name="consolidatedTags" id="field_consolidatedTags"
+                    ng-model="audioGeoTagHeritageEntity.consolidatedTags"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.urlOrfileLink" for="field_urlOrfileLink">UrlOrfileLink</label>
+            <input type="text" class="form-control" name="urlOrfileLink" id="field_urlOrfileLink"
+                    ng-model="audioGeoTagHeritageEntity.urlOrfileLink"
+                     />
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setAudioFile($file, audioGeoTagHeritageEntity)">
+            <label class="control-label" translate="heritageMapperAppApp.audioGeoTagHeritageEntity.audioFile" for="field_audioFile">AudioFile</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{abbreviate(audioGeoTagHeritageEntity.audioFile)}} {{audioGeoTagHeritageEntity.audioFileContentType}} {{byteSize(audioGeoTagHeritageEntity.audioFile)}}</span>
+                    <button ng-click="audioGeoTagHeritageEntity.audioFile=null;audioGeoTagHeritageEntity.audioFileContentType=null;"
+                            ng-if="audioGeoTagHeritageEntity.audioFile"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setAudioFile($file, audioGeoTagHeritageEntity)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="audioFile" id="field_audioFile"
+                    ng-model="audioGeoTagHeritageEntity.audioFile"
+                    required />
+            <input type="hidden" class="form-control" name="audioFileContentType" id="field_audioFileContentType"
+                    ng-model="audioGeoTagHeritageEntity.audioFileContentType" />
+            <div ng-show="editForm.audioFile.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.audioFile.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="heritageMapperAppApp.audioGeoTagHeritageEntity.heritageCategory" for="field_heritageCategory">heritageCategory</label>
+            <select class="form-control" id="field_heritageCategory" name="heritageCategory" ng-model="audioGeoTagHeritageEntity.heritageCategoryId" ng-options="heritageCategory.id as heritageCategory.categoryName for heritageCategory in heritagecategorys">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritageMapperAppApp.audioGeoTagHeritageEntity.heritageLanguage" for="field_heritageLanguage">heritageLanguage</label>
+            <select class="form-control" id="field_heritageLanguage" name="heritageLanguage" ng-model="audioGeoTagHeritageEntity.heritageLanguageId" ng-options="heritageLanguage.id as heritageLanguage.heritageLanguage for heritageLanguage in heritagelanguages">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

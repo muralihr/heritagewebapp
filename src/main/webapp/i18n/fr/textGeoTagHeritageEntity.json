@@ -1,0 +1,30 @@
+{
+    "heritageMapperAppApp": {
+        "textGeoTagHeritageEntity" : {
+            "home": {
+                "title": "TextGeoTagHeritageEntitys",
+                "createLabel": "Créer un nouveau TextGeoTagHeritageEntity",
+                "createOrEditLabel": "Créer ou éditer un TextGeoTagHeritageEntity"
+            },
+            "created": "Un nouveau TextGeoTagHeritageEntity a été créé avec l'identifiant {{ param }}",
+            "updated": "Le TextGeoTagHeritageEntity avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le TextGeoTagHeritageEntity avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le TextGeoTagHeritageEntity {{ id }} ?"
+            },
+            "detail": {
+                "title": "TextGeoTagHeritageEntity"
+            },
+            "title": "Title",
+            "description": "Description",
+            "address": "Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "consolidatedTags": "ConsolidatedTags",
+            "textDetails": "TextDetails",
+            "heritageCategory": "HeritageCategory",
+            "heritageLanguage": "HeritageLanguage"
+        }
+    }
+}
+

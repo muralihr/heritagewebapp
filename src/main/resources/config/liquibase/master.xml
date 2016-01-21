@@ -9,5 +9,7 @@
     <include file="classpath:config/liquibase/changelog/20160115101948_added_entity_HeritageLanguage.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160115103030_added_entity_ImageGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160119132629_added_entity_VideoGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160120102255_added_entity_AudioGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160120102349_added_entity_TextGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

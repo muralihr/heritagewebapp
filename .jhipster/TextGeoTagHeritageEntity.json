@@ -1,0 +1,78 @@
+{
+    "relationships": [
+	
+		{
+            "relationshipId": 1,
+            "relationshipName": "heritageCategory",
+            "otherEntityName": "heritageCategory",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "categoryName"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "heritageLanguage",
+            "otherEntityName": "heritageLanguage",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "heritageLanguage"
+        }
+		
+		],
+    "fields": [
+         {
+            "fieldId": 1,
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "5"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength"
+            ],
+            "fieldValidateRulesMinlength": "5"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "latitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "longitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "consolidatedTags",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "textDetails",
+            "fieldType": "String"
+           
+        }
+    ],
+    "changelogDate": "20160120102349",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "pagination": "pagination"
+}
