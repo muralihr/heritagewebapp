@@ -1,0 +1,21 @@
+{
+   "build": {
+      "type": "maven",
+      "goal": "package"
+   },
+   "deploy": {
+      "container": "TOMCAT8",
+      "war": [
+         {
+            "file": "target/my-app-1.0-SNAPSHOT.war",
+            "context": "/app1",
+            "checkMe": "/app1/ping"
+         },
+         {
+            "file": "my-second-app.war",
+            "context": "/app2",
+            "checkMe": "/app2/web/foobar"
+         }
+      ]
+   }
+}
