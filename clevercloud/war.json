@@ -7,15 +7,10 @@
       "container": "TOMCAT8",
       "war": [
          {
-            "file": "target/my-app-1.0-SNAPSHOT.war",
-            "context": "/app1",
-            "checkMe": "/app1/ping"
-         },
-         {
-            "file": "my-second-app.war",
-            "context": "/app2",
-            "checkMe": "/app2/web/foobar"
-         }
+            "file": "target/heritage-mapper-app-0.0.1-SNAPSHOT",
+            "context": "/heritage-mapper-app",
+            
+         } 
       ]
    }
 }
