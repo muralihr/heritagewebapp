@@ -1,6 +1,8 @@
 package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import org.janastu.heritageapp.domain.HeritageCategory;
 import org.janastu.heritageapp.domain.HeritageLanguage;
 import org.janastu.heritageapp.repository.HeritageLanguageRepository;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
@@ -84,6 +86,19 @@ public class HeritageLanguageResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/heritageLanguages");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/heritageLanguages2",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed  
+        public ResponseEntity<List<HeritageLanguage>> getAllHeritageLanguages2( )
+            throws URISyntaxException {
+            log.debug("REST request to get a page of HeritageLanguage");
+            List<HeritageLanguage> languages =   heritageLanguageRepository.findAll( ); 
+            HttpHeaders headers = new HttpHeaders();
+          
+            return new ResponseEntity<>(languages, headers, HttpStatus.OK);
+        }
 
     /**
      * GET  /heritageLanguages/:id -> get the "id" heritageLanguage.

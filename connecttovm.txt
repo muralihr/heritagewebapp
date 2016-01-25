@@ -1,0 +1,80 @@
+
+|    ... .   ...o+|
+|   .   . . . o .*|
+|    . .   o o..*o|
+|     . . +  o..*=|
+|        S  E..=o*|
+|             =oo=|
+|            o.=*o|
+|           o o+*B|
+|          . o.oo+|
++----[SHA256]-----+
+
+Graphics-User@graphics MINGW32 /d/cloudbeesrepo (master)
+$ ssh -i "experiment_vm_murali.pem" ubuntu@54.232.202.93
+Warning: Identity file experiment_vm_murali.pem not accessible: No such file or                                                                                                                                                                                                directory.
+The authenticity of host '54.232.202.93 (54.232.202.93)' can't be established.
+ECDSA key fingerprint is SHA256:1/iAuf4V8NkU1+tywQw0WqhsAVVQIdUxN9qgM/GGEfY.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '54.232.202.93' (ECDSA) to the list of known hosts.
+Permission denied (publickey).
+
+Graphics-User@graphics MINGW32 /d/cloudbeesrepo (master)
+$ ^C
+
+Graphics-User@graphics MINGW32 /d/cloudbeesrepo (master)
+$ pwd
+/d/cloudbeesrepo
+
+Graphics-User@graphics MINGW32 /d/cloudbeesrepo (master)
+$ ssh -i "experiment_vm_murali.pem" ubuntu@54.232.202.93
+Welcome to Ubuntu 14.04.3 LTS (GNU/Linux 3.13.0-74-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+  System information as of Thu Jan 21 07:01:57 UTC 2016
+
+  System load:  0.0               Processes:           96
+  Usage of /:   0.8% of 98.30GB   Users logged in:     0
+  Memory usage: 5%                IP address for eth0: 172.31.20.246
+  Swap usage:   0%
+
+  Graph this data and manage this system at:
+    https://landscape.canonical.com/
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+0 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Thu Jan 21 07:01:58 2016 from 196.12.53.133
+ubuntu@ip-172-31-20-246:~$ ls
+ubuntu@ip-172-31-20-246:~$ ipconfig
+No command 'ipconfig' found, did you mean:
+ Command 'tpconfig' from package 'tpconfig' (universe)
+ Command 'iwconfig' from package 'wireless-tools' (main)
+ Command 'ifconfig' from package 'net-tools' (main)
+ipconfig: command not found
+ubuntu@ip-172-31-20-246:~$ whoami
+ubuntu
+ubuntu@ip-172-31-20-246:~$ ifconfig
+eth0      Link encap:Ethernet  HWaddr 02:c0:98:0a:39:23
+          inet addr:172.31.20.246  Bcast:172.31.31.255  Mask:255.255.240.0
+          inet6 addr: fe80::c0:98ff:fe0a:3923/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:9001  Metric:1
+          RX packets:672 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:566 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:93871 (93.8 KB)  TX bytes:69764 (69.7 KB)
+
+lo        Link encap:Local Loopback
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          inet6 addr: ::1/128 Scope:Host
+          UP LOOPBACK RUNNING  MTU:65536  Metric:1
+          RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+

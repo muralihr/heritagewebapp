@@ -14,6 +14,9 @@
             "contact": "contact @java_hipster on Twitter"
         },
         "like": "If you like JHipster, don't forget to give us a star on",
-        "github": "Github"
+        "github": "Github",
+        "latitude": 11.9310,
+        "longitude": 79.7852
+        
     }
 }

@@ -44,6 +44,9 @@ liquibase:
 
 server:
     port: 8080
+multipart:
+        maxFileSize: 40MB
+        maxRequestSize: 40MB
 
 # ===================================================================
 # JHipster specific properties

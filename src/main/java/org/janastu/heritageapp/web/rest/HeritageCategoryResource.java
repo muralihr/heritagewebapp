@@ -84,7 +84,19 @@ public class HeritageCategoryResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/heritageCategorys");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
+    @RequestMapping(value = "/heritageCategorys2",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<HeritageCategory>> getAllHeritageCategorys2( )
+            throws URISyntaxException {
+            log.debug("REST request to get a page of HeritageCategorys");
+            List<HeritageCategory> categories =   heritageCategoryRepository.findAll( ); 
+            HttpHeaders headers = new HttpHeaders();
+             //= PaginationUtil/(  "/api/heritageCategorys");
+            return new ResponseEntity<>(categories, headers, HttpStatus.OK);
+        }
+    
     /**
      * GET  /heritageCategorys/:id -> get the "id" heritageCategory.
      */

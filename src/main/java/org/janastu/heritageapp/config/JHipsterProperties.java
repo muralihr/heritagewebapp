@@ -15,7 +15,8 @@ import org.springframework.web.cors.CorsConfiguration;
 @ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = false)
 public class JHipsterProperties {
 
-    private final Async async = new Async();
+    private final Async async = new Async();    
+     
 
     private final Http http = new Http();
 
@@ -33,8 +34,7 @@ public class JHipsterProperties {
 
     private final CorsConfiguration cors = new CorsConfiguration();
 
-
-
+ 
     public Async getAsync() {
         return async;
     }
@@ -71,6 +71,7 @@ public class JHipsterProperties {
         return cors;
     }
 
+    
 
     public static class Async {
 
