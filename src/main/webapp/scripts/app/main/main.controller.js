@@ -108,7 +108,7 @@ angular.module('heritageMapperAppApp')
         	var ajaxLink ;
         	if(i == 1)
         		{
-        			ajaxLink = '/api/textGeoTagHeritageEntitys';
+        			ajaxLink = 'api/textGeoTagHeritageEntitys';
         			var customIcons = {
                        	    
                    	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Board-Pink-icon.png',
@@ -122,7 +122,7 @@ angular.module('heritageMapperAppApp')
         		}
         		if(i == 2)
         			{
-        				ajaxLink = '/api/audioGeoTagHeritageEntitys';
+        				ajaxLink = 'api/audioGeoTagHeritageEntitys';
         				var customIcons = {
         	               	    
         	           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Pink-icon.png',
@@ -135,7 +135,7 @@ angular.module('heritageMapperAppApp')
         			}
         			if(i == 3)
         				{
-        					ajaxLink = '/api/videoGeoTagHeritageEntitys';
+        					ajaxLink = 'api/videoGeoTagHeritageEntitys';
         					var customIcons = {
         		               	    
         		           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Chartreuse-icon.png',
