@@ -1,0 +1,16 @@
+{
+   "build": {
+      "type": "maven",
+      "goal": "package"
+   },
+   "deploy": {
+      "container": "TOMCAT8",
+      "war": [
+         {
+            "file": "target/heritage-mapper-app-0.0.1-SNAPSHOT",
+            "context": "/",
+            
+         } 
+      ]
+   }
+}
