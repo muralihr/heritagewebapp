@@ -80,16 +80,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/account/reset_password/finish").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/audits/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/imageGeoTagHeritageFromMobile").permitAll()
+            .antMatchers("/api/imageGeoTagHeritageEntitys").permitAll()
             .antMatchers("/api/videoGeoTagHeritageEntitys").permitAll()
             .antMatchers("/api/audioGeoTagHeritageEntitys").permitAll()
             .antMatchers("/api/textGeoTagHeritageEntitys").permitAll()
-
+            .antMatchers("/api/imageGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/videoGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/audioGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/textGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/heritageCategorys2").permitAll()
             .antMatchers("/api/heritageLanguages2").permitAll()
+            .antMatchers("/api/heritageCategorys").permitAll()
+            .antMatchers("/api/heritageLanguages").permitAll()
             //
             
             

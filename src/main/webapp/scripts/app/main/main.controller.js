@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('MainController', function ($scope,$http, Principal, HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity) {
+    .controller('MainController',['$scope', '$http', '$location', 'Principal','HeritageCategory','HeritageLanguage', 
+                                  'ImageGeoTagHeritageEntity','AudioGeoTagHeritageEntity','VideoGeoTagHeritageEntity','TextGeoTagHeritageEntity',
+                                  function ($scope,$http,$location, Principal, HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity) {
        
     	
     	
@@ -15,7 +17,7 @@ angular.module('heritageMapperAppApp')
         $scope.markerLat = 23.200000;
         $scope.markerLng = 79.225487;
         $scope.infoTitle = 'India';
-        
+        $scope.baseUrl;
         $scope.heritagecategorys = HeritageCategory.query();
         $scope.heritagelanguages = HeritageLanguage.query();
         
@@ -32,9 +34,19 @@ angular.module('heritageMapperAppApp')
                                
             ];
         
+        $scope.initBaseURL = function ($location)
+        {
+        	
+        	 $scope.baseUrl = $location.absUrl();
+        	 console.log(" $scope.baseUrl"+ $scope.baseUrl);
+        }
+        
+        $scope.initBaseURL($location);
         
         $scope.loadlistOfPoints = function( )
         {
+        	
+       
         	
          	console.log("loadlistOfPoints");
         	console.log(  $scope.textGeoTagHeritageEntitys.length);
@@ -102,13 +114,12 @@ angular.module('heritageMapperAppApp')
         
         
         $scope.addOtherMarkers = function(  i )
-        {
-        	
+        {      	
         	 
         	var ajaxLink ;
         	if(i == 1)
         		{
-        			ajaxLink = 'api/textGeoTagHeritageEntitys';
+        		ajaxLink =   'api/textGeoTagHeritageEntitys';
         			var customIcons = {
                        	    
                    	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Board-Pink-icon.png',
@@ -117,32 +128,34 @@ angular.module('heritageMapperAppApp')
                    	};
         			
 
-    				var src1 =  'http://localhost:8080/audios/' + location.urlOrfileLink ;
+    				var src1 =  'http://localhost:8080/audios/' ;
     				var imagePopUp  =  '<h2 >'+"aaaa" +'</h2>';
         		}
         		if(i == 2)
         			{
-        				ajaxLink = 'api/audioGeoTagHeritageEntitys';
+        			
+        			 
+        				ajaxLink =     'api/audioGeoTagHeritageEntitys';
         				var customIcons = {
         	               	    
         	           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Pink-icon.png',
         	           	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
         	           	     
         	           	};
-        				var src1 =  'http://localhost:8080/audios/' + location.urlOrfileLink ;
+        				var src1 =  'http://localhost:8080/audios/'  
         				var imagePopUp  =  '<iframe  id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</iframe>";
         				
         			}
         			if(i == 3)
         				{
-        					ajaxLink = 'api/videoGeoTagHeritageEntitys';
+        				ajaxLink =    'api/videoGeoTagHeritageEntitys';
         					var customIcons = {
         		               	    
         		           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Chartreuse-icon.png',
         		           	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
         		           	     
         		           	};
-        					var src1 =  'http://localhost:8080/videos/' + location.urlOrfileLink ;
+        					var src1 =  'http://localhost:8080/videos/' ;
             				var imagePopUp  =  '<iframe  id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</iframe>";
         				}
         			
@@ -150,17 +163,17 @@ angular.module('heritageMapperAppApp')
         	$http.get(ajaxLink).success(function(data) {
         	        	///for each
         	        		 console.log("success" + data);
-        	        		 angular.forEach(data, function(location, key){
+        	        		 angular.forEach(data, function(mediadata, key){
         	        			 
-        	        			 console.log(location+"location");
+        	        			 console.log(mediadata+"location");
         	        			 
-        	        			 console.log(location.latitude+"location");
+        	        			 console.log(mediadata.latitude+"location");
         	        			 
         	        			 //prepare a custome pop up window
         	        		     	
-        	      	            	var itemPreviewId = "ItemPreview"  + location.id;
+        	      	            	var itemPreviewId = "ItemPreview"  + mediadata.id;
         	      	             	
-        	      	            	var customPopup = "Title Name" + location.title+"<br/>" +imagePopUp ;
+        	      	            	var customPopup = "Title Name" + mediadata.title+"<br/>" +imagePopUp ;
         	      	                  var customOptions =
         	      	                    {
         	      	                    'maxWidth': '500',
@@ -169,13 +182,13 @@ angular.module('heritageMapperAppApp')
         	      	                  
         	      	                var infoWindow = new google.maps.InfoWindow();
         	        			 
-        	      	                var latLang = new google.maps.LatLng(location.latitude, location.longitude);
+        	      	                var latLang = new google.maps.LatLng(mediadata.latitude, mediadata.longitude);
         	        			  
         	      	                var marker = new google.maps.Marker({
         	                       map : $scope.map,
         	                       position : latLang,
         	                       icon: customIcons.icon,
-        	                       title : location.title,
+        	                       title : mediadata.title,
         	                       label: 'A'
         	                     });
         	                     marker.content = '<div class="infoWindowContent">'
@@ -206,20 +219,20 @@ angular.module('heritageMapperAppApp')
           	     
           	};
           
-        	$http.get('/api/imageGeoTagHeritageEntitys').success(function(data) {
+        	$http.get('api/imageGeoTagHeritageEntitys').success(function(data) {
         	///for each
         		 console.log("success" + data);
-        		 angular.forEach(data, function(location, key){
+        		 angular.forEach(data, function(mediadata, key){
         			 
-        			 console.log(location+"location");
+        			 console.log(mediadata+"location");
         			 
-        			 console.log(location.latitude+"location");
+        			 console.log(mediadata.latitude+"location");
         			 
         			 //prepare a custome pop up window
-        		     	var src1 =  'data:image/*;base64,' + location.photo;
-      	            	var itemPreviewId = "ItemPreview"  + location.id;
+        		     	var src1 =  'data:image/*;base64,' + mediadata.photo;
+      	            	var itemPreviewId = "ItemPreview"  + mediadata.id;
       	             	var imagePopUp  =  '<img id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</img>";
-      	            	var customPopup = "Title Name" + location.title+"<br/>" +imagePopUp ;
+      	            	var customPopup = "Title Name" + mediadata.title+"<br/>" +imagePopUp ;
       	                  var customOptions =
       	                    {
       	                    'maxWidth': '500',
@@ -228,13 +241,13 @@ angular.module('heritageMapperAppApp')
       	                  
       	                var infoWindow = new google.maps.InfoWindow();
         			 
-      	                var latLang = new google.maps.LatLng(location.latitude, location.longitude);
+      	                var latLang = new google.maps.LatLng(mediadata.latitude, mediadata.longitude);
         			  
       	                var marker = new google.maps.Marker({
                        map : $scope.map,
                        position : latLang,
                        icon: customIcons.icon,
-                       title : location.title,
+                       title : mediadata.title,
                        label: 'A'
                      });
                      marker.content = '<div class="infoWindowContent">'
@@ -275,4 +288,4 @@ angular.module('heritageMapperAppApp')
         
         
         
-    });
+ }  ] );
