@@ -7,7 +7,7 @@
       "container": "TOMCAT8",
       "war": [
          {
-            "file": "target/heritage-mapper-app-0.0.1-SNAPSHOT",
+            "file": "target/heritage-mapper-app-0.0.1-SNAPSHOT.war",
             "context": "/",
             
          } 
