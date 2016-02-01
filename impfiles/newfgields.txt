@@ -1,0 +1,101 @@
+boolean residentStatus ;
+String ageStatus;
+************************
+(2-10)
+(17-35)
+(35-50)
+(50+)
+************************
+
+Search "mobileNo" (72 hits in 19 files)
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\java\org\gubbilabs\ecbike\domain\MemberMobile.java (9 hits)
+	Line 55:     private String mobileNo;
+	Line 183:     public String getMobileNo() {
+	Line 184:         return mobileNo;
+	Line 187:     public void setMobileNo(String mobileNo) {
+	Line 187:     public void setMobileNo(String mobileNo) {
+	Line 188:         this.mobileNo = mobileNo;
+	Line 188:         this.mobileNo = mobileNo;
+	Line 348:                 ", mobileNo='" + mobileNo + "'" +
+	Line 348:                 ", mobileNo='" + mobileNo + "'" +
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\java\org\gubbilabs\ecbike\domain\User.java (7 hits)
+	Line 85:     private String mobileNo;
+	Line 285:     public String getMobileNo() {
+	Line 286:         return mobileNo;
+	Line 297: 	public void setMobileNo(String mobileNo) {
+	Line 297: 	public void setMobileNo(String mobileNo) {
+	Line 298:         this.mobileNo = mobileNo;
+	Line 298:         this.mobileNo = mobileNo;
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\java\org\gubbilabs\ecbike\service\UserService.java (3 hits)
+	Line 157: String mobileNo,String address1,String 	address2,String 	city,String state,	String zipcode,  String  country,
+	Line 177: 		newUser.setMobileNo(mobileNo);
+	Line 177: 		newUser.setMobileNo(mobileNo);
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\java\org\gubbilabs\ecbike\web\rest\AccountResource.java (1 hit)
+	Line 58: 									userDTO.getLangKey(), userDTO.getMobileNo(), userDTO.getAddress1(),
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\java\org\gubbilabs\ecbike\web\rest\dto\UserDTO.java (7 hits)
+	Line 38: 	private String mobileNo;
+	Line 127: 	public String getMobileNo() {
+	Line 128: 		return mobileNo;
+	Line 131: 	public void setMobileNo(String mobileNo) {
+	Line 131: 	public void setMobileNo(String mobileNo) {
+	Line 132: 		this.mobileNo = mobileNo;
+	Line 132: 		this.mobileNo = mobileNo;
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\i18n\en\memberMobile.json (2 hits)
+	Line 22:             "mobileNo": "MobileNo",
+	Line 22:             "mobileNo": "MobileNo",
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\i18n\en\register.json (2 hits)
+	Line 26:             "mobileNo": "MobileNo",
+	Line 26:             "mobileNo": "MobileNo",
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\i18n\fr\memberMobile.json (2 hits)
+	Line 19:             "mobileNo": "MobileNo",
+	Line 19:             "mobileNo": "MobileNo",
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\account\register\register.controller.js (1 hit)
+	Line 9:         $scope.registerAccount = {firstName: null, lastName: null, sex: null,dateOfBirth: null, emailId: null, mobileNo: null, address1: null, address2: null, city: null, state: null, zipcode: null, country: null, photo: null, photoIDProof: null, myCurrentRentUnits: null, myChargedRentUnits: null, behaviorStatus: null, myCurrentFineCharges: null, dateOfExpiration: null, userName: null, passWord: null, activated: null, id: null};
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\account\register\register.html (8 hits)
+	Line 239: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 239: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 239: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 240: 									<input type="text" class="form-control" name="mobileNo"
+	Line 241: 										id="field_mobileNo" ng-model="registerAccount.mobileNo" required>
+	Line 241: 										id="field_mobileNo" ng-model="registerAccount.mobileNo" required>
+	Line 243: 										<div ng-show="form.mobileNo.$invalid">
+	Line 245: 													ng-show="form.mobileNo.$error.required"
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\account\register\register255.html (6 hits)
+	Line 156:             <label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 156:             <label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 156:             <label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 157:             <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+	Line 157:             <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+	Line 158:                     ng-model="registerAccount.mobileNo"
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\account\register\register2_formatedbutsubmit.html (6 hits)
+	Line 185: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 185: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 185: 									<label translate="register.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 186: 									<input type="text" class="form-control" name="mobileNo"
+	Line 187: 										id="field_mobileNo" ng-model="registerAccount.mobileNo">
+	Line 187: 										id="field_mobileNo" ng-model="registerAccount.mobileNo">
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\memberMobile\memberMobile-detail.html (3 hits)
+	Line 47:                     <span translate="nammanimmacycleApp.memberMobile.mobileNo">MobileNo</span>
+	Line 47:                     <span translate="nammanimmacycleApp.memberMobile.mobileNo">MobileNo</span>
+	Line 50:                     <input type="text" class="input-sm form-control" value="{{memberMobile.mobileNo}}" readonly>
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\memberMobile\memberMobile-dialog.html (6 hits)
+	Line 57:             <label translate="nammanimmacycleApp.memberMobile.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 57:             <label translate="nammanimmacycleApp.memberMobile.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 57:             <label translate="nammanimmacycleApp.memberMobile.mobileNo" for="field_mobileNo">MobileNo</label>
+	Line 58:             <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+	Line 58:             <input type="text" class="form-control" name="mobileNo" id="field_mobileNo"
+	Line 59:                     ng-model="memberMobile.mobileNo"
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\memberMobile\memberMobile.controller.js (1 hit)
+	Line 41:             $scope.memberMobile = {firstName: null, lastName: null, dateOfBirth: null, emailId: null, mobileNo: null, address1: null, address2: null, city: null, state: null, zipcode: null, country: null, photo: null, photoIDProof: null, myCurrentRentUnits: null, myChargedRentUnits: null, behaviorStatus: null, myCurrentFineCharges: null, dateOfExpiration: null, userName: null, passWord: null, activated: null, id: null};
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\memberMobile\memberMobile.js (1 hit)
+	Line 63:                                 return {firstName: null, lastName: null, dateOfBirth: null, emailId: null, mobileNo: null, address1: null, address2: null, city: null, state: null, zipcode: null, country: null, photo: null, photoIDProof: null, myCurrentRentUnits: null, myChargedRentUnits: null, behaviorStatus: null, myCurrentFineCharges: null, dateOfExpiration: null, userName: null, passWord: null, activated: null, id: null};
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\memberMobile\memberMobiles.html (3 hits)
+	Line 49:                     <th translate="nammanimmacycleApp.memberMobile.mobileNo">MobileNo</th>
+	Line 49:                     <th translate="nammanimmacycleApp.memberMobile.mobileNo">MobileNo</th>
+	Line 76:                     <td>{{memberMobile.mobileNo}}</td>
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\rentalTrip\startRentalTripPage.html (2 hits)
+	Line 50:                      <span  >MobileNo</span>
+	Line 53:                      <input type="text" class="input-sm form-control" value="{{memberMobile.mobileNo}}" readonly>
+  D:\nammacycle\ecbikefinal\ecbikefinal\ecbike\src\main\webapp\scripts\app\entities\rentalTrip\stopRentalTripPage.html (2 hits)
+	Line 50:                      <span  >MobileNo</span>
+	Line 53:                      <input type="text" class="input-sm form-control" value="{{memberMobile.mobileNo}}" readonly>

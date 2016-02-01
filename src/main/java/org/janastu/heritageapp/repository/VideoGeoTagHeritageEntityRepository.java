@@ -1,5 +1,6 @@
 package org.janastu.heritageapp.repository;
 
+import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 
 import org.springframework.data.jpa.repository.*;
@@ -11,4 +12,6 @@ import java.util.List;
  */
 public interface VideoGeoTagHeritageEntityRepository extends JpaRepository<VideoGeoTagHeritageEntity,Long> {
 
+	
+	public List<VideoGeoTagHeritageEntity> findAllByOrderByIdAsc();
 }

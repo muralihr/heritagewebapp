@@ -1,5 +1,6 @@
 package org.janastu.heritageapp.service;
 
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public interface VideoGeoTagHeritageEntityService {
      *  @return the list of entities
      */
     public Page<VideoGeoTagHeritageEntity> findAll(Pageable pageable);
-
+    public List<VideoGeoTagHeritageEntity>  findAllAsAList();
     /**
      *  get the "id" videoGeoTagHeritageEntity.
      *  @return the entity

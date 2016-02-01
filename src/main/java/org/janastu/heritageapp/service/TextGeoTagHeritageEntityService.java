@@ -1,5 +1,6 @@
 package org.janastu.heritageapp.service;
 
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.TextGeoTagHeritageEntity;
 import org.janastu.heritageapp.web.rest.dto.TextGeoTagHeritageEntityDTO;
 import org.springframework.data.domain.Page;
@@ -24,7 +25,7 @@ public interface TextGeoTagHeritageEntityService {
      *  @return the list of entities
      */
     public Page<TextGeoTagHeritageEntity> findAll(Pageable pageable);
-
+    public List<TextGeoTagHeritageEntity>  findAllAsAList();
     /**
      *  get the "id" textGeoTagHeritageEntity.
      *  @return the entity

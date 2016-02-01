@@ -51,8 +51,8 @@ jhipster:
         authentication:
             xauth:
                 secret: myXAuthSecret
-                # Token is valid 30 minutes
-                tokenValidityInSeconds: 1800
+                # Token is valid 30 minutes - 10 days
+                tokenValidityInSeconds: 864000
         rememberme:
             # security key (this key should be unique for your application, and kept secret)
             key: f8cc66c540868fdfe97e02abb0fd08638a5284ea

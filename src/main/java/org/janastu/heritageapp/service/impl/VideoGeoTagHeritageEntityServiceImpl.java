@@ -75,4 +75,10 @@ public class VideoGeoTagHeritageEntityServiceImpl implements VideoGeoTagHeritage
         log.debug("Request to delete VideoGeoTagHeritageEntity : {}", id);
         videoGeoTagHeritageEntityRepository.delete(id);
     }
+
+	@Override
+	public List<VideoGeoTagHeritageEntity> findAllAsAList() {
+		// TODO Auto-generated method stub
+		return videoGeoTagHeritageEntityRepository.findAllByOrderByIdAsc();
+	}
 }

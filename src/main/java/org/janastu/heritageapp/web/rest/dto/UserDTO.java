@@ -5,6 +5,7 @@ import org.janastu.heritageapp.domain.User;
 
 import org.hibernate.validator.constraints.Email;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -110,4 +111,37 @@ public class UserDTO {
             ", authorities=" + authorities +
             "}";
     }
+    
+    
+    //heritage 
+    private String ageGroup; 
+    private Boolean residentStatus;
+    private String specialMessage;
+	public String getSpecialMessage() {
+		return specialMessage;
+	}
+
+	public void setSpecialMessage(String specialMessage) {
+		this.specialMessage = specialMessage;
+	}
+
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
+	}
+
+	public Boolean getResidentStatus() {
+		return residentStatus;
+	}
+
+	public void setResidentStatus(Boolean residentStatus) {
+		this.residentStatus = residentStatus;
+	}
+    
+    		
+    //heritage
+    
 }

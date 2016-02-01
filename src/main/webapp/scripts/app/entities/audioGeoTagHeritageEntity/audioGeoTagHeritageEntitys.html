@@ -1,17 +1,19 @@
 <div>
-    <h2 translate="heritageMapperAppApp.audioGeoTagHeritageEntity.home.title">AudioGeoTagHeritageEntitys</h2>
+    <h4 translate="heritageMapperAppApp.audioGeoTagHeritageEntity.home.title">AudioGeoTagHeritageEntitys</h4>
     <jh-alert></jh-alert>
     <div class="container">
+
+
         <div class="row">
-        <map center=" 11.9310,79.7852"  on-click="addMarker()"  zoom="10">
-   
-    
-   
-   			   </map> 
-   			     <h1> Latitude  {{  lat2 }}</h1>
-   			      <h1> Longitude  {{ lng2 }}</h1>
-   			       
-   			  
+
+            <div class="col-md-10">
+                <map style="width: 100%; height: 96%;" center="11.9310,79.7852" on-click="addMarker()" zoom="14" default-style="false">
+                </map>
+                  <h4> Latitude  {{  lat2 }}</h4>
+                <h4> Longitude  {{ lng2 }}</h4> 
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-4">
                 <button class="btn btn-primary" ui-sref="audioGeoTagHeritageEntity.new">
                     <span class="glyphicon glyphicon-flash"></span> <span translate="heritageMapperAppApp.audioGeoTagHeritageEntity.home.createLabel">Create a new AudioGeoTagHeritageEntity</span>
@@ -56,19 +58,13 @@
                         <a ui-sref="heritageLanguage.detail({id:audioGeoTagHeritageEntity.heritageLanguageId})">{{audioGeoTagHeritageEntity.heritageLanguageHeritageLanguage}}</a>
                     </td>
                     <td>
-                        <button type="submit"
-                                ui-sref="audioGeoTagHeritageEntity.detail({id:audioGeoTagHeritageEntity.id})"
-                                class="btn btn-info btn-sm">
+                        <button type="submit" ui-sref="audioGeoTagHeritageEntity.detail({id:audioGeoTagHeritageEntity.id})" class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
                         </button>
-                        <button type="submit"
-                                ui-sref="audioGeoTagHeritageEntity.edit({id:audioGeoTagHeritageEntity.id})"
-                                class="btn btn-primary btn-sm">
+                        <button type="submit" ui-sref="audioGeoTagHeritageEntity.edit({id:audioGeoTagHeritageEntity.id})" class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
                         </button>
-                        <button type="submit"
-                                ui-sref="audioGeoTagHeritageEntity.delete({id:audioGeoTagHeritageEntity.id})"
-                                class="btn btn-danger btn-sm">
+                        <button type="submit" ui-sref="audioGeoTagHeritageEntity.delete({id:audioGeoTagHeritageEntity.id})" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
                         </button>
                     </td>

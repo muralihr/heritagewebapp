@@ -27,6 +27,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 /**
  * REST controller for managing VideoGeoTagHeritageEntity.
  */
@@ -127,4 +138,51 @@ public class VideoGeoTagHeritageEntityResource {
         videoGeoTagHeritageEntityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("videoGeoTagHeritageEntity", id.toString())).build();
     }
+    
+    @RequestMapping(value = "/videoGeoTagHeritageEntitysGeoJson",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        @Transactional(readOnly = true)
+        public  FeatureCollection  getAllVideoGeoTagHeritageEntitysAsGeoJSON( )
+            throws URISyntaxException {
+        	
+         
+            log.debug("REST request to get a page of videoGeoTagHeritageEntityService All as list");
+            List<VideoGeoTagHeritageEntity> page = videoGeoTagHeritageEntityService.findAllAsAList();
+            
+            /*
+             * We create a FeatureCollection into which we will put each Feature  with Geometry Objects
+             */
+            FeatureCollection collection = new FeatureCollection();
+            
+     
+            for(VideoGeoTagHeritageEntity item: page)
+            {
+            	
+            	LngLatAlt coordinates = new LngLatAlt(item.getLongitude() ,item.getLatitude());
+            	Point c = new Point(coordinates);        	
+            	Feature f = new Feature();
+            	f.setGeometry(c);
+            	f.setId(item.getId().toString());
+            	Map<String, Object> properties = new HashMap<String, Object>();
+            	
+            	properties.put("title",item.getTitle());
+            	properties.put("description",item.getDescription());
+            	properties.put("url",item.getUrlOrfileLink());
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-size","small");
+            	//marker-size
+            	//"marker-color": "#ff8888",
+            	
+            	f.setProperties(properties);        	
+            	collection.add(f);
+            	
+            } 
+            
+            return  collection;
+            
+        } 
+    
 }

@@ -3,8 +3,11 @@ package org.janastu.heritageapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.janastu.heritageapp.domain.Authority;
 import org.janastu.heritageapp.domain.User;
+import org.janastu.heritageapp.domain.util.MResponseToken;
+import org.janastu.heritageapp.domain.util.RestReturnCodes;
 import org.janastu.heritageapp.repository.UserRepository;
 import org.janastu.heritageapp.security.SecurityUtils;
+import org.janastu.heritageapp.security.xauth.Token;
 import org.janastu.heritageapp.service.MailService;
 import org.janastu.heritageapp.service.UserService;
 import org.janastu.heritageapp.web.rest.dto.KeyAndPasswordDTO;
@@ -73,6 +76,70 @@ public class AccountResource {
         );
     }
 
+    
+    @RequestMapping(value = "/registerForMobile",
+            method = RequestMethod.POST)
+        @Timed
+        public MResponseToken registerAccountForMobile(  @RequestParam String username, @RequestParam String  password, @RequestParam String  emailId,@RequestParam String  residentstatus , @RequestParam String agestatus, @RequestParam String specialmessage, HttpServletRequest request) {
+            
+                    	UserDTO userDTO = new UserDTO();
+                    	 log.debug( "registerAccountForMobile called" +username+ "email"+emailId +"password"+password +"specialmessage"+ specialmessage);
+                   MResponseToken mToken = new MResponseToken( );	 
+                    	 //check if username is valid 
+                    	 //check if email id is unique and valid
+                    	 //check if password is valid
+                    	 //go to register or else send a bad token;
+                    	 
+                    Optional<User> user = userRepository.findOneByLogin(username);
+                    if(user.isPresent())
+                    {
+                    	 log.debug( "username exists " );
+                    	 mToken.setStatus("NOTOK");
+                    	 mToken.setCode(RestReturnCodes.USER_ID_EXISTS );
+                    	 mToken.setMessage("Username exists - Try a new user");
+                    	 return mToken;
+                    }
+                    
+                    Optional<User> user2 =  userRepository.findOneByEmail(emailId );
+                    
+                    if(user2.isPresent())
+                    {
+                     log.debug( "email exists " );
+                   	 
+                   	 mToken.setCode(RestReturnCodes.EMAIL_ID_EXISTS );
+                   	 mToken.setStatus("NOTOK");
+                   	 mToken.setMessage("Username exists - Try a new EmailId");
+                     return mToken;
+                    }
+                    
+                    Boolean residentStatus =false;
+                    if(residentstatus.equalsIgnoreCase("true" ))
+                    {
+                    	residentStatus = true;
+                    	log.debug( "residentStatus true " );
+                    }
+                    try{	
+                    
+					//user name and email ID are not unique - String ageStatus, Boolean residenStatus, String specialMessage
+                    User createdUser = userService.createUserInformationHeritage(username, password,
+                    		username, username, emailId,"EN", agestatus, residentStatus,specialmessage);
+                    mToken.setStatus("OK");
+                    mToken.setCode(RestReturnCodes.SUCCESS);
+                  	mToken.setMessage("Username Created ");
+                  	mToken.setUserId(createdUser.getId());
+                    }catch(Exception e)
+                    {
+                    	 mToken.setCode(RestReturnCodes.EXCEPTION );
+                       	 mToken.setStatus("NOTOK");
+                       	 mToken.setMessage("EXCEPTION" + e.getMessage());
+                         return mToken;
+                    	
+                    }
+                    //mailService.sendActivationEmail(user, baseUrl);
+                    return mToken;
+              
+          
+        }
     /**
      * GET  /activate -> activate the registered user.
      */

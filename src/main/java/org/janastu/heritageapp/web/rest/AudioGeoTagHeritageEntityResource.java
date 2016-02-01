@@ -1,6 +1,11 @@
 package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
 import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
 import org.janastu.heritageapp.service.AudioGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
@@ -22,8 +27,10 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -125,4 +132,50 @@ public class AudioGeoTagHeritageEntityResource {
         audioGeoTagHeritageEntityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("audioGeoTagHeritageEntity", id.toString())).build();
     }
+    
+    @RequestMapping(value = "/audioGeoTagHeritageEntitysGeoJson",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        @Transactional(readOnly = true)
+        public  FeatureCollection  getAllAudioGeoTagHeritageEntitysAsGeoJSON( )
+            throws URISyntaxException {
+        	
+         
+            log.debug("REST request to get a page of audioGeoTagHeritageEntityService All as list");
+            List<AudioGeoTagHeritageEntity> page = audioGeoTagHeritageEntityService.findAllAsAList();
+            
+            /*
+             * We create a FeatureCollection into which we will put each Feature  with Geometry Objects
+             */
+            FeatureCollection collection = new FeatureCollection();
+            
+     
+            for(AudioGeoTagHeritageEntity item: page)
+            {
+            	
+            	LngLatAlt coordinates = new LngLatAlt(item.getLongitude() ,item.getLatitude());
+            	Point c = new Point(coordinates);        	
+            	Feature f = new Feature();
+            	f.setGeometry(c);
+            	f.setId(item.getId().toString());
+            	Map<String, Object> properties = new HashMap<String, Object>();
+            	
+            	properties.put("title",item.getTitle());
+            	properties.put("description",item.getDescription());
+            	properties.put("url",item.getUrlOrfileLink());
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-size","small");
+            	//marker-size
+            	//"marker-color": "#ff8888",
+            	
+            	f.setProperties(properties);        	
+            	collection.add(f);
+            	
+            } 
+            
+            return  collection;
+            
+        }
 }

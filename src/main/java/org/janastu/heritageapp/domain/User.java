@@ -206,4 +206,42 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", activationKey='" + activationKey + '\'' +
             "}";
     }
+    
+    //ADDED FOR HERITAGE REQUIREMENT 
+    
+
+    
+    
+    
+    @Column    
+    private String ageGroup;
+    @Column
+    private Boolean residentStatus;
+    @Column
+    private String specialMessage;
+
+	public String getAgeGroup() {
+		return ageGroup;
+	}
+
+	public void setAgeGroup(String ageGroup) {
+		this.ageGroup = ageGroup;
+	}
+
+	public Boolean getResidentStatus() {
+		return residentStatus;
+	}
+
+	public void setResidentStatus(Boolean residentStatus) {
+		this.residentStatus = residentStatus;
+	}
+
+	public String getSpecialMessage() {
+		return specialMessage;
+	}
+
+	public void setSpecialMessage(String specialMessage) {
+		this.specialMessage = specialMessage;
+	}
+	
 }

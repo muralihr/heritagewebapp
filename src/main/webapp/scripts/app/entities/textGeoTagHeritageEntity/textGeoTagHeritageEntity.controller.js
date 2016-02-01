@@ -64,11 +64,19 @@ angular.module('heritageMapperAppApp')
             sharedGeoProperties.setLatitude(lat2);
              
             var latLang = new google.maps.LatLng(lat2, lng2);
-              var marker = new google.maps.Marker({
-                map : $scope.map,
-                position : latLang,
-                title : "sss"
-              }); 
+            if($scope.marker)
+        	{
+        		$scope.marker.setPosition(latLang);
+        	}
+        else
+        	{
+        	
+        	 $scope.marker = new google.maps.Marker({
+                 map : $scope.map,
+                 position : latLang,
+                 title : "Add Title"
+               });
+        	}
 
 		};
 		

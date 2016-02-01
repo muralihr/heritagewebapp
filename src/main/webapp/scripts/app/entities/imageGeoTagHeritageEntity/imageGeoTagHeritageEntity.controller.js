@@ -7,7 +7,17 @@ angular.module('heritageMapperAppApp')
         $scope.predicate = 'id';
         $scope.reverse = true;
         $scope.page = 1;
+        $scope.marker;
+        $scope.map;
         $scope.loadAll = function() {
+        	
+       
+              
+             var latLang = new google.maps.LatLng(sharedGeoProperties.getLatitude(), sharedGeoProperties.getLongitude());
+        	 
+         	 
+        	 ;
+             ;
             ImageGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
@@ -50,12 +60,12 @@ angular.module('heritageMapperAppApp')
         $scope.lat222 = 1110;
         $scope.lng2 = 0;
         
-        $scope.marker;
-        $scope.map;
+   
         $scope.$on('mapInitialized', function(evt, evtMap) {
-        	$scope.map = evtMap;
-          
+        	$scope.map = evtMap;          
         });
+        
+        $scope.oldMarker;
         
         $scope.addMarker = function (ev) {
             var myLatLng = ev.latLng;
@@ -70,12 +80,20 @@ angular.module('heritageMapperAppApp')
             sharedGeoProperties.setLatitude(lat2);
              
             var latLang = new google.maps.LatLng(lat2, lng2);
-              var marker = new google.maps.Marker({
-                map : $scope.map,
-                position : latLang,
-                title : "sss"
-              }); 
-
+           
+            if($scope.marker)
+            	{
+            		$scope.marker.setPosition(latLang);
+            	}
+            else
+            	{
+            	
+            	 $scope.marker = new google.maps.Marker({
+                     map : $scope.map,
+                     position : latLang,
+                     title : "Add Title"
+                   });
+            	}
 		};
 		
 		//MAP FUNCTIOSN END

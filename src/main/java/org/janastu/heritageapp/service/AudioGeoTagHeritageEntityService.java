@@ -1,6 +1,7 @@
 package org.janastu.heritageapp.service;
 
 import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public interface AudioGeoTagHeritageEntityService {
      *  @return the list of entities
      */
     public Page<AudioGeoTagHeritageEntity> findAll(Pageable pageable);
-
+    public List<AudioGeoTagHeritageEntity>  findAllAsAList();
     /**
      *  get the "id" audioGeoTagHeritageEntity.
      *  @return the entity

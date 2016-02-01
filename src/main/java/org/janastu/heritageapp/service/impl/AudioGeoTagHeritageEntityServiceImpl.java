@@ -55,6 +55,13 @@ public class AudioGeoTagHeritageEntityServiceImpl implements AudioGeoTagHeritage
         Page<AudioGeoTagHeritageEntity> result = audioGeoTagHeritageEntityRepository.findAll(pageable); 
         return result;
     }
+    
+    
+    public List<AudioGeoTagHeritageEntity> findAllAsAList()
+    {    	
+    	//
+    	return audioGeoTagHeritageEntityRepository.findAllByOrderByIdAsc();
+    }
 
     /**
      *  get one audioGeoTagHeritageEntity by id.

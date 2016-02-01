@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface AudioGeoTagHeritageEntityRepository extends JpaRepository<AudioGeoTagHeritageEntity,Long> {
 
+	public List<AudioGeoTagHeritageEntity> findAllByOrderByIdAsc();
 }

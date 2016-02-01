@@ -1,5 +1,16 @@
 package org.janastu.heritageapp.web.rest;
 
+
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import com.codahale.metrics.annotation.Timed;
 import org.janastu.heritageapp.domain.TextGeoTagHeritageEntity;
 import org.janastu.heritageapp.service.TextGeoTagHeritageEntityService;
@@ -22,10 +33,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+
 
 /**
  * REST controller for managing TextGeoTagHeritageEntity.
@@ -125,4 +133,49 @@ public class TextGeoTagHeritageEntityResource {
         textGeoTagHeritageEntityService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("textGeoTagHeritageEntity", id.toString())).build();
     }
+    
+    @RequestMapping(value = "/textGeoTagHeritageEntitysGeoJson",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        @Transactional(readOnly = true)
+        public  FeatureCollection  getAllTextGeoTagHeritageEntitysAsGeoJSON( )
+            throws URISyntaxException {
+        	
+         
+            log.debug("REST request to get a page of textGeoTagHeritageEntityService All as list");
+            List<TextGeoTagHeritageEntity> page = textGeoTagHeritageEntityService.findAllAsAList();
+            
+            /*
+             * We create a FeatureCollection into which we will put each Feature  with Geometry Objects
+             */
+            FeatureCollection collection = new FeatureCollection();
+            
+     
+            for(TextGeoTagHeritageEntity item: page)
+            {
+            	
+            	LngLatAlt coordinates = new LngLatAlt(item.getLongitude() ,item.getLatitude());
+            	Point c = new Point(coordinates);        	
+            	Feature f = new Feature();
+            	f.setGeometry(c);
+            	f.setId(item.getId().toString());
+            	Map<String, Object> properties = new HashMap<String, Object>();
+            	
+            	properties.put("title",item.getTitle());
+            	properties.put("description",item.getDescription());
+            	//properties.put("url",item.getUrlOrfileLink());
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-color","#ff8888");
+            	properties.put("marker-size","small");
+            	//marker-size
+            	//"marker-color": "#ff8888",            	
+            	f.setProperties(properties);        	
+            	collection.add(f);            	
+            } 
+            
+            return  collection;            
+        }
+ 
+
 }

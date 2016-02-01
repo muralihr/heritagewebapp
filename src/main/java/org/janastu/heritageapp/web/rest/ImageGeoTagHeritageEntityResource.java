@@ -10,7 +10,17 @@ import java.util.stream.Collectors;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FileUtils;
+import org.geojson.Feature;
+import org.geojson.FeatureCollection;
+import org.geojson.GeoJsonObject;
+import org.geojson.LngLatAlt;
+import org.geojson.Point;
+import org.janastu.heritageapp.domain.HeritageCategory;
+import org.janastu.heritageapp.domain.HeritageLanguage;
 import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
+import org.janastu.heritageapp.repository.HeritageCategoryRepository;
+import org.janastu.heritageapp.repository.HeritageLanguageRepository;
 import org.janastu.heritageapp.service.ImageGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.ImageGeoTagHeritageEntityMapper;
@@ -87,8 +97,16 @@ public class ImageGeoTagHeritageEntityResource {
     @Inject
     private ImageGeoTagHeritageEntityMapper imageGeoTagHeritageEntityMapper;
     
+    @Inject
+    HeritageCategoryRepository heritageCategoryRepository;
+
+    @Inject
+    HeritageLanguageRepository heritageLanguageRepository;
+    
+    
     @Autowired
     private Environment environment;
+	 
     
     /**
      * POST  /imageGeoTagHeritageEntitys -> Create a new imageGeoTagHeritageEntity.
@@ -207,14 +225,22 @@ public class ImageGeoTagHeritageEntityResource {
       	log.debug("longitude  "+   request.getParameter("longitude"));
       	log.debug("mediatype  "+   request.getParameter("mediatype"));
       	
-       
-    	 
-    	  ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO = null;
+    	String title = request.getParameter("title");
+      	String description = request.getParameter("description");
+      	
+      	String language = request.getParameter("language");
+      	String category = request.getParameter("category");
+    	String address = request.getParameter("address");
+      	
+      	String latitude = request.getParameter("latitude");
+      	String longitude = request.getParameter("longitude");
+      	ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO = null;
              
     	  log.debug( "DIR CATALINA_HOME" +environment.getProperty("CATALINA_HOMEA"));
     	  String catalinahome = environment.getProperty("CATALINA_HOMEA");
           Iterator<String> itr = request.getFileNames();
-          MultipartFile mpf;
+          MultipartFile mpf = null;
+          byte[] photo  = null;
              
              File newFile = null;
              while (itr.hasNext()) {
@@ -231,10 +257,8 @@ public class ImageGeoTagHeritageEntityResource {
      		    
      		    String downLoadFileName = storageDirectory +"//"+ mpf.getOriginalFilename();
                 String contentType = mpf.getContentType();
-                //directory exists - no create directory ;
-                 
-                 File theDir = new File(storageDirectory);
-                   
+                //directory exists - no create directory ;                 
+                 File theDir = new File(storageDirectory);                 
                 
               // if the directory does not exist, create it
  	             if (!theDir.exists()) {
@@ -256,8 +280,10 @@ public class ImageGeoTagHeritageEntityResource {
      			 
                  try {
      				newFile  = new File( downLoadFileName);
+     				
      				log.debug( "uploaded file to PATH" +newFile.getAbsolutePath());
-                     mpf.transferTo(newFile);                     
+                     mpf.transferTo(newFile);   
+                     photo = FileUtils.readFileToByteArray(newFile);
                  }    catch(FileNotFoundException e) {
     				 log.error("Could not upload file "+newFile, e);
                   
@@ -267,59 +293,85 @@ public class ImageGeoTagHeritageEntityResource {
                  }
              }
          ///check 
-             RestTemplate restTemplate = new RestTemplate();
-             HttpHeaders header = new HttpHeaders();
-             MappingJackson2HttpMessageConverter c;
-             header.set("Connection", "Close");
 
-             header.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-             try {
-
-                 MultiValueMap<String, Object> parts = new LinkedMultiValueMap<String, Object>();
-                 parts.add("title", "");
-                 parts.add("description", "");
-                 parts.add("category", "");
-                 parts.add("language", "");
-                 parts.add("latitude", "");
-                 parts.add("longitude", "");
-                 parts.add("mediatype", "");
-
-
-
-              //   parts.add("picture", new FileSystemResource(mpictureFile));
-
-          //       RestTemplate restTemplate = new RestTemplate();
-                 restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
-                 restTemplate.getMessageConverters().add(
-                         new FormHttpMessageConverter());
-                 restTemplate.getMessageConverters().add(
-                         new StringHttpMessageConverter());
-                 HttpEntity<Object> request2 = new HttpEntity<Object>(parts, header);
-                 MimeType m;
-                // restTemplate.postForLocation("", request2);
-                 //
-
-             //    Log.d("", "Calling REST to upload file");
-
-            //     Log.d("", "The reaponse is: "+restTemplate.postForLocation(url, request2));
-
-             } catch (Exception e) {
-              
-
-             }
              
             // 
             imageGeoTagHeritageEntityDTO = new ImageGeoTagHeritageEntityDTO();
-            Long l1 = new Long(22);
-            imageGeoTagHeritageEntityDTO.setId(l1);
-            imageGeoTagHeritageEntityDTO.setAddress("sss");
+            Long l1 = new Long(1);
+            //imageGeoTagHeritageEntityDTO.setId(l1);
+            imageGeoTagHeritageEntityDTO.setAddress(address);
+            imageGeoTagHeritageEntityDTO.setLatitude(Double.valueOf( latitude));
+            imageGeoTagHeritageEntityDTO.setLongitude( Double.valueOf( longitude));
+            imageGeoTagHeritageEntityDTO.setTitle(title);
             
-           // ImageGeoTagHeritageEntityDTO result = imageGeoTagHeritageEntityService.save(imageGeoTagHeritageEntityDTO);
+            
+            imageGeoTagHeritageEntityDTO.setDescription("Descr:"+description);
+            
+            HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
+            if(hCategory != null)
+            imageGeoTagHeritageEntityDTO.setHeritageCategoryId(hCategory.getId());
+            HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language);
+            if(hLanguage != null)
+            imageGeoTagHeritageEntityDTO.setHeritageLanguageId(hLanguage.getId());
+
+            imageGeoTagHeritageEntityDTO.setUrlOrfileLink("heritagedocs//list//heritageaudio//"+mpf.getOriginalFilename());
+           // imageGeoTagHeritageEntityDTO.setPhoto(photo);
+            byte [] array = new byte[1];
+            imageGeoTagHeritageEntityDTO.setPhoto(array);
+            
+            ImageGeoTagHeritageEntityDTO result = imageGeoTagHeritageEntityService.save(imageGeoTagHeritageEntityDTO);
             return ResponseEntity.created(new URI("/api/imageGeoTagHeritageEntitys/" + 1))
                 .headers(HeaderUtil.createEntityCreationAlert("imageGeoTagHeritageEntity", "1"))
                 .body(imageGeoTagHeritageEntityDTO);
     	 
     	}
+    
+    
+
+    @RequestMapping(value = "/imageGeoTagHeritageEntitysGeoJson",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @Transactional(readOnly = true)
+    public  FeatureCollection  getAllImageGeoTagHeritageEntitysAsGeoJSON( )
+        throws URISyntaxException {
+    	
+     
+        log.debug("REST request to get a page of ImageGeoTagHeritageEntitys");
+        List<ImageGeoTagHeritageEntity> page = imageGeoTagHeritageEntityService.findAllAsAList();
+        
+        /*
+         * We create a FeatureCollection into which we will put each Feature  with Geometry Objects
+         */
+        FeatureCollection collection = new FeatureCollection();
+        
+ 
+        for(ImageGeoTagHeritageEntity item: page)
+        {
+        	
+        	LngLatAlt coordinates = new LngLatAlt(item.getLongitude() ,item.getLatitude());
+        	Point c = new Point(coordinates);        	
+        	Feature f = new Feature();
+        	f.setGeometry(c);
+        	f.setId(item.getId().toString());
+        	Map<String, Object> properties = new HashMap<String, Object>();
+        	
+        	properties.put("title",item.getTitle());
+        	properties.put("description",item.getDescription());
+        	properties.put("url",item.getUrlOrfileLink());
+        	properties.put("marker-color","#ff8888");
+        	properties.put("marker-color","#ff8888");
+        	properties.put("marker-size","small");
+        	//marker-size
+        	//"marker-color": "#ff8888",
+        	
+        	f.setProperties(properties);        	
+        	collection.add(f);
+        	
+        } 
+        
+        return  collection;
+        
+    }
 
 }

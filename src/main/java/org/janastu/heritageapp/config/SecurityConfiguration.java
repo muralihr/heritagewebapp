@@ -88,6 +88,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/videoGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/audioGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/textGeoTagHeritageFromMobile").permitAll()
+            .antMatchers("/api/registerForMobile").permitAll()
+            .antMatchers("/api/imageGeoTagHeritageEntitysGeoJson").permitAll()
+            // 
             .antMatchers("/api/heritageCategorys2").permitAll()
             .antMatchers("/api/heritageLanguages2").permitAll()
             .antMatchers("/api/heritageCategorys").permitAll()

@@ -67,6 +67,8 @@ public class ImageGeoTagHeritageEntityServiceImpl implements ImageGeoTagHeritage
         ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO = imageGeoTagHeritageEntityMapper.imageGeoTagHeritageEntityToImageGeoTagHeritageEntityDTO(imageGeoTagHeritageEntity);
         return imageGeoTagHeritageEntityDTO;
     }
+    
+    
 
     /**
      *  delete the  imageGeoTagHeritageEntity by id.
@@ -74,5 +76,11 @@ public class ImageGeoTagHeritageEntityServiceImpl implements ImageGeoTagHeritage
     public void delete(Long id) {
         log.debug("Request to delete ImageGeoTagHeritageEntity : {}", id);
         imageGeoTagHeritageEntityRepository.delete(id);
+    }
+    
+    public List<ImageGeoTagHeritageEntity> findAllAsAList()
+    {    	
+    	//
+    	return imageGeoTagHeritageEntityRepository.findAllByOrderByIdAsc();
     }
 }

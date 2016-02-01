@@ -24,6 +24,8 @@ public interface ImageGeoTagHeritageEntityService {
      *  @return the list of entities
      */
     public Page<ImageGeoTagHeritageEntity> findAll(Pageable pageable);
+    
+    public List<ImageGeoTagHeritageEntity>  findAllAsAList();
 
     /**
      *  get the "id" imageGeoTagHeritageEntity.
