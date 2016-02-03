@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('TextGeoTagHeritageEntityDetailController', function ($scope, $rootScope, $stateParams, entity, TextGeoTagHeritageEntity, HeritageCategory, HeritageLanguage) {
+    .controller('TextGeoTagHeritageEntityDetailController', function ($scope, $rootScope, $stateParams, entity, TextGeoTagHeritageEntity, HeritageCategory, HeritageLanguage, User) {
         $scope.textGeoTagHeritageEntity = entity;
         $scope.load = function (id) {
             TextGeoTagHeritageEntity.get({id: id}, function(result) {

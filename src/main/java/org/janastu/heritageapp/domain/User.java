@@ -213,11 +213,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     
     
     
-    @Column    
+    @Column  ( name="age_group")  
     private String ageGroup;
-    @Column
+    @Column ( name="resident_status")  
     private Boolean residentStatus;
-    @Column
+    @Column ( name="special_message")  
     private String specialMessage;
 
 	public String getAgeGroup() {

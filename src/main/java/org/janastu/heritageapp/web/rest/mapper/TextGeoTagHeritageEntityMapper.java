@@ -15,10 +15,13 @@ public interface TextGeoTagHeritageEntityMapper {
     @Mapping(source = "heritageCategory.categoryName", target = "heritageCategoryCategoryName")
     @Mapping(source = "heritageLanguage.id", target = "heritageLanguageId")
     @Mapping(source = "heritageLanguage.heritageLanguage", target = "heritageLanguageHeritageLanguage")
+    @Mapping(source = "customer.id", target = "customerId")
+    @Mapping(source = "customer.login", target = "customerLogin")
     TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityToTextGeoTagHeritageEntityDTO(TextGeoTagHeritageEntity textGeoTagHeritageEntity);
 
     @Mapping(source = "heritageCategoryId", target = "heritageCategory")
     @Mapping(source = "heritageLanguageId", target = "heritageLanguage")
+    @Mapping(source = "customerId", target = "customer")
     TextGeoTagHeritageEntity textGeoTagHeritageEntityDTOToTextGeoTagHeritageEntity(TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO);
 
     default HeritageCategory heritageCategoryFromId(Long id) {
@@ -37,5 +40,14 @@ public interface TextGeoTagHeritageEntityMapper {
         HeritageLanguage heritageLanguage = new HeritageLanguage();
         heritageLanguage.setId(id);
         return heritageLanguage;
+    }
+
+    default User UserFromId(Long id) {
+        if (id == null) {
+            return null;
+        }
+        User User = new User();
+        User.setId(id);
+        return User;
     }
 }

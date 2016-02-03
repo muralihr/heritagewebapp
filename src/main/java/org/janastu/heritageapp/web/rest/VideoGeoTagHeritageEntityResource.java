@@ -1,14 +1,19 @@
 package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
+import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.VideoGeoTagHeritageEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
@@ -27,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
@@ -52,6 +60,10 @@ public class VideoGeoTagHeritageEntityResource {
     
     @Inject
     private VideoGeoTagHeritageEntityMapper videoGeoTagHeritageEntityMapper;
+       
+    @Autowired
+    private Environment environment;
+	 
     
     /**
      * POST  /videoGeoTagHeritageEntitys -> Create a new videoGeoTagHeritageEntity.
@@ -65,14 +77,56 @@ public class VideoGeoTagHeritageEntityResource {
         if (videoGeoTagHeritageEntityDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("videoGeoTagHeritageEntity", "idexists", "A new videoGeoTagHeritageEntity cannot already have an ID")).body(null);
         }
+       
+        
+        
+        ////
+        
+        String link;
+        if(videoGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        {        
+        	link = videoGeoTagHeritageEntityDTO.getUrlOrfileLink();
+        }
+        else
+        {
+        	link = transferFile(videoGeoTagHeritageEntityDTO);
+        }
+        
+        videoGeoTagHeritageEntityDTO.setUrlOrfileLink(link);
         byte[] arry = new byte[0];
         videoGeoTagHeritageEntityDTO.setVideoFile(arry);
+       
+        
+        ////
         VideoGeoTagHeritageEntityDTO result = videoGeoTagHeritageEntityService.save(videoGeoTagHeritageEntityDTO);
         return ResponseEntity.created(new URI("/api/videoGeoTagHeritageEntitys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("videoGeoTagHeritageEntity", result.getId().toString()))
             .body(result);
     }
 
+    private String transferFile(VideoGeoTagHeritageEntityDTO videoGeoTagHeritageEntityDTO) {
+    	
+        
+  	  log.debug( "DIR PATA HOME" +environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV ));
+  	  String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+  	  
+  	 	String storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_VIDEO;
+  	 	String 	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_VIDEO;
+  	 	
+  	    String downLoadFileName = storageDirectory +"//"+ videoGeoTagHeritageEntityDTO.getUrlOrfileLink();
+  	    
+  	    try {
+				File newFile  = new File( downLoadFileName);
+				
+				log.debug( "uploaded file to PATH" +newFile.getAbsolutePath());
+                  
+               FileUtils.writeByteArrayToFile(newFile, videoGeoTagHeritageEntityDTO.getVideoFile());
+               
+           } catch(Exception e){}
+  	    String link = (urlLinkToMedia + "/"+videoGeoTagHeritageEntityDTO.getUrlOrfileLink());
+		// TODO Auto-generated method stub
+		return link;
+	}
     /**
      * PUT  /videoGeoTagHeritageEntitys -> Updates an existing videoGeoTagHeritageEntity.
      */
@@ -185,4 +239,6 @@ public class VideoGeoTagHeritageEntityResource {
             
         } 
     
+    
+        
 }

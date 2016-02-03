@@ -54,6 +54,10 @@ public class TextGeoTagHeritageEntity implements Serializable {
     @JoinColumn(name = "heritage_language_id")
     private HeritageLanguage heritageLanguage;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private User customer;
+
     public Long getId() {
         return id;
     }
@@ -132,6 +136,14 @@ public class TextGeoTagHeritageEntity implements Serializable {
 
     public void setHeritageLanguage(HeritageLanguage heritageLanguage) {
         this.heritageLanguage = heritageLanguage;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User User) {
+        this.customer = User;
     }
 
     @Override

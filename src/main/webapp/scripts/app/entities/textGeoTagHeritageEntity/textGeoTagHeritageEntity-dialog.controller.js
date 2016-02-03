@@ -1,19 +1,16 @@
 'use strict';
 
 angular.module('heritageMapperAppApp').controller('TextGeoTagHeritageEntityDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'TextGeoTagHeritageEntity', 'HeritageCategory', 'sharedGeoProperties', 'HeritageLanguage',
-        function($scope, $stateParams, $uibModalInstance, entity, TextGeoTagHeritageEntity, HeritageCategory, sharedGeoProperties,HeritageLanguage) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'TextGeoTagHeritageEntity', 'HeritageCategory', 'HeritageLanguage', 'User',
+        function($scope, $stateParams, $uibModalInstance, entity, TextGeoTagHeritageEntity, HeritageCategory, HeritageLanguage, User) {
 
         $scope.textGeoTagHeritageEntity = entity;
         $scope.heritagecategorys = HeritageCategory.query();
         $scope.heritagelanguages = HeritageLanguage.query();
-        
-        $scope.textGeoTagHeritageEntity.latitude = sharedGeoProperties.getLatitude();
-        $scope.textGeoTagHeritageEntity.longitude = sharedGeoProperties.getLongitude(); 
+        $scope.users = User.query();
         $scope.load = function(id) {
             TextGeoTagHeritageEntity.get({id : id}, function(result) {
                 $scope.textGeoTagHeritageEntity = result;
-               
             });
         };
 

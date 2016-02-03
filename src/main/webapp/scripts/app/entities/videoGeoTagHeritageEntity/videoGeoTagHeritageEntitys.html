@@ -1,12 +1,13 @@
 <div>
     <h4 translate="heritageMapperAppApp.videoGeoTagHeritageEntity.home.title">VideoGeoTagHeritageEntitys</h4>
     <jh-alert></jh-alert>
-    <div class="container">
+  
+ <div id='map'></div>  <div class="container">
         <div class="row">
 
             <div class="col-md-10">
-                <map style="width: 100%; height: 96%;" center="11.9310,79.7852" on-click="addMarker()" zoom="14" default-style="false">
-                </map>
+                 <leaflet lf-center="center" tiles="tiles" geojson="geojson" width="100%" height="480px" markers="markers" event-broadcast="events"></leaflet>
+  <pre ng-bind="layers | json"></pre>
                  <h4> Latitude  {{  lat2 }}</h4>
                 <h4> Longitude  {{ lng2 }}</h4>
             </div> 

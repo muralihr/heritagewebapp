@@ -38,6 +38,7 @@
             <column name="text_details" type="varchar(255)"/>
             <column name="heritage_category_id" type="bigint"/>
             <column name="heritage_language_id" type="bigint"/>
+            <column name="customer_id" type="bigint"/>
         </createTable>
         
         <addForeignKeyConstraint baseColumnNames="heritage_category_id"
@@ -51,6 +52,12 @@
                                  constraintName="fk_textgeotagheritageentity_heritagelanguage_id"
                                  referencedColumnNames="id"
                                  referencedTableName="heritage_language"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="text_geo_tag_heritage_entity"
+                                 constraintName="fk_textgeotagheritageentity_customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

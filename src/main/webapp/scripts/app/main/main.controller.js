@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('MainController',['$scope', '$http', '$location', 'Principal','HeritageCategory','HeritageLanguage', 
+    .controller('MainController',['$scope', '$http','$uibModal', '$location', 'Principal','leafletData','HeritageCategory','HeritageLanguage', 
                                   'ImageGeoTagHeritageEntity','AudioGeoTagHeritageEntity','VideoGeoTagHeritageEntity','TextGeoTagHeritageEntity',
-                                  function ($scope,$http,$location, Principal, HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity) {
+                                  function ($scope,$http,$uibModal, $location, Principal,  leafletData , HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity) {
        
     	
     	
@@ -13,6 +13,155 @@ angular.module('heritageMapperAppApp')
                  
             
         });
+  
+    	///ANGULAR LEAFLET 
+    	$scope.map = null;
+    	
+    	leafletData.getMap("map").then(function(map){
+            $scope.map = map;
+        });
+    	 angular.extend($scope, {
+             center: {
+                 lat:  12.9326189,
+                 lng:  77.6733499,
+                 zoom: 14
+             },
+             
+            
+             
+           
+             
+             events: {
+ 		        markers: {
+ 		            enable: ['click'],
+ 		            logic: 'emit'
+ 		        }
+ 		    },
+             tiles: {
+                 name: 'Mapbox Park',
+                 url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                 type: 'xyz',
+                 options: {
+                     apikey: 'pk.eyJ1IjoibXVyYWxpaHI3NyIsImEiOiJjaWo5c2tqZjYwMDNtdXhseGFqeHlsZnQ4In0.W_DdV-qM8lNZzacVotHDEA',
+                     mapid: 'mapbox.pirates'
+                 }
+             },
+             geojson:
+             {
+            	  
+            	 
+             }
+
+         });
+    	 
+     
+    	 
+    	 
+
+         //$http.get("https://a.tiles.mapbox.com/v4/feelcreative.llm8dpdk/features.json?access_token=pk.eyJ1IjoibXVyYWxpaHI3NyIsImEiOiJjaWo5c2tqZjYwMDNtdXhseGFqeHlsZnQ4In0.W_DdV-qM8lNZzacVotHDEA").success(function(data) {
+    	 $http.get("api/allGeoTagHeritageEntitysGeoJson").success(function(data) {
+           //  $scope.geojson.data = data;
+           //  console.log("geojson data "+data);
+    		 
+    		 angular.extend($scope, {
+    	            geojson: {
+    	                data: data,
+    	                resetStyleOnMouseout: true,
+    	                style: {
+    	                    fillColor: "green",
+    	                    weight: 2,
+    	                    opacity: 1,
+    	                    color: 'white',
+    	                    dashArray: '3',
+    	                    fillOpacity: 0.7
+    	                }
+    	            }
+    	        });
+             
+             
+             //show window 
+             
+             
+         });
+    	//LEAFLET 
+    	 
+    	 //leaf let variables 
+    	 
+    	 $scope.markerLatSelected;
+         $scope.markerLngSelected;
+         $scope.titleSelected ="dddd";
+         $scope.descrSelected;
+         $scope.urlLink;
+         $scope.showmsg=false;
+         
+    
+         ///
+         
+   
+         $scope.$on("leafletDirectiveGeoJson.mouseover", function(ev, args) {
+              
+             $scope.titleSelected  =  args.model.properties.title;;
+             console.log("$scope.titleSelected"+$scope.titleSelected);
+             $scope.descrSelected = args.model.properties.description;;
+             $scope.urlLink  = args.model.properties.url; 
+             console.log("  $scope.urlLink"+  $scope.urlLink);
+             $scope.media=args.model.properties.mediatype;
+             $scope.showmsg=true;
+         });
+         
+         
+         $scope.$on("leafletDirectiveGeoJson.mouseout", function(ev, args) {
+        	 $scope.showmsg=false;
+            
+         });
+         
+        
+    	 ///
+    	 $scope.$on('leafletDirectiveGeoJson.click', function(event, args){
+    		 console.log("click on leafletDirectiveMarker"+event);
+    		 
+    		 //initialize everything here ;
+    		 var markerName = args.leafletEvent.target.options.name; //has to be set above
+    		 var portfolioURL = args.model.properties.url;
+    		 
+             $scope.titleSelected  =  args.model.properties.title;;
+             console.log("$scope.titleSelected"+$scope.titleSelected);
+             $scope.descrSelected = args.model.properties.description;;
+             $scope.urlLink  = args.model.properties.url; 
+             console.log("  $scope.urlLink"+  $scope.urlLink);
+             $scope.media=args.model.properties.mediatype;
+             
+             //based on the media type change the template url;
+    		 
+    		 $uibModal.open({
+                      
+    			 		templateUrl: 'scripts/app/main/showimagetemplate.html',
+                    
+    			 		scope: $scope, //passed current scope to the modal
+                        size: 'lg',
+                        resolve: {
+                            entity: function () {
+                                return {
+                                    title: "knknkssdnkn",
+                                    description: null,
+                                    address: null,
+                                    latitude: null,
+                                    longitude: null,
+                                    consolidatedTags: null,
+                                    urlOrfileLink: null,
+                                    audioFile: null,
+                                    audioFileContentType: null,
+                                    id: null
+                                };
+                            }
+                        }
+                    });
+    		  
+    		 
+     
+             
+    	 });
+ 
         
         $scope.markerLat = 23.200000;
         $scope.markerLng = 79.225487;
@@ -21,10 +170,7 @@ angular.module('heritageMapperAppApp')
         $scope.heritagecategorys = HeritageCategory.query();
         $scope.heritagelanguages = HeritageLanguage.query();
         
-        $scope.imageGeoTagHeritageEntitys = ImageGeoTagHeritageEntity.query();
-        $scope.audioGeoTagHeritageEntitys = AudioGeoTagHeritageEntity.query();
-        $scope.videoGeoTagHeritageEntitys = VideoGeoTagHeritageEntity.query();
-        $scope.textGeoTagHeritageEntitys = TextGeoTagHeritageEntity.query();//TextGeoTagHeritageEntity
+       
         
         
         $scope.listOfPoints = 
@@ -43,248 +189,9 @@ angular.module('heritageMapperAppApp')
         
         $scope.initBaseURL($location);
         
-        $scope.loadlistOfPoints = function( )
-        {
-        	
+         
        
-        	
-         	console.log("loadlistOfPoints");
-        	console.log(  $scope.textGeoTagHeritageEntitys.length);
-        	angular.forEach($scope.videoGeoTagHeritageEntitys, function(location, key)
-        	{
-        		 listOfPoints.push(location);
-        		 console.log(location.title);
-        		 
-        	});
-
-        	angular.forEach($scope.audioGeoTagHeritageEntitys, function(location, key)
-                	{
-                		 listOfPoints.push(location);
-                		 console.log(location.title);
-                		 
-                	});
-                	
-        	angular.forEach($scope.textGeoTagHeritageEntitys, function(location, key)
-                	{
-                		 listOfPoints.push(location);
-                		 console.log(location.title);
-                		 
-                	});
-        };
-        
-        $scope.loadlistOfPoints();
-        
-        $scope.roles = [
-                        'guest', 
-                        'user', 
-                        'customer', 
-                        'admin'
-                      ];
-                      $scope.user = {
-                        roles: []
-                      };
-                      $scope.checkAll = function() {
-                        $scope.user.roles = angular.copy($scope.heritagecategorys);
-                      };
-                      $scope.uncheckAll = function() {
-                        $scope.user.roles = [];
-                      };
-                      $scope.checkFirst = function() {
-                        $scope.user.roles.splice(0, $scope.user.roles.length); 
-                        $scope.user.roles.push('guest');
-                        console.log("sss");
-                      };
-
-        var india = new google.maps.LatLng($scope.markerLat, $scope.markerLng);
-
-        var mapOptions = {
-          zoom : 4,
-          center : india,
-          mapTypeId : google.maps.MapTypeId.TERRAIN
-        }
-
-        $scope.marker;
-        $scope.map;
-        $scope.$on('mapInitialized', function(evt, evtMap) {
-        	$scope.map = evtMap;
-        	$scope.map.height = 100;
-          
-        });
-        $scope.markers = [];
-        
-        
-        $scope.addOtherMarkers = function(  i )
-        {      	
-        	 
-        	var ajaxLink ;
-        	if(i == 1)
-        		{
-        		ajaxLink =   'api/textGeoTagHeritageEntitys';
-        			var customIcons = {
-                       	    
-                   	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Board-Pink-icon.png',
-                   	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-                   	     
-                   	};
-        			
-
-    				var src1 =  'http://localhost:8080/audios/' ;
-    				var imagePopUp  =  '<h2 >'+"aaaa" +'</h2>';
-        		}
-        		if(i == 2)
-        			{
-        			
-        			 
-        				ajaxLink =     'api/audioGeoTagHeritageEntitys';
-        				var customIcons = {
-        	               	    
-        	           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Pink-icon.png',
-        	           	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-        	           	     
-        	           	};
-        				var src1 =  'http://localhost:8080/audios/'  
-        				var imagePopUp  =  '<iframe  id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</iframe>";
-        				
-        			}
-        			if(i == 3)
-        				{
-        				ajaxLink =    'api/videoGeoTagHeritageEntitys';
-        					var customIcons = {
-        		               	    
-        		           	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Chartreuse-icon.png',
-        		           	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-        		           	     
-        		           	};
-        					var src1 =  'http://localhost:8080/videos/' ;
-            				var imagePopUp  =  '<iframe  id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</iframe>";
-        				}
-        			
-        			
-        	$http.get(ajaxLink).success(function(data) {
-        	        	///for each
-        	        		 console.log("success" + data);
-        	        		 angular.forEach(data, function(mediadata, key){
-        	        			 
-        	        			 console.log(mediadata+"location");
-        	        			 
-        	        			 console.log(mediadata.latitude+"location");
-        	        			 
-        	        			 //prepare a custome pop up window
-        	        		     	
-        	      	            	var itemPreviewId = "ItemPreview"  + mediadata.id;
-        	      	             	
-        	      	            	var customPopup = "Title Name" + mediadata.title+"<br/>" +imagePopUp ;
-        	      	                  var customOptions =
-        	      	                    {
-        	      	                    'maxWidth': '500',
-        	      	                    'className' : 'custom'
-        	      	                    }
-        	      	                  
-        	      	                var infoWindow = new google.maps.InfoWindow();
-        	        			 
-        	      	                var latLang = new google.maps.LatLng(mediadata.latitude, mediadata.longitude);
-        	        			  
-        	      	                var marker = new google.maps.Marker({
-        	                       map : $scope.map,
-        	                       position : latLang,
-        	                       icon: customIcons.icon,
-        	                       title : mediadata.title,
-        	                       label: 'A'
-        	                     });
-        	                     marker.content = '<div class="infoWindowContent">'
-        	   	                    + customPopup + '</div>';
-        	                     
-        	                     
-        	                     google.maps.event.addListener(marker, 'click', (function (marker ) {
-        	                         return function (e) {
-        	                        	 infoWindow.setContent('<h2>' + marker.title + '</h2>'
-        	            	                      + marker.content);
-        	            	                  infoWindow.open($scope.map, marker);
-        	                         };
-        	                     })(marker ));
-        	                     $scope.markers.push(marker);
-        	        		 });
-        	        	});
-        		
-        }
-        /// 
-        $scope.addImageMarkers  =  function(  ){       	
-        	
-        	//httpp
-        	
-        	  var customIcons = {
-              	    
-          	        icon: 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/48/Map-Marker-Marker-Outside-Azure-icon.png',
-          	        shadow: 'http://labs.google.com/ridefinder/images/mm_20_shadow.png'
-          	     
-          	};
-          
-        	$http.get('api/imageGeoTagHeritageEntitys').success(function(data) {
-        	///for each
-        		 console.log("success" + data);
-        		 angular.forEach(data, function(mediadata, key){
-        			 
-        			 console.log(mediadata+"location");
-        			 
-        			 console.log(mediadata.latitude+"location");
-        			 
-        			 //prepare a custome pop up window
-        		     	var src1 =  'data:image/*;base64,' + mediadata.photo;
-      	            	var itemPreviewId = "ItemPreview"  + mediadata.id;
-      	             	var imagePopUp  =  '<img id='+'"'+itemPreviewId+'"'+ "width="+"'"+"300px"+"'"+"height="+"'"+"250px"+"'" +'src='+ src1  +">"+ "</img>";
-      	            	var customPopup = "Title Name" + mediadata.title+"<br/>" +imagePopUp ;
-      	                  var customOptions =
-      	                    {
-      	                    'maxWidth': '500',
-      	                    'className' : 'custom'
-      	                    }
-      	                  
-      	                var infoWindow = new google.maps.InfoWindow();
-        			 
-      	                var latLang = new google.maps.LatLng(mediadata.latitude, mediadata.longitude);
-        			  
-      	                var marker = new google.maps.Marker({
-                       map : $scope.map,
-                       position : latLang,
-                       icon: customIcons.icon,
-                       title : mediadata.title,
-                       label: 'A'
-                     });
-                     marker.content = '<div class="infoWindowContent">'
-   	                    + customPopup + '</div>';
-                     
-                     
-                     google.maps.event.addListener(marker, 'click', (function (marker ) {
-                         return function (e) {
-                        	 infoWindow.setContent('<h2>' + marker.title + '</h2>'
-            	                      + marker.content);
-            	                  infoWindow.open($scope.map, marker);
-                         };
-                     })(marker ));
-                     $scope.markers.push(marker);
-        		 });
-        	});
-
-        }
-        
-      $scope.addMarkers  =  function(  ) 
-        {
-        	console.log("get markers"); 
-        	
-        	$scope.addImageMarkers( );	
-        	$scope.addOtherMarkers( 1);
-        	$scope.addOtherMarkers( 2);
-        	$scope.addOtherMarkers( 3);
-        		
-        	///end function	
-  	           
-        }
-        
-        
-
-        
-        
-		
+  
         
         
         

@@ -23,7 +23,8 @@
             "consolidatedTags": "ConsolidatedTags",
             "textDetails": "TextDetails",
             "heritageCategory": "HeritageCategory",
-            "heritageLanguage": "HeritageLanguage"
+            "heritageLanguage": "HeritageLanguage",
+            "customer": "Customer"
         }
     }
 }

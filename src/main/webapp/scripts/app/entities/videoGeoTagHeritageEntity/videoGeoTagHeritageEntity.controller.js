@@ -8,6 +8,12 @@ angular.module('heritageMapperAppApp')
         $scope.reverse = true;
         $scope.isAdmin = false;
         $scope.page = 1;
+        
+        $scope.trustSrc = function(src) {
+            return $sce.trustAsResourceUrl(src);
+          }
+        
+        
         $scope.loadAll = function() {
             VideoGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
@@ -66,43 +72,69 @@ angular.module('heritageMapperAppApp')
         
         //MAPP functions --- TO BE INTRODUCED IN ALL THE FILES
         
+//MAP FUNCTIOSN START
+		
+		///leadf let 
+        
         $scope.lat2 = 0;
-        $scope.lat222 = 1110;
+        
         $scope.lng2 = 0;
-        
-        $scope.marker;
-        $scope.map;
-        $scope.$on('mapInitialized', function(evt, evtMap) {
-        	$scope.map = evtMap;
-          
-        });
-        
-        $scope.addMarker = function (ev) {
-            var myLatLng = ev.latLng;
-            var lat2 = myLatLng.lat();
-            var lng2 = myLatLng.lng();
-            console.log(lat2);
-            $scope.lat2 = lat2;
-            $scope.lng2 = lng2;
-            $scope.lat222 =  lng2;
+		
+		angular.extend($scope, {
+            center: {
+                lat:  12.9326189,
+                lng:  77.6733499,
+                zoom: 14
+            },
             
-            sharedGeoProperties.setLongitude(lng2);
-            sharedGeoProperties.setLatitude(lat2);
-             
-            var latLang = new google.maps.LatLng(lat2, lng2);
-            if($scope.marker)
-        	{
-        		$scope.marker.setPosition(latLang);
-        	}
-        else
-        	{
-        	
-        	 $scope.marker = new google.maps.Marker({
-                 map : $scope.map,
-                 position : latLang,
-                 title : "Add Title"
-               });
-        	}
+            markers: {
+            	 centerMarker: {
+                     lat: 12.9326189,
+                     lng: 77.6733499,
+                     message: "I want to Tag here!",
+                     focus: true,
+                     draggable: true
+                 }
+            },
+            
+            events: {
+		        markers: {
+		            enable: ['click'],
+		            logic: 'emit'
+		        }
+		    },
+            tiles: {
+                name: 'Mapbox Park',
+                url: 'http://api.tiles.mapbox.com/v4/{mapid}/{z}/{x}/{y}.png?access_token={apikey}',
+                type: 'xyz',
+                options: {
+                    apikey: 'pk.eyJ1IjoibXVyYWxpaHI3NyIsImEiOiJjaWo5c2tqZjYwMDNtdXhseGFqeHlsZnQ4In0.W_DdV-qM8lNZzacVotHDEA',
+                    mapid: 'mapbox.streets'
+                }
+            },
+            geojson: {}
 
-		};
+        });
+		
+		
+		 $scope.$on('leafletDirectiveMap.click', function(event, args){
+    		 console.log("click on leafletDirectiveMap"+event);
+    		 
+    		 var lat = args.leafletEvent.latlng.lat; //has to be set above
+    		 var lng = args.leafletEvent.latlng.lng; //has to be set above
+    		 
+    		 $scope.markers.centerMarker.lat = lat;
+    		 $scope.markers.centerMarker.lng = lng;
+    		 
+    		 $scope.lat2 = lat;
+             $scope.lng2 = lng;
+          
+             
+             sharedGeoProperties.setLongitude(lng );
+             sharedGeoProperties.setLatitude(lat );
+    		 
+    		 
+		 });
+		 ///leaf let end
+       
     });

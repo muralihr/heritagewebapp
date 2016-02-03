@@ -38,3 +38,12 @@ angular.module('heritageMapperAppApp' )
         }  
     };
 });
+
+
+
+
+angular.module('heritageMapperAppApp').config(function($sceDelegateProvider) {
+	  $sceDelegateProvider.resourceUrlWhitelist(['**']);
+	});
+ 
+

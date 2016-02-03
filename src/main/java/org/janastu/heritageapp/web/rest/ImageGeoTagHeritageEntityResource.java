@@ -120,13 +120,32 @@ public class ImageGeoTagHeritageEntityResource {
         if (imageGeoTagHeritageEntityDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("imageGeoTagHeritageEntity", "idexists", "A new imageGeoTagHeritageEntity cannot already have an ID")).body(null);
         }
+        
+        ///
+        //get the file and dump the data 
+        ///
+        String link;
+        if(imageGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        {        
+        	link = imageGeoTagHeritageEntityDTO.getUrlOrfileLink();
+        }
+        else
+        {
+        	link = transferFile(imageGeoTagHeritageEntityDTO);
+        }
+        
+        imageGeoTagHeritageEntityDTO.setUrlOrfileLink(link);
+        byte[] photo = new byte[1];
+        imageGeoTagHeritageEntityDTO.setPhoto(photo);
+        
         ImageGeoTagHeritageEntityDTO result = imageGeoTagHeritageEntityService.save(imageGeoTagHeritageEntityDTO);
         return ResponseEntity.created(new URI("/api/imageGeoTagHeritageEntitys/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("imageGeoTagHeritageEntity", result.getId().toString()))
             .body(result);
     }
 
-    /**
+    
+	/**
      * PUT  /imageGeoTagHeritageEntitys -> Updates an existing imageGeoTagHeritageEntity.
      */
     @RequestMapping(value = "/imageGeoTagHeritageEntitys",
@@ -209,7 +228,31 @@ public class ImageGeoTagHeritageEntityResource {
     }
     
     
+    private String transferFile(ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO) {
+    	
+        
+    	  log.debug( "DIR PATA HOME" +environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV ));
+    	  String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+    	  
+    	 	String storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_IMAGES;
+    	 	String 	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_IMAGES;
+    	 	
+    	    String downLoadFileName = storageDirectory +"//"+ imageGeoTagHeritageEntityDTO.getUrlOrfileLink();
+    	    
+    	    try {
+ 				File newFile  = new File( downLoadFileName);
+ 				
+ 				log.debug( "uploaded file to PATH" +newFile.getAbsolutePath());
+                    
+                 FileUtils.writeByteArrayToFile(newFile, imageGeoTagHeritageEntityDTO.getPhoto());
+                 
+             } catch(Exception e){}
+    	    String link = (urlLinkToMedia + "/"+imageGeoTagHeritageEntityDTO.getUrlOrfileLink());
+  		// TODO Auto-generated method stub
+  		return link;
+  	}
 
+    
     //imageGeoTagHeritageFromMobile
     @RequestMapping(value = "/imageGeoTagHeritageFromMobile",
             method = RequestMethod.POST,
@@ -224,7 +267,7 @@ public class ImageGeoTagHeritageEntityResource {
       	log.debug("latitude  "+   request.getParameter("latitude"));
       	log.debug("longitude  "+   request.getParameter("longitude"));
       	log.debug("mediatype  "+   request.getParameter("mediatype"));
-      	
+      	ResponseEntity<ImageGeoTagHeritageEntityDTO> retValue  = null;
     	String title = request.getParameter("title");
       	String description = request.getParameter("description");
       	
@@ -236,12 +279,13 @@ public class ImageGeoTagHeritageEntityResource {
       	String longitude = request.getParameter("longitude");
       	ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO = null;
              
-    	  log.debug( "DIR CATALINA_HOME" +environment.getProperty("CATALINA_HOMEA"));
-    	  String catalinahome = environment.getProperty("CATALINA_HOMEA");
+    	  log.debug( "DIR PATA HOME" +environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV ));
+    	  String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
           Iterator<String> itr = request.getFileNames();
           MultipartFile mpf = null;
           byte[] photo  = null;
-             
+          String urlLinkToMedia = "";  
+          try{
              File newFile = null;
              while (itr.hasNext()) {
              	 
@@ -253,7 +297,31 @@ public class ImageGeoTagHeritageEntityResource {
               //   String newFilename = newFilenameBase + originalFileExtension;
      		     String newFilename =    mpf.getOriginalFilename();
                 // String storageDirectory = fileUploadDirectory;                 
-     		    String storageDirectory =  catalinahome +"//webapps//"+"heritagedocs//list//heritageaudio";
+     		    String audioStorageDirectory =  pataHome + "//heritageaudio";
+     		    
+     			String mediatypeStr = request.getParameter("mediatype");
+     		    int mediaType = Integer.parseInt(mediatypeStr);
+     		    String storageDirectory ="";
+     		   
+     		    switch( mediaType)
+     		    {     		    
+	     		    case AppConstants.AUDIOTYPE:
+	     		    	storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_AUDIO;
+	     		    	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_AUDIO;
+	     		    	break;
+	     		    case AppConstants.IMAGETYPE:
+	     		    	storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_IMAGES;
+	     		    	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_IMAGES;
+	     		    	break;
+	     		    case AppConstants.TEXTTYPE:
+	     		    	 //No upload just store ;
+	     		    	break;
+	     		    case AppConstants.VIDEOTYPE:
+	     		    	storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_VIDEO;
+	     		    	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_VIDEO ;
+	     		    	break;
+     		    }
+     		    
      		    
      		    String downLoadFileName = storageDirectory +"//"+ mpf.getOriginalFilename();
                 String contentType = mpf.getContentType();
@@ -305,7 +373,7 @@ public class ImageGeoTagHeritageEntityResource {
             imageGeoTagHeritageEntityDTO.setTitle(title);
             
             
-            imageGeoTagHeritageEntityDTO.setDescription("Descr:"+description);
+            imageGeoTagHeritageEntityDTO.setDescription("      "+description);
             
             HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
             if(hCategory != null)
@@ -313,65 +381,29 @@ public class ImageGeoTagHeritageEntityResource {
             HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language);
             if(hLanguage != null)
             imageGeoTagHeritageEntityDTO.setHeritageLanguageId(hLanguage.getId());
-
-            imageGeoTagHeritageEntityDTO.setUrlOrfileLink("heritagedocs//list//heritageaudio//"+mpf.getOriginalFilename());
+            //String urlLink = AppConstants.MEDIA_SERVER_URL + "//" +
+            imageGeoTagHeritageEntityDTO.setUrlOrfileLink(urlLinkToMedia + "/"+mpf.getOriginalFilename());
            // imageGeoTagHeritageEntityDTO.setPhoto(photo);
             byte [] array = new byte[1];
             imageGeoTagHeritageEntityDTO.setPhoto(array);
             
             ImageGeoTagHeritageEntityDTO result = imageGeoTagHeritageEntityService.save(imageGeoTagHeritageEntityDTO);
-            return ResponseEntity.created(new URI("/api/imageGeoTagHeritageEntitys/" + 1))
-                .headers(HeaderUtil.createEntityCreationAlert("imageGeoTagHeritageEntity", "1"))
-                .body(imageGeoTagHeritageEntityDTO);
+            
+            retValue = ResponseEntity.created(new URI("/api/imageGeoTagHeritageEntitys/" + 1))
+            .headers(HeaderUtil.createEntityCreationAlert("imageGeoTagHeritageEntity", "1"))
+            .body(imageGeoTagHeritageEntityDTO);
+            
+          } catch(Exception e)
+          {
+        	  
+        	  log.error("Error while save and  upload file "+  e);
+          }
+          
+            return retValue;
     	 
     	}
     
     
-
-    @RequestMapping(value = "/imageGeoTagHeritageEntitysGeoJson",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    @Timed
-    @Transactional(readOnly = true)
-    public  FeatureCollection  getAllImageGeoTagHeritageEntitysAsGeoJSON( )
-        throws URISyntaxException {
-    	
-     
-        log.debug("REST request to get a page of ImageGeoTagHeritageEntitys");
-        List<ImageGeoTagHeritageEntity> page = imageGeoTagHeritageEntityService.findAllAsAList();
-        
-        /*
-         * We create a FeatureCollection into which we will put each Feature  with Geometry Objects
-         */
-        FeatureCollection collection = new FeatureCollection();
-        
- 
-        for(ImageGeoTagHeritageEntity item: page)
-        {
-        	
-        	LngLatAlt coordinates = new LngLatAlt(item.getLongitude() ,item.getLatitude());
-        	Point c = new Point(coordinates);        	
-        	Feature f = new Feature();
-        	f.setGeometry(c);
-        	f.setId(item.getId().toString());
-        	Map<String, Object> properties = new HashMap<String, Object>();
-        	
-        	properties.put("title",item.getTitle());
-        	properties.put("description",item.getDescription());
-        	properties.put("url",item.getUrlOrfileLink());
-        	properties.put("marker-color","#ff8888");
-        	properties.put("marker-color","#ff8888");
-        	properties.put("marker-size","small");
-        	//marker-size
-        	//"marker-color": "#ff8888",
-        	
-        	f.setProperties(properties);        	
-        	collection.add(f);
-        	
-        } 
-        
-        return  collection;
-        
-    }
+  
 
 }

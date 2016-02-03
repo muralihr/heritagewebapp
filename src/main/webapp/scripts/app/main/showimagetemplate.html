@@ -1,0 +1,51 @@
+
+
+
+    <div class="modal-header">
+        
+         <h1>Geo Tagged Image</h1>  
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        
+         <input type="text" class="form-control" id="id" name="id"
+                    ng-model="titleSelected" readonly />
+      
+        {{descrSelected}}
+        </p>
+        
+          <span ng-if="media === 'AUDIO'">
+       	AUDIO	
+       	  <audio controls>
+ 			<source src="{{urlLink}}"   type='audio/mp3'>
+ 
+ 				<p>Your user agent does not support the HTML5 Audio element.</p>
+			</audio>
+
+     	</span>
+     	<span ng-if="media == 'VIDEO'">
+       		VIDEO
+       		  
+ 		<video controls>
+       		<source ng-src="{{urlLink}}" height="200" width="250" type="video/mp4"/>
+		</video>
+ 		
+ 
+     	</span>
+     	
+     	<span ng-if="media == 'IMAGE'">
+       		IMAGE
+       		
+       		<img src="{{urlLink}}" height="200" width="250"  >
+     	</span>
+     
+     
+    </div>
+    <div class="modal-footer">
+        
+    
+     
+       <h1>Location</h1>
+   
+    </div>
+

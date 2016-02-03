@@ -2,6 +2,7 @@ package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import org.apache.commons.io.FileUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
@@ -11,9 +12,13 @@ import org.janastu.heritageapp.service.AudioGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
 import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
+import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
+import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.AudioGeoTagHeritageEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +30,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
+
+import java.io.File;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -48,7 +55,9 @@ public class AudioGeoTagHeritageEntityResource {
     
     @Inject
     private AudioGeoTagHeritageEntityMapper audioGeoTagHeritageEntityMapper;
-    
+
+    @Autowired
+    private Environment environment;
     /**
      * POST  /audioGeoTagHeritageEntitys -> Create a new audioGeoTagHeritageEntity.
      */
@@ -61,11 +70,56 @@ public class AudioGeoTagHeritageEntityResource {
         if (audioGeoTagHeritageEntityDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("audioGeoTagHeritageEntity", "idexists", "A new audioGeoTagHeritageEntity cannot already have an ID")).body(null);
         }
+      
+        
+        
+        ///
+        //get the file and dump the data 
+        ///
+        String link;
+        if(audioGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        {        
+        	link = audioGeoTagHeritageEntityDTO.getUrlOrfileLink();
+        }
+        else
+        {
+        	link = transferFile(audioGeoTagHeritageEntityDTO);
+        }
+        
+        audioGeoTagHeritageEntityDTO.setUrlOrfileLink(link);
+        byte[] photo = new byte[1];
+        audioGeoTagHeritageEntityDTO.setAudioFile( photo);
+        
         AudioGeoTagHeritageEntityDTO result = audioGeoTagHeritageEntityService.save(audioGeoTagHeritageEntityDTO);
-        return ResponseEntity.created(new URI("/api/audioGeoTagHeritageEntitys/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert("audioGeoTagHeritageEntity", result.getId().toString()))
+        return ResponseEntity.created(new URI("/api/imageGeoTagHeritageEntitys/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert("imageGeoTagHeritageEntity", result.getId().toString()))
             .body(result);
+    
     }
+    
+    private String transferFile(AudioGeoTagHeritageEntityDTO videoGeoTagHeritageEntityDTO) {
+    	
+        
+    	  log.debug( "DIR PATA HOME" +environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV ));
+    	  String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+    	  
+    	 	String storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_AUDIO;
+    	 	String 	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_AUDIO;
+    	 	
+    	    String downLoadFileName = storageDirectory +"//"+ videoGeoTagHeritageEntityDTO.getUrlOrfileLink();
+    	    
+    	    try {
+  				File newFile  = new File( downLoadFileName);
+  				
+  				log.debug( "uploaded file to PATH" +newFile.getAbsolutePath());
+                    
+                 FileUtils.writeByteArrayToFile(newFile, videoGeoTagHeritageEntityDTO.getAudioFile() );
+                 
+             } catch(Exception e){}
+    	    String link = (urlLinkToMedia + "/"+videoGeoTagHeritageEntityDTO.getUrlOrfileLink());
+  		// TODO Auto-generated method stub
+  		return link;
+  	}
 
     /**
      * PUT  /audioGeoTagHeritageEntitys -> Updates an existing audioGeoTagHeritageEntity.

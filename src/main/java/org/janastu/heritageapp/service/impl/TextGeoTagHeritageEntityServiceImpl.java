@@ -79,6 +79,6 @@ public class TextGeoTagHeritageEntityServiceImpl implements TextGeoTagHeritageEn
 	@Override
 	public List<TextGeoTagHeritageEntity> findAllAsAList() {
 		// TODO Auto-generated method stub
-		return textGeoTagHeritageEntityRepository.findAllByOrderByIdAsc();
+		return null;
 	}
 }

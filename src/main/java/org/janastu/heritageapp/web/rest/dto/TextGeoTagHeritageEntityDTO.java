@@ -42,6 +42,10 @@ public class TextGeoTagHeritageEntityDTO implements Serializable {
 
     private String heritageLanguageHeritageLanguage;
 
+    private Long customerId;
+
+    private String customerLogin;
+
     public Long getId() {
         return id;
     }
@@ -136,6 +140,22 @@ public class TextGeoTagHeritageEntityDTO implements Serializable {
 
     public void setHeritageLanguageHeritageLanguage(String heritageLanguageHeritageLanguage) {
         this.heritageLanguageHeritageLanguage = heritageLanguageHeritageLanguage;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long UserId) {
+        this.customerId = UserId;
+    }
+
+    public String getCustomerLogin() {
+        return customerLogin;
+    }
+
+    public void setCustomerLogin(String UserLogin) {
+        this.customerLogin = UserLogin;
     }
 
     @Override

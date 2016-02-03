@@ -1,7 +1,7 @@
 package org.janastu.heritageapp.service;
 
-import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.TextGeoTagHeritageEntity;
+import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.web.rest.dto.TextGeoTagHeritageEntityDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

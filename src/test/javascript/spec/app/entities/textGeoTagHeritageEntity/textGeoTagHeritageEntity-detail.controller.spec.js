@@ -4,7 +4,7 @@ describe('Controller Tests', function() {
 
     describe('TextGeoTagHeritageEntity Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockTextGeoTagHeritageEntity, MockHeritageCategory, MockHeritageLanguage;
+        var MockEntity, MockTextGeoTagHeritageEntity, MockHeritageCategory, MockHeritageLanguage, MockUser;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -14,6 +14,7 @@ describe('Controller Tests', function() {
             MockTextGeoTagHeritageEntity = jasmine.createSpy('MockTextGeoTagHeritageEntity');
             MockHeritageCategory = jasmine.createSpy('MockHeritageCategory');
             MockHeritageLanguage = jasmine.createSpy('MockHeritageLanguage');
+            MockUser = jasmine.createSpy('MockUser');
             
 
             var locals = {
@@ -22,7 +23,8 @@ describe('Controller Tests', function() {
                 'entity': MockEntity ,
                 'TextGeoTagHeritageEntity': MockTextGeoTagHeritageEntity,
                 'HeritageCategory': MockHeritageCategory,
-                'HeritageLanguage': MockHeritageLanguage
+                'HeritageLanguage': MockHeritageLanguage,
+                'User': MockUser
             };
             createController = function() {
                 $injector.get('$controller')("TextGeoTagHeritageEntityDetailController", locals);
