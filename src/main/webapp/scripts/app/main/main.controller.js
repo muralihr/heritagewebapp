@@ -26,6 +26,27 @@ angular.module('heritageMapperAppApp')
                  lng:  77.6733499,
                  zoom: 14
              },
+             aurovillecenter: {
+                 lat:  12.006833 ,
+                 lng:  79.810513,
+                 zoom: 14
+             },
+             towncenter: {
+                 lat:   11.935001,
+                 lng:   79.819558,  
+                 zoom: 14
+             },
+             heritagecenter: { //, 
+                 lat:  11.936723,
+                 lng:  79.786921,
+                 zoom: 14
+             },
+             bahourcenter: { //(11.803506, 79.738941)
+                 lat:  11.803506,
+                 lng:  79.738941,
+                 zoom: 14
+             },
+             
              
             
              

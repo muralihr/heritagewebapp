@@ -7,8 +7,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
+            
         </div>
+        
+        
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
                 <li ui-sref-active="active">
@@ -16,6 +18,11 @@
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="hidden-sm" translate="global.menu.home">Home</span>
                     </a>
+                    
+                      
+                        
+                        
+
                 </li>
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
                 <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
@@ -44,6 +51,30 @@
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     </ul>
                 </li>
+                
+                 <li ui-sref-active="active"  class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-sm" >
+                                Explore
+                            </span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li ui-sref-active="active" ><a ui-sref="map1" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0; Auroville Bio Region</a></li>
+                         <li ui-sref-active="active" ><a ui-sref="map2" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0; Pondicherry Heritage Map</a></li>
+                         <li ui-sref-active="active" ><a ui-sref="map3" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0; Bahour District</a></li>
+                         <li ui-sref-active="active" ><a ui-sref="map4" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
+                        &#xA0; Pondicherry Town</a></li>
+                        
+                    </ul>
+                </li>
+                
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
                         <span>
@@ -106,6 +137,14 @@
                         </li>
                     </ul>
                 </li>
+                <li>
+                  <div class="mbr-buttons btn-inverse mbr-buttons--center">
+                <a class="mbr-buttons__btn btn btn-lg btn-danger" href="https://mobirise.com">Download The APP</a> 
+                </div>
+                
+                </li>
+                
+              
             </ul>
         </div>
     </div>

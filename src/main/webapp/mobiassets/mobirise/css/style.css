@@ -361,7 +361,7 @@ html {
 .mbr-after-navbar:before {
   content: "";
   display: block;
-  height: 98px;
+  height: 0px;
 }
 .mbr-hamburger {
   cursor: pointer;
