@@ -2,18 +2,18 @@
     "heritageMapperAppApp": {
         "textGeoTagHeritageEntity" : {
             "home": {
-                "title": "TextGeoTagHeritageEntitys",
-                "createLabel": "Create a new TextGeoTagHeritageEntity",
-                "createOrEditLabel": "Create or edit a TextGeoTagHeritageEntity"
+                "title": "Text Geo Tag Media - Click a location on the map ",
+                "createLabel": "Create a new Text Geo Tag Media",
+                "createOrEditLabel": "Create or edit a Text Geo Tag Media"
             },
-            "created": "A new TextGeoTagHeritageEntity is created with identifier {{ param }}",
-            "updated": "A TextGeoTagHeritageEntity is updated with identifier {{ param }}",
-            "deleted": "A TextGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "created": "A new Text Geo Tag Media is created with identifier {{ param }}",
+            "updated": "A Text Geo Tag Media is updated with identifier {{ param }}",
+            "deleted": "A Text Geo Tag Media is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete TextGeoTagHeritageEntity {{ id }}?"
+                "question": "Are you sure you want to delete Text Geo Tag Media {{ id }}?"
             },
             "detail": {
-                "title": "TextGeoTagHeritageEntity"
+                "title": "Text Geo Tag Media"
             },
             "title": "Title",
             "description": "Description",

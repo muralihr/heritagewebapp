@@ -101,5 +101,6 @@ angular.module('heritageMapperAppApp')
                         return $translate.refresh();
                     }]
                 }
-            });
+            }) 
+           ;
     });

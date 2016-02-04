@@ -2,18 +2,18 @@
     "heritageMapperAppApp": {
         "imageGeoTagHeritageEntity" : {
             "home": {
-                "title": "ImageGeoTagHeritageEntitys",
-                "createLabel": "Create a new ImageGeoTagHeritageEntity",
-                "createOrEditLabel": "Create or edit a ImageGeoTagHeritageEntity"
+                "title": "Image Geo Tag Media",
+                "createLabel": "Create a new Image Geo Tag Heritage Media",
+                "createOrEditLabel": "Create or edit a Image Geo Tag Heritage Media"
             },
-            "created": "A new ImageGeoTagHeritageEntity is created with identifier {{ param }}",
-            "updated": "A ImageGeoTagHeritageEntity is updated with identifier {{ param }}",
-            "deleted": "A ImageGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "created": "A new ImageGeoTagMedia is created with identifier {{ param }}",
+            "updated": "A ImageGeoTagHeritageMedia is updated with identifier {{ param }}",
+            "deleted": "A ImageGeoTagHeritageMedia is deleted with identifier {{ param }}",
             "delete": {
                 "question": "Are you sure you want to delete ImageGeoTagHeritageEntity {{ id }}?"
             },
             "detail": {
-                "title": "ImageGeoTagHeritageEntity"
+                "title": "Image Media"
             },
             "title": "Title",
             "description": "Description",
@@ -23,8 +23,8 @@
             "consolidatedTags": "ConsolidatedTags",
             "urlOrfileLink": "UrlOrfileLink",
             "photo": "Photo",
-            "heritageCategory": "HeritageCategory",
-            "heritageLanguage": "HeritageLanguage"
+            "heritageCategory": "Heritage Category",
+            "heritageLanguage": "Heritage Language"
         }
     }
 }

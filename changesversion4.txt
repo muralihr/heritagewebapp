@@ -1,0 +1,195 @@
+latest changes 
+
+ker           hs_err_pid19826.log      pom.xml
+ubuntu@ip-172-31-20-246:~/heritageapp/server/heritagewebapp$ git pull --all remo                                                                                                                                                                                               te
+fatal: fetch --all does not take a repository argument
+ubuntu@ip-172-31-20-246:~/heritageapp/server/heritagewebapp$ git pull --al
+Fetching origin
+remote: Counting objects: 235, done.
+remote: Compressing objects: 100% (228/228), done.
+^Zceiving objects:  54% (127/235), 372.00 KiB | 734.00 KiB/s
+[1]+  Stopped                 git pull --al
+ubuntu@ip-172-31-20-246:~/heritageapp/server/heritagewebapp$ ^C
+ubuntu@ip-172-31-20-246:~/heritageapp/server/heritagewebapp$ git pull --all
+Fetching origin
+remote: Counting objects: 235, done.
+remote: Compressing objects: 100% (228/228), done.
+remote: Total 235 (delta 77), reused 0 (delta 0), pack-reused 0
+Receiving objects: 100% (235/235), 954.36 KiB | 709.00 KiB/s, done.
+Resolving deltas: 100% (77/77), done.
+From https://github.com/muralihr/heritagewebapp
+   dcf3d81..d51d90d  master     -> origin/master
+Updating dcf3d81..d51d90d
+Fast-forward
+ .jhipster/TextGeoTagHeritageEntity.json            |    7 +
+ clevercloud/war.json                               |    2 +-
+ impfiles/newfgields.txt                            |  101 +
+ pom.xml                                            |   29 +-
+ .../heritageapp/config/SecurityConfiguration.java  |    7 +-
+ .../domain/TextGeoTagHeritageEntity.java           |   12 +
+ .../java/org/janastu/heritageapp/domain/User.java  |   38 +
+ .../heritageapp/domain/util/MResponseToken.java    |   44 +
+ .../heritageapp/domain/util/RestReturnCodes.java   |   12 +
+ .../AudioGeoTagHeritageEntityRepository.java       |    1 +
+ .../repository/HeritageCategoryRepository.java     |    4 +-
+ .../repository/HeritageLanguageRepository.java     |    2 +
+ .../ImageGeoTagHeritageEntityRepository.java       |    2 +
+ .../VideoGeoTagHeritageEntityRepository.java       |    3 +
+ .../service/AudioGeoTagHeritageEntityService.java  |    3 +-
+ .../service/ImageGeoTagHeritageEntityService.java  |    2 +
+ .../service/TextGeoTagHeritageEntityService.java   |    3 +-
+ .../janastu/heritageapp/service/UserService.java   |   33 +
+ .../service/VideoGeoTagHeritageEntityService.java  |    3 +-
+ .../impl/AudioGeoTagHeritageEntityServiceImpl.java |    7 +
+ .../impl/ImageGeoTagHeritageEntityServiceImpl.java |    8 +
+ .../impl/TextGeoTagHeritageEntityServiceImpl.java  |    6 +
+ .../impl/VideoGeoTagHeritageEntityServiceImpl.java |    6 +
+ .../heritageapp/web/rest/AccountResource.java      |   67 +
+ .../janastu/heritageapp/web/rest/AppConstants.java |   21 +
+ .../rest/AudioGeoTagHeritageEntityResource.java    |  113 +-
+ .../web/rest/GeoJsonHeritageSpotsResource.java     |  417 +
+ .../rest/ImageGeoTagHeritageEntityResource.java    |  206 +-
+ .../heritageapp/web/rest/MediaResponse.java        |    5 +
+ .../rest/VideoGeoTagHeritageEntityResource.java    |  114 +
+ .../web/rest/dto/TextGeoTagHeritageEntityDTO.java  |   20 +
+ .../janastu/heritageapp/web/rest/dto/UserDTO.java  |   34 +
+ .../mapper/TextGeoTagHeritageEntityMapper.java     |   12 +
+ src/main/resources/config/application.yml          |    4 +-
+ .../changelog/00000000000000_initial_schema.xml    |   10 +
+ ...02349_added_entity_TextGeoTagHeritageEntity.xml |    7 +
+ .../angular-leaflet-directive/.bower.json          |   74 +
+ .../angular-leaflet-directive/LICENSE              |   22 +
+ .../angular-leaflet-directive/bower.json           |   64 +
+ .../angular-leaflet-directive/coffeelint.json      |  114 +
+ .../dist/angular-leaflet-directive.js              | 5734 ++++++++++++
+ .../dist/angular-leaflet-directive.min.js          |   40 +
+ .../dist/angular-leaflet-directive.no-header.js    | 5705 ++++++++++++
+ .../angular-leaflet-directive/generate-examples.js |  205 +
+ .../angular-leaflet-directive/grunt/aliases.yaml   |   54 +
+ .../angular-leaflet-directive/grunt/clean.json     |    4 +
+ .../angular-leaflet-directive/grunt/concat.json    |   36 +
+ .../angular-leaflet-directive/grunt/connect.json   |   18 +
+ .../angular-leaflet-directive/grunt/jscs.json      |    7 +
+ .../angular-leaflet-directive/grunt/jshint.json    |   14 +
+ .../angular-leaflet-directive/grunt/karma.json     |    7 +
+ .../grunt/ngAnnotate.json                          |    8 +
+ .../angular-leaflet-directive/grunt/open.json      |    8 +
+ .../grunt/protractor.json                          |   20 +
+ .../angular-leaflet-directive/grunt/shell.json     |   21 +
+ .../angular-leaflet-directive/grunt/uglify.json    |   11 +
+ .../angular-leaflet-directive/grunt/watch.json     |    9 +
+ .../webapp/bower_components/leaflet/.bower.json    |   33 +
+ .../webapp/bower_components/leaflet/CHANGELOG.md   |  957 ++
+ .../bower_components/leaflet/CONTRIBUTING.md       |  155 +
+ .../webapp/bower_components/leaflet/Jakefile.js    |   48 +
+ src/main/webapp/bower_components/leaflet/LICENSE   |   23 +
+ .../bower_components/leaflet/PLUGIN-GUIDE.md       |  127 +
+ src/main/webapp/bower_components/leaflet/README.md |   34 +
+ .../webapp/bower_components/leaflet/bower.json     |   23 +
+ .../webapp/bower_components/leaflet/component.json |   20 +
+ .../leaflet/dist/images/layers-2x.png              |  Bin 0 -> 2898 bytes
+ .../leaflet/dist/images/layers.png                 |  Bin 0 -> 1502 bytes
+ .../leaflet/dist/images/marker-icon-2x.png         |  Bin 0 -> 4033 bytes
+ .../leaflet/dist/images/marker-icon.png            |  Bin 0 -> 1747 bytes
+ .../leaflet/dist/images/marker-shadow.png          |  Bin 0 -> 797 bytes
+ .../bower_components/leaflet/dist/leaflet-src.js   | 9168 ++++++++++++++++++++
+ .../bower_components/leaflet/dist/leaflet.css      |  479 +
+ .../bower_components/leaflet/dist/leaflet.js       |    9 +
+ .../webapp/bower_components/leaflet/package.json   |   33 +
+ src/main/webapp/footer.html                        |   52 +
+ .../webapp/i18n/en/textGeoTagHeritageEntity.json   |    3 +-
+ .../webapp/i18n/fr/textGeoTagHeritageEntity.json   |    3 +-
+ src/main/webapp/index.html                         |   35 +-
+ .../images/foyer-du-soldat-b-932x680-69.jpg        |  Bin 0 -> 83760 bytes
+ .../mobiassets/images/map-cover-f-1045x728-91.jpg  |  Bin 0 -> 77190 bytes
+ .../images/pallavan-img3-d-493x260-2.jpg           |  Bin 0 -> 22884 bytes
+ .../images/papthi-colour-a-1920x1788-8.jpg         |  Bin 0 -> 437434 bytes
+ .../images/pondicherry-old-map-a-456x357-71.jpg    |  Bin 0 -> 9977 bytes
+ .../mobiassets/images/rice-flour-kolam-a.gif       |  Bin 0 -> 3349 bytes
+ .../tamil-house-inside-view-1-1024x681-41.jpg      |  Bin 0 -> 68324 bytes
+ src/main/webapp/mobiassets/mobirise/css/style.css  |   22 +-
+ src/main/webapp/scripts/app/app.js                 |    4 +-
+ .../audioGeoTagHeritageEntity.controller.js        |   88 +-
+ .../audioGeoTagHeritageEntitys.html                |   36 +-
+ .../imageGeoTagHeritageEntity.controller.js        |  108 +-
+ .../imageGeoTagHeritageEntitys.html                |  147 +-
+ .../textGeoTagHeritageEntity-detail.controller.js  |    2 +-
+ .../textGeoTagHeritageEntity-detail.html           |    8 +
+ .../textGeoTagHeritageEntity-dialog.controller.js  |    9 +-
+ .../textGeoTagHeritageEntity-dialog.html           |    6 +
+ .../textGeoTagHeritageEntity.controller.js         |   37 +-
+ .../textGeoTagHeritageEntitys.html                 |   14 +-
+ .../videoGeoTagHeritageEntity.controller.js        |   94 +-
+ .../videoGeoTagHeritageEntitys.html                |  140 +-
+ .../webapp/scripts/app/main/auroville-map.html     |   65 +
+ src/main/webapp/scripts/app/main/heritage-map.html |   61 +
+ .../webapp/scripts/app/main/main.controller.js     |  422 +-
+ src/main/webapp/scripts/app/main/main.html         |  379 +-
+ src/main/webapp/scripts/app/main/main.js           |   80 +
+ src/main/webapp/scripts/app/main/map-bahour.html   |   61 +
+ .../webapp/scripts/app/main/showimagetemplate.html |   51 +
+ src/main/webapp/scripts/app/main/town-map.html     |   61 +
+ .../videoGeoTagHeritageEntity.service.js           |    9 +
+ .../webapp/scripts/components/navbar/navbar.html   |   41 +-
+ ...tGeoTagHeritageEntity-detail.controller.spec.js |    6 +-
+ ttx.txt                                            |  308 +-
+ 112 files changed, 25757 insertions(+), 1244 deletions(-)
+ create mode 100644 impfiles/newfgields.txt
+ create mode 100644 src/main/java/org/janastu/heritageapp/domain/util/MResponseT                                                                                                                                                                                               oken.java
+ create mode 100644 src/main/java/org/janastu/heritageapp/domain/util/RestReturn                                                                                                                                                                                               Codes.java
+ create mode 100644 src/main/java/org/janastu/heritageapp/web/rest/AppConstants.                                                                                                                                                                                               java
+ create mode 100644 src/main/java/org/janastu/heritageapp/web/rest/GeoJsonHerita                                                                                                                                                                                               geSpotsResource.java
+ create mode 100644 src/main/java/org/janastu/heritageapp/web/rest/MediaResponse                                                                                                                                                                                               .java
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/.                                                                                                                                                                                               bower.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/L                                                                                                                                                                                               ICENSE
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/b                                                                                                                                                                                               ower.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/c                                                                                                                                                                                               offeelint.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/d                                                                                                                                                                                               ist/angular-leaflet-directive.js
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/d                                                                                                                                                                                               ist/angular-leaflet-directive.min.js
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/d                                                                                                                                                                                               ist/angular-leaflet-directive.no-header.js
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               enerate-examples.js
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/aliases.yaml
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/clean.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/concat.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/connect.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/jscs.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/jshint.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/karma.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/ngAnnotate.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/open.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/protractor.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/shell.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/uglify.json
+ create mode 100644 src/main/webapp/bower_components/angular-leaflet-directive/g                                                                                                                                                                                               runt/watch.json
+ create mode 100644 src/main/webapp/bower_components/leaflet/.bower.json
+ create mode 100644 src/main/webapp/bower_components/leaflet/CHANGELOG.md
+ create mode 100644 src/main/webapp/bower_components/leaflet/CONTRIBUTING.md
+ create mode 100644 src/main/webapp/bower_components/leaflet/Jakefile.js
+ create mode 100644 src/main/webapp/bower_components/leaflet/LICENSE
+ create mode 100644 src/main/webapp/bower_components/leaflet/PLUGIN-GUIDE.md
+ create mode 100644 src/main/webapp/bower_components/leaflet/README.md
+ create mode 100644 src/main/webapp/bower_components/leaflet/bower.json
+ create mode 100644 src/main/webapp/bower_components/leaflet/component.json
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/images/layers-                                                                                                                                                                                               2x.png
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/images/layers.                                                                                                                                                                                               png
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/images/marker-                                                                                                                                                                                               icon-2x.png
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/images/marker-                                                                                                                                                                                               icon.png
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/images/marker-                                                                                                                                                                                               shadow.png
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/leaflet-src.js
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/leaflet.css
+ create mode 100644 src/main/webapp/bower_components/leaflet/dist/leaflet.js
+ create mode 100644 src/main/webapp/bower_components/leaflet/package.json
+ create mode 100644 src/main/webapp/footer.html
+ create mode 100644 src/main/webapp/mobiassets/images/foyer-du-soldat-b-932x680-                                                                                                                                                                                               69.jpg
+ create mode 100644 src/main/webapp/mobiassets/images/map-cover-f-1045x728-91.jp                                                                                                                                                                                               g
+ create mode 100644 src/main/webapp/mobiassets/images/pallavan-img3-d-493x260-2.                                                                                                                                                                                               jpg
+ create mode 100644 src/main/webapp/mobiassets/images/papthi-colour-a-1920x1788-                                                                                                                                                                                               8.jpg
+ create mode 100644 src/main/webapp/mobiassets/images/pondicherry-old-map-a-456x                                                                                                                                                                                               357-71.jpg
+ create mode 100644 src/main/webapp/mobiassets/images/rice-flour-kolam-a.gif
+ create mode 100644 src/main/webapp/mobiassets/images/tamil-house-inside-view-1-                                                                                                                                                                                               1024x681-41.jpg
+ create mode 100644 src/main/webapp/scripts/app/main/auroville-map.html
+ create mode 100644 src/main/webapp/scripts/app/main/heritage-map.html
+ create mode 100644 src/main/webapp/scripts/app/main/map-bahour.html
+ create mode 100644 src/main/webapp/scripts/app/main/showimagetemplate.html
+ create mode 100644 src/main/webapp/scripts/app/main/town-map.html
+ubuntu@ip-172-31-20-246:~/heritageapp/server/heritagewebapp$

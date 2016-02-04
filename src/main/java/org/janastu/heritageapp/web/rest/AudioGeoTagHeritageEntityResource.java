@@ -77,7 +77,7 @@ public class AudioGeoTagHeritageEntityResource {
         //get the file and dump the data 
         ///
         String link;
-        if(audioGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        if(audioGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http"))
         {        
         	link = audioGeoTagHeritageEntityDTO.getUrlOrfileLink();
         }

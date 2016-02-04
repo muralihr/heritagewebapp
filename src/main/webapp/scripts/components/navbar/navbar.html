@@ -4,22 +4,29 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+              
+               
             </button>
             
         </div>
         
-        
+          <div ng-show="true" class="logo" aria-hidden="false"></div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
+             <li ui-sref-active="active">
+             
+               </li>
                 <li ui-sref-active="active">
+              
                     <a ui-sref="home" data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-home"></span>
                         <span class="hidden-sm" translate="global.menu.home">Home</span>
                     </a>
                     
                       
+                        
                         
                         
 
@@ -29,25 +36,25 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
-                            <span class="hidden-sm" translate="global.menu.entities.main">
-                                Entities
+                            <span class="hidden-sm"  >
+                                Add Content
                             </span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active" ><a ui-sref="heritageCategory" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.heritageCategory">heritageCategory</span></a></li>
+                        &#xA0;<span >Add Heritage Category</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="heritageLanguage" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.heritageLanguage">heritageLanguage</span></a></li>
+                        &#xA0;<span  >Add Heritage Language</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="imageGeoTagHeritageEntity" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.imageGeoTagHeritageEntity">imageGeoTagHeritageEntity</span></a></li>
+                        &#xA0;<span  >Add Image  </span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="videoGeoTagHeritageEntity" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.videoGeoTagHeritageEntity">videoGeoTagHeritageEntity</span></a></li>
+                        &#xA0;<span  >Add Video</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="audioGeoTagHeritageEntity" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.audioGeoTagHeritageEntity">audioGeoTagHeritageEntity</span></a></li>
+                        &#xA0;<span  >Add Audio</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="textGeoTagHeritageEntity" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span translate="global.menu.entities.textGeoTagHeritageEntity">textGeoTagHeritageEntity</span></a></li>
+                        &#xA0;<span >Add Text</span></a></li>
                         <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     </ul>
                 </li>

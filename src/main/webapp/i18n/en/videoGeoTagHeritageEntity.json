@@ -2,18 +2,18 @@
     "heritageMapperAppApp": {
         "videoGeoTagHeritageEntity" : {
             "home": {
-                "title": "VideoGeoTagHeritageEntitys",
-                "createLabel": "Create a new VideoGeoTagHeritageEntity",
-                "createOrEditLabel": "Create or edit a VideoGeoTagHeritageEntity"
+                "title": "Video Media",
+                "createLabel": "Create a new Video Media",
+                "createOrEditLabel": "Create or edit a Video Media"
             },
-            "created": "A new VideoGeoTagHeritageEntity is created with identifier {{ param }}",
-            "updated": "A VideoGeoTagHeritageEntity is updated with identifier {{ param }}",
-            "deleted": "A VideoGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "created": "A new Video Media   is created with identifier {{ param }}",
+            "updated": "A Video Media is updated with identifier {{ param }}",
+            "deleted": "A Video Media is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete VideoGeoTagHeritageEntity {{ id }}?"
+                "question": "Are you sure you want to delete Video Media {{ id }}?"
             },
             "detail": {
-                "title": "VideoGeoTagHeritageEntity"
+                "title": "Video Heritage"
             },
             "title": "Title",
             "description": "Description",

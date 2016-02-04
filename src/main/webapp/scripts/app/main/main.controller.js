@@ -26,10 +26,10 @@ angular.module('heritageMapperAppApp')
                  lng:  77.6733499,
                  zoom: 14
              },
-             aurovillecenter: {
+             aurovillecenter: { //12.007127, 79.810771
                  lat:  12.006833 ,
                  lng:  79.810513,
-                 zoom: 14
+                 zoom: 14 
              },
              towncenter: {
                  lat:   11.935001,

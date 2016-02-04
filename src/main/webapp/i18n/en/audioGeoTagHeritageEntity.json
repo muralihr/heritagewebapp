@@ -2,18 +2,18 @@
     "heritageMapperAppApp": {
         "audioGeoTagHeritageEntity" : {
             "home": {
-                "title": "AudioGeoTagHeritageEntitys",
-                "createLabel": "Create a new AudioGeoTagHeritageEntity",
-                "createOrEditLabel": "Create or edit a AudioGeoTagHeritageEntity"
+                "title": "Audion Geo Tag Media",
+                "createLabel": "Create a new Audion Geo Tag Media",
+                "createOrEditLabel": "Create or edit a Audion Geo Tag Media"
             },
-            "created": "A new AudioGeoTagHeritageEntity is created with identifier {{ param }}",
-            "updated": "A AudioGeoTagHeritageEntity is updated with identifier {{ param }}",
-            "deleted": "A AudioGeoTagHeritageEntity is deleted with identifier {{ param }}",
+            "created": "A new Audion Geo Tag Media is created with identifier {{ param }}",
+            "updated": "A Audion Geo Tag Media is updated with identifier {{ param }}",
+            "deleted": "A Audion Geo Tag Media is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete AudioGeoTagHeritageEntity {{ id }}?"
+                "question": "Are you sure you want to delete Audion Geo Tag Media {{ id }}?"
             },
             "detail": {
-                "title": "AudioGeoTagHeritageEntity"
+                "title": "Audion Geo Tag Media"
             },
             "title": "Title",
             "description": "Description",

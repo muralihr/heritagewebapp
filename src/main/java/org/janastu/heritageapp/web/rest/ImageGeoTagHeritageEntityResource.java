@@ -125,7 +125,7 @@ public class ImageGeoTagHeritageEntityResource {
         //get the file and dump the data 
         ///
         String link;
-        if(imageGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        if(imageGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http"))
         {        
         	link = imageGeoTagHeritageEntityDTO.getUrlOrfileLink();
         }

@@ -83,7 +83,7 @@ public class VideoGeoTagHeritageEntityResource {
         ////
         
         String link;
-        if(videoGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http://"))
+        if(videoGeoTagHeritageEntityDTO.getUrlOrfileLink().startsWith("http"))
         {        
         	link = videoGeoTagHeritageEntityDTO.getUrlOrfileLink();
         }

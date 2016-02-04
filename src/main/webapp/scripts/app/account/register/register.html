@@ -111,13 +111,57 @@
                         </p>
                     </div>
                 </div>
+                
+                 <div class="form-group">
+                    <label class="control-label" for="ageGroup"  >Age Group</label> </p>
+                    
+                    <input type="radio" id="ageGroup" name='ageGroup' ng-model="registerAccount.ageGroup" value="Child" required>  Child <br/>
+					<input type="radio" name='ageGroup'  id="ageGroup" ng-model="registerAccount.ageGroup" value="Youth" required> Youth <br/>
+					<input type="radio" name='ageGroup'  id="ageGroup" ng-model="registerAccount.ageGroup" value="Adult" required> Adult <br/>
+					<input type="radio" name='ageGroup'  id="ageGroup" ng-model="registerAccount.ageGroup" value="Elderly" required> Elderly <br/>
+                   
+                    <div ng-show="form.ageGroup.$dirty && form.ageGroup.$invalid">
+                        <p class="help-block"
+                               ng-show="form.ageGroup.$error.required"  >
+                            Your ageGroup   is required.
+                        </p>
+                        
+                    </div>
+                </div>
+                
+                 <div class="form-group">
+                    <label class="control-label" for="residentStatus"  >What is your Resident Status </label> </p>
+                    
+                    <input type="radio" id="residentStatus" name='residentStatus' ng-model="registerAccount.residentStatus" value="true" required> I am a  Resident <br/>
+					<input type="radio" name='residentStatus'  id="residentStatus" ng-model="registerAccount.residentStatus" value="false" required> I am a  Visitor <br/>
+					 
+                    <div ng-show="form.residentStatus.$dirty && form.residentStatus.$invalid">
+                        <p class="help-block"
+                               ng-show="form.residentStatus.$error.required"  >
+                            Your residentStatus   is required.
+                        </p>
+                        
+                    </div>
+                </div>
+                </p>
+                 <div class="form-group">
+                    <label class="control-label" for=specialMessage  >What makes Pondicherry special to you? </label> </p>
+                    
+                      <input type="text" class="form-control" id="specialMessage" name="specialMessage"  
+                           ng-model="registerAccount.specialMessage"   required>
+                   
+                    <div ng-show="form.specialMessage.$dirty && form.specialMessage.$invalid">
+                        <p class="help-block"
+                               ng-show="form.residentStatus.$error.required"  >
+                            Your specialMessage   is required.
+                        </p>
+                        
+                    </div>
+                </div>
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
             </form>
             <p></p>
-            <div class="alert alert-warning" translate="global.messages.info.authenticated">
-                If you want to <a class="alert-link" href="#/login">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
-            </div>
         </div>
     </div>
 </div>

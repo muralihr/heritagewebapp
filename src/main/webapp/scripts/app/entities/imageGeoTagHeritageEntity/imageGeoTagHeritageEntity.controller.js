@@ -13,11 +13,7 @@ angular.module('heritageMapperAppApp')
         	
        
               
-             var latLang = new google.maps.LatLng(sharedGeoProperties.getLatitude(), sharedGeoProperties.getLongitude());
-        	 
-         	 
-        	 ;
-             ;
+             
             ImageGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');

@@ -12,7 +12,8 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-striped">
+           <div ng-show="isAdmin"> 
+           <table class="table table-striped">
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -50,6 +51,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </div>
     <uib-pager total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pager>
 </div>

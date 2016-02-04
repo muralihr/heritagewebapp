@@ -13,6 +13,7 @@ public class AppConstants {
 	 public static final String UPLOAD_FOLDER_VIDEO = "heritagevideos";
 	 public static final String UPLOAD_FOLDER_IMAGES = "heritageimages";
 	 public static final String MEDIA_SERVER_URL = "http://192.168.1.19:8082/";
+	 //public static final String MEDIA_SERVER_URL = "http://pondy.openrun.com:8080/";
 	 
 	 public static final String MEDIA_APP_NAME = "heritagedocs";
 	 public static final String MEDIA_ROOT_FOLDER_NAME = "list";
