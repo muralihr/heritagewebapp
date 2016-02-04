@@ -16,7 +16,9 @@ import org.janastu.heritageapp.service.TextGeoTagHeritageEntityService;
 import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
+import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
+import org.janastu.heritageapp.web.rest.dto.TextGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.VideoGeoTagHeritageEntityMapper;
 import org.slf4j.Logger;
@@ -91,7 +93,7 @@ public class GeoJsonHeritageSpotsResource {
 	@Autowired
 	private Environment environment;
 
-	@RequestMapping(value = "/allGeoTagHeritageEntitysGeoJson", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/allGeoTagHeritageEntitysGeoJson", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@Transactional(readOnly = true)
 	public FeatureCollection getAllVideoGeoTagHeritageEntitysAsGeoJSON() throws URISyntaxException {
@@ -204,6 +206,9 @@ public class GeoJsonHeritageSpotsResource {
 		return totalCollection;
 
 	}
+	
+	
+	
 
 	// put the api to store the info here ;
 
@@ -378,7 +383,25 @@ public class GeoJsonHeritageSpotsResource {
 	private void createAudioData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String urlLinkToMedia  )
 	{
 		
-		
+		AudioGeoTagHeritageEntityDTO audioGeoTagHeritageEntityDTO = null;
+		audioGeoTagHeritageEntityDTO = new AudioGeoTagHeritageEntityDTO();
+		 
+		//audioGeoTagHeritageEntityDTO.setAddress(address);
+		audioGeoTagHeritageEntityDTO.setLatitude(Double.valueOf(latitude));
+		audioGeoTagHeritageEntityDTO.setLongitude(Double.valueOf(longitude));
+		audioGeoTagHeritageEntityDTO.setTitle(title);
+		audioGeoTagHeritageEntityDTO.setDescription("      " + description);
+		HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
+		if (hCategory != null)
+			audioGeoTagHeritageEntityDTO.setHeritageCategoryId(hCategory.getId());
+		HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language);
+		if (hLanguage != null)
+			audioGeoTagHeritageEntityDTO.setHeritageLanguageId(hLanguage.getId()); 
+		audioGeoTagHeritageEntityDTO.setUrlOrfileLink(urlLinkToMedia);
+		byte[] array = new byte[1];
+		audioGeoTagHeritageEntityDTO.setAudioFile( array);
+		AudioGeoTagHeritageEntityDTO result = audioGeoTagHeritageEntityService.save(audioGeoTagHeritageEntityDTO);
+
 		
 	}
 	private void createVideoData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
@@ -407,7 +430,23 @@ public class GeoJsonHeritageSpotsResource {
 	private void createTextData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String mediatype   )
 	{
 		
-		
+		TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO = null;
+		textGeoTagHeritageEntityDTO = new TextGeoTagHeritageEntityDTO();
+		 
+	//	textGeoTagHeritageEntityDTO.setAddress(address);
+		textGeoTagHeritageEntityDTO.setLatitude(Double.valueOf(latitude));
+		textGeoTagHeritageEntityDTO.setLongitude(Double.valueOf(longitude));
+		textGeoTagHeritageEntityDTO.setTitle(title);
+		textGeoTagHeritageEntityDTO.setDescription("      " + description);
+		HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
+		if (hCategory != null)
+			textGeoTagHeritageEntityDTO.setHeritageCategoryId(hCategory.getId());
+		HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language);
+		if (hLanguage != null)
+			textGeoTagHeritageEntityDTO.setHeritageLanguageId(hLanguage.getId()); 
+		 
+ 
+		TextGeoTagHeritageEntityDTO result = textGeoTagHeritageEntityService.save(textGeoTagHeritageEntityDTO);
 		
 	}
 	
