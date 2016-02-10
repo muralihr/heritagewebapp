@@ -46,12 +46,14 @@ public class VideoGeoTagHeritageEntity implements Serializable {
     @Column(name = "url_orfile_link")
     private String urlOrfileLink;
 
-    @NotNull
+ 
     @Lob
     @Column(name = "video_file", nullable = false)
     private byte[] videoFile;
 
-    @Column(name = "video_file_content_type", nullable = false)        private String videoFileContentType;
+    @Column(name = "video_file_content_type", nullable = false)     
+    private String videoFileContentType;
+    
     @ManyToOne
     @JoinColumn(name = "heritage_category_id")
     private HeritageCategory heritageCategory;

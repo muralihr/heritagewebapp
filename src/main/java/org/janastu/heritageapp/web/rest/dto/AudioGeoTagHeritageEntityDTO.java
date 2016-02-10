@@ -35,7 +35,7 @@ public class AudioGeoTagHeritageEntityDTO implements Serializable {
 
     private String urlOrfileLink;
 
-    @NotNull
+     
     @Lob
     private byte[] audioFile;
 

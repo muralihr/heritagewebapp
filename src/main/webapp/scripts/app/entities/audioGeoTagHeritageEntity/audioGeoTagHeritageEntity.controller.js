@@ -1,17 +1,37 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('AudioGeoTagHeritageEntityController', function ($scope, $state, DataUtils,sharedGeoProperties, AudioGeoTagHeritageEntity, ParseLinks) {
+    .controller('AudioGeoTagHeritageEntityController', function ($scope, $state, Principal, DataUtils,sharedGeoProperties, AudioGeoTagHeritageEntity, ParseLinks) {
 
         $scope.audioGeoTagHeritageEntitys = [];
         $scope.predicate = 'id';
         $scope.reverse = true;
         $scope.page = 1;
+        $scope.isAdmin = false;
         $scope.loadAll = function() {
             AudioGeoTagHeritageEntity.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
                 $scope.audioGeoTagHeritageEntitys = result;
+                
+
+                Principal.hasAuthority('ROLE_ADMIN')
+                .then(function (result) {
+                    if (result) {
+                    	
+                    	
+                    	 $scope.isAdmin = true;
+                    	 console.log("$scope.isAdmin true" );
+                    } else {
+                    	$scope.isAdmin = false;
+                    	console.log("$scope.isAdmin false" );
+                    }
+                });
+                
+                
+                console.log("$scope.isAdmin"+$scope.isAdmin);
+                
+         
             });
         };
         $scope.loadPage = function(page) {
@@ -51,22 +71,22 @@ angular.module('heritageMapperAppApp')
 		
 		///leadf let 
         
-        $scope.lat2 = 0;
-        
-        $scope.lng2 = 0;
+      
 		
 		angular.extend($scope, {
             center: {
-                lat:  12.9326189,
-                lng:  77.6733499,
-                zoom: 14
+                lat:  11.93252413,
+                lng:  79.82084512, 
+                
+                zoom: 15
             },
             
             markers: {
             	 centerMarker: {
-                     lat: 12.9326189,
-                     lng: 77.6733499,
-                     message: "I want to Tag here!",
+            		 lat:  11.93269,
+                     lng:  79.8287844, 
+                     
+                     message: "Click on the map to move the marker to a Specific Location!",
                      focus: true,
                      draggable: true
                  }
@@ -91,6 +111,8 @@ angular.module('heritageMapperAppApp')
 
         });
 		
+		    $scope.lat2 = $scope.center.lat;	        
+	        $scope.lng2 =  $scope.center.lng;
 		
 		 $scope.$on('leafletDirectiveMap.click', function(event, args){
     		 console.log("click on leafletDirectiveMap"+event);

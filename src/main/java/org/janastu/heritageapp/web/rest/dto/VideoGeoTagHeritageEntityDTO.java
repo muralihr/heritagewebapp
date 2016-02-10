@@ -35,7 +35,7 @@ public class VideoGeoTagHeritageEntityDTO implements Serializable {
 
     private String urlOrfileLink;
 
-    @NotNull
+ 
     @Lob
     private byte[] videoFile;
 

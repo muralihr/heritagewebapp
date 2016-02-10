@@ -113,7 +113,7 @@
             </div>
             <input type="hidden" class="form-control" name="audioFile" id="field_audioFile"
                     ng-model="audioGeoTagHeritageEntity.audioFile"
-                    required />
+                      />
             <input type="hidden" class="form-control" name="audioFileContentType" id="field_audioFileContentType"
                     ng-model="audioGeoTagHeritageEntity.audioFileContentType" />
             <div ng-show="editForm.audioFile.$invalid">
@@ -141,7 +141,7 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+        <button type="submit" ng-disabled="editForm.$invalid  " class="btn btn-primary">
             <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
         </button>
     </div>

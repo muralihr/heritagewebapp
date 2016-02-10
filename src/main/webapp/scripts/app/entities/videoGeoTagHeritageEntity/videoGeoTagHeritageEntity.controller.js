@@ -75,27 +75,26 @@ angular.module('heritageMapperAppApp')
 //MAP FUNCTIOSN START
 		
 		///leadf let 
-        
-        $scope.lat2 = 0;
-        
-        $scope.lng2 = 0;
+      
 		
 		angular.extend($scope, {
-            center: {
-                lat:  12.9326189,
-                lng:  77.6733499,
-                zoom: 14
-            },
-            
-            markers: {
-            	 centerMarker: {
-                     lat: 12.9326189,
-                     lng: 77.6733499,
-                     message: "I want to Tag here!",
-                     focus: true,
-                     draggable: true
-                 }
-            },
+			 center: {
+	                lat:  11.93252413,
+	                lng:  79.82084512, 
+	                
+	                zoom: 15
+	            },
+	            
+	            markers: {
+	            	 centerMarker: {
+	            		 lat:  11.93269,
+	                     lng:  79.8287844, 
+	                     
+	                     message: "Click on the map to move the marker to a Specific Location!",
+	                     focus: true,
+	                     draggable: true
+	                 }
+	            },
             
             events: {
 		        markers: {
@@ -116,7 +115,8 @@ angular.module('heritageMapperAppApp')
 
         });
 		
-		
+	    $scope.lat2 = $scope.center.lat;	        
+        $scope.lng2 =  $scope.center.lng;
 		 $scope.$on('leafletDirectiveMap.click', function(event, args){
     		 console.log("click on leafletDirectiveMap"+event);
     		 

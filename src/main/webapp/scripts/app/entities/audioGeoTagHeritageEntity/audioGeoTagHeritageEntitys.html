@@ -7,7 +7,7 @@
         <div class="row">
 
             <div class="col-md-10">
-                    <leaflet lf-center="center" tiles="tiles" geojson="geojson" width="100%" height="480px" markers="markers" event-broadcast="events"></leaflet>
+                    <leaflet lf-center="center" tiles="tiles" geojson="geojson" width="115%" height="600px" markers="markers" event-broadcast="events"></leaflet>
   <pre ng-bind="layers | json"></pre>
                   <h4> Latitude  {{  lat2 }}</h4>
                 <h4> Longitude  {{ lng2 }}</h4> 
@@ -23,7 +23,8 @@
     </div>
 
     <div class="table-responsive">
-      <div ng-show="isAdmin">  <table class="table table-striped">
+      <div ng-show="isAdmin"> 
+       <table class="table table-striped">
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>

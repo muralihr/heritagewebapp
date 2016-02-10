@@ -46,7 +46,7 @@ public class AudioGeoTagHeritageEntity implements Serializable {
     @Column(name = "url_orfile_link")
     private String urlOrfileLink;
 
-    @NotNull
+    
     @Lob
     @Column(name = "audio_file", nullable = false)
     private byte[] audioFile;

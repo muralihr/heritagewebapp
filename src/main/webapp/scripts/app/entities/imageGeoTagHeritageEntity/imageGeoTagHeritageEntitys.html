@@ -24,7 +24,7 @@
 </div>
 
 <div class="table-responsive">
-   <div ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" class="dropdown pointer">
+    <div ng-show="isAdmin">
      <table class="table table-striped">
         <thead>
             <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
