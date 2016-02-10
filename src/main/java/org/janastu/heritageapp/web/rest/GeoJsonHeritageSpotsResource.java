@@ -241,6 +241,7 @@ public class GeoJsonHeritageSpotsResource {
 		String longitude = request.getParameter("longitude");
 		String mediatypeStr = request.getParameter("mediatype");
 		int mediaType = Integer.parseInt(mediatypeStr);
+		String mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
 
 		log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
@@ -249,16 +250,25 @@ public class GeoJsonHeritageSpotsResource {
 			if(OSValidator.isUnix())
 			{
 				pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
-				log.debug("UNIX ENV" );
+				log.debug("UNIX ENV");
 			}
 			if(OSValidator.isWindows())
 			{
 				pataHome = AppConstants.UPLOAD_FOLDER_WIN;
-				log.debug("WINDOWS ENV" );
+				log.debug("WINDOWS ENV");
 			}
-			
-			pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
 				
+		}
+		
+		if(OSValidator.isUnix())
+		{
+			mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
+			log.debug("UNIX ENV");
+		}
+		if(OSValidator.isWindows())
+		{
+			mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+			log.debug("WINDOWS ENV");
 		}
 		
 		
@@ -288,12 +298,12 @@ public class GeoJsonHeritageSpotsResource {
 				switch (mediaType) {
 				case AppConstants.AUDIOTYPE:
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_AUDIO;
-					urlLinkToMedia = AppConstants.MEDIA_SERVER_URL + "/" + AppConstants.MEDIA_APP_NAME + "/"
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
 					break;
 				case AppConstants.IMAGETYPE:
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
-					urlLinkToMedia = AppConstants.MEDIA_SERVER_URL + "/" + AppConstants.MEDIA_APP_NAME + "/"
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					break;
 				case AppConstants.TEXTTYPE:
@@ -301,7 +311,7 @@ public class GeoJsonHeritageSpotsResource {
 					break;
 				case AppConstants.VIDEOTYPE:
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
-					urlLinkToMedia = AppConstants.MEDIA_SERVER_URL + "/" + AppConstants.MEDIA_APP_NAME + "/"
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					break;
 				}

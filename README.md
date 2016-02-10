@@ -73,3 +73,19 @@ To setup this project in Jenkins, use the following configuration:
 [Karma]: http://karma-runner.github.io/
 [Jasmine]: http://jasmine.github.io/2.0/introduction.html
 [Protractor]: https://angular.github.io/protractor/
+
+# Notes
+
+To make the Media files available for the public - we are uploading into a specific folder in the system.
+This is configured in the Appconstants.java (package org.janastu.heritageapp.web.rest)
+
+ public static final String UPLOAD_FOLDER_LINUX = "//var/lib/tomcat7/webapps/heritagedocs/list";
+ 
+ 
+ public static final String MEDIA_SERVER_URL_UBUNTU = "http://pondy.openrun.com:8080/";
+ 
+ * heritagedocs is a web app that lists all the files in the list folder.
+  
+ 
+	
+
