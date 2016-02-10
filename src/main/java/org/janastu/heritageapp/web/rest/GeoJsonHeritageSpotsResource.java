@@ -15,6 +15,7 @@ import org.janastu.heritageapp.service.ImageGeoTagHeritageEntityService;
 import org.janastu.heritageapp.service.TextGeoTagHeritageEntityService;
 import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
+import org.janastu.heritageapp.web.rest.util.OSValidator;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
 import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
@@ -243,6 +244,25 @@ public class GeoJsonHeritageSpotsResource {
 
 		log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+		if(pataHome == null)
+		{
+			if(OSValidator.isUnix())
+			{
+				pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
+				log.debug("UNIX ENV" );
+			}
+			if(OSValidator.isWindows())
+			{
+				pataHome = AppConstants.UPLOAD_FOLDER_WIN;
+				log.debug("WINDOWS ENV" );
+			}
+			
+			pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
+				
+		}
+		
+		
+		log.debug("UPLOAD  FOLDER LOCATION "+pataHome);
 		Iterator<String> itr = request.getFileNames();
 		MultipartFile mpf = null;
 		byte[] photo = null;
