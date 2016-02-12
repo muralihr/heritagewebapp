@@ -8,6 +8,7 @@ import org.janastu.heritageapp.domain.HeritageLanguage;
 import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.TextGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
+import org.janastu.heritageapp.domain.util.RestReturnCodes;
 import org.janastu.heritageapp.repository.HeritageCategoryRepository;
 import org.janastu.heritageapp.repository.HeritageLanguageRepository;
 import org.janastu.heritageapp.service.AudioGeoTagHeritageEntityService;
@@ -362,31 +363,51 @@ public class GeoJsonHeritageSpotsResource {
 		}
 		
 		MediaResponse retValue2 = new MediaResponse();
+		long resultVal =0; 
 		
-		
-		switch (mediaType) {
-		case AppConstants.AUDIOTYPE:
-		 
-			break;
-		case AppConstants.IMAGETYPE:
-			
-			createImageData(  title,   description,  address,   category,   language,    latitude,   longitude ,   urlLinkToMedia +"//"+mpf.getOriginalFilename() );
-			 
-			break;
-		case AppConstants.TEXTTYPE:
-			// No upload just store ;
-			break;
-		case AppConstants.VIDEOTYPE:
-			createVideoData(  title,   description,  address,   category,   language,    latitude,   longitude ,   urlLinkToMedia +"//"+mpf.getOriginalFilename() );
-			break;
+		try
+		{
+			switch (mediaType) {
+			case AppConstants.AUDIOTYPE:
+				resultVal = createAudioData(  title,   description,  address,   category,   language,    latitude,   longitude ,   urlLinkToMedia +"//"+mpf.getOriginalFilename() );
+				
+				break;
+			case AppConstants.IMAGETYPE:
+				
+				resultVal = createImageData(  title,   description,  address,   category,   language,    latitude,   longitude ,   urlLinkToMedia +"//"+mpf.getOriginalFilename() );
+				 
+				break;
+			case AppConstants.TEXTTYPE:
+				// No upload just store ;
+				break;
+			case AppConstants.VIDEOTYPE:
+				resultVal = createVideoData(  title,   description,  address,   category,   language,    latitude,   longitude ,   urlLinkToMedia +"//"+mpf.getOriginalFilename() );
+				break;
+			}
 		}
+		catch(Exception e)
+		{
+			retValue2.setCode(RestReturnCodes.MEDIA_CREATION_EXCEPTION);
+			retValue2.setMediaCreatedId(-1);
+			retValue2.setMessage("Error creating media"+e);
+			retValue2.setStatus("NOTOK");
+			return retValue2;
+			
+			
+		}
+		
+
+		retValue2.setCode(RestReturnCodes.SUCCESS);
+		retValue2.setMediaCreatedId(resultVal);
+		retValue2.setMessage("Created Media Successfully");
+		retValue2.setStatus("OK");
 
 		return retValue2;
 
 	}
 	 
 
-	private void createImageData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
+	private long createImageData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
 	{
 		
 		ImageGeoTagHeritageEntityDTO imageGeoTagHeritageEntityDTO = null;
@@ -407,10 +428,12 @@ public class GeoJsonHeritageSpotsResource {
 		byte[] array = new byte[1];
 		imageGeoTagHeritageEntityDTO.setPhoto(array);
 		ImageGeoTagHeritageEntityDTO result = imageGeoTagHeritageEntityService.save(imageGeoTagHeritageEntityDTO);
+		return result.getId();
 
 		
 	}
-	private void createAudioData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String urlLinkToMedia  )
+	//private void createAudioData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String urlLinkToMedia  )
+	private long createAudioData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
 	{
 		
 		AudioGeoTagHeritageEntityDTO audioGeoTagHeritageEntityDTO = null;
@@ -431,10 +454,11 @@ public class GeoJsonHeritageSpotsResource {
 		byte[] array = new byte[1];
 		audioGeoTagHeritageEntityDTO.setAudioFile( array);
 		AudioGeoTagHeritageEntityDTO result = audioGeoTagHeritageEntityService.save(audioGeoTagHeritageEntityDTO);
+		return result.getId();
 
 		
 	}
-	private void createVideoData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
+	private long createVideoData(String title, String description,String address, String category, String language, String latitude, String longitude,   String urlLinkToMedia   )
 	{
 		   VideoGeoTagHeritageEntityDTO videoGeoTagHeritageEntityDTO = null;
 			videoGeoTagHeritageEntityDTO = new VideoGeoTagHeritageEntityDTO();
@@ -455,9 +479,10 @@ public class GeoJsonHeritageSpotsResource {
 			byte[] array = new byte[1];
 			videoGeoTagHeritageEntityDTO.setVideoFile(array);
 			VideoGeoTagHeritageEntityDTO result = videoGeoTagHeritageEntityService.save(videoGeoTagHeritageEntityDTO);
+			return result.getId();
 		
 	}
-	private void createTextData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String mediatype   )
+	private long createTextData(String title, String description, String category, String language,  File mpictureFile  , String latitude, String longitude, String mediatype   )
 	{
 		
 		TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO = null;
@@ -477,6 +502,7 @@ public class GeoJsonHeritageSpotsResource {
 		 
  
 		TextGeoTagHeritageEntityDTO result = textGeoTagHeritageEntityService.save(textGeoTagHeritageEntityDTO);
+		return result.getId();
 		
 	}
 	

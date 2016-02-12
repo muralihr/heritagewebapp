@@ -9,4 +9,6 @@ public class RestReturnCodes
     public static int LOGIN_FAILURE_USERNAME_MISMATCH = 405;
     public static int LOGIN_FAILURE_PWD_MISMATCH= 406;    
     public static int SUCCESS = 200;
+    
+    public static int MEDIA_CREATION_EXCEPTION = 505;
 }

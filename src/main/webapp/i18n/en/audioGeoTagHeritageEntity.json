@@ -2,29 +2,29 @@
     "heritageMapperAppApp": {
         "audioGeoTagHeritageEntity" : {
             "home": {
-                "title": "Audio  Geo Tag Media",
-                "createLabel": "Create a new Audion Geo Tag Media",
-                "createOrEditLabel": "Create or edit a Audion Geo Tag Media"
+                  "title": "Add Audio",
+                "createLabel": "Place a  Audio File on the Map",
+                "createOrEditLabel": "Add or Edit an Audio File"
             },
-            "created": "A new Audio  Geo Tag Media is created with identifier {{ param }}",
-            "updated": "A Audio  Geo Tag Media is updated with identifier {{ param }}",
-            "deleted": "A Audio  Geo Tag Media is deleted with identifier {{ param }}",
+            "created": "A new Audio is created with identifier {{ param }}",
+            "updated": "An Audio is updated with identifier {{ param }}",
+            "deleted": "An Audio is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete Audion Geo Tag Media {{ id }}?"
+                  "question": "Are you sure you want to delete Audio {{ id }}?"
             },
             "detail": {
-                "title": "Audio  Geo Tag Media"
+                  "title": "Audio Media"
             },
             "title": "Title",
             "description": "Description",
             "address": "Address",
             "latitude": "Latitude",
             "longitude": "Longitude",
-            "consolidatedTags": "ConsolidatedTags",
-            "urlOrfileLink": "UrlOrfileLink",
-            "audioFile": "AudioFile",
-            "heritageCategory": "HeritageCategory",
-            "heritageLanguage": "HeritageLanguage"
+              "consolidatedTags": "Tags (Comma separated)",
+              "urlOrfileLink": "Provide a url link beginnining with http:// or Upload a  Audio by clicking Add Audio below",
+        "audioFile": "AudioFile",
+            "heritageCategory": "Category",
+            "heritageLanguage": "Language"
         }
     }
 }

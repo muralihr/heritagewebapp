@@ -2,15 +2,15 @@
     "heritageMapperAppApp": {
         "imageGeoTagHeritageEntity" : {
             "home": {
-                "title": "Image Geo Tag Media",
-                "createLabel": "Create a new Image Geo Tag Heritage Media",
-                "createOrEditLabel": "Create or edit a Image Geo Tag Heritage Media"
+                "title": "Add Image",
+                "createLabel": "Place an Image File on the Map",
+                "createOrEditLabel": "Add or Edit an Image File"
             },
-            "created": "A new ImageGeoTagMedia is created with identifier {{ param }}",
-            "updated": "A ImageGeoTagHeritageMedia is updated with identifier {{ param }}",
-            "deleted": "A ImageGeoTagHeritageMedia is deleted with identifier {{ param }}",
+            "created": "A new Image is created with identifier {{ param }}",
+            "updated": "An Image is updated with identifier {{ param }}",
+            "deleted": "An Image is deleted with identifier {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete ImageGeoTagHeritageEntity {{ id }}?"
+                "question": "Are you sure you want to delete Image {{ id }}?"
             },
             "detail": {
                 "title": "Image Media"
@@ -20,11 +20,11 @@
             "address": "Address",
             "latitude": "Latitude",
             "longitude": "Longitude",
-            "consolidatedTags": "ConsolidatedTags",
-            "urlOrfileLink": "UrlOrfileLink",
+            "consolidatedTags": "Tags (Comma separated)",
+            "urlOrfileLink": "Provide a url link beginnining with http:// or Upload an Image by clicking Add Image below",
             "photo": "Photo",
-            "heritageCategory": "Heritage Category",
-            "heritageLanguage": "Heritage Language"
+            "heritageCategory": "Category",
+            "heritageLanguage": "Language"
         }
     }
 }

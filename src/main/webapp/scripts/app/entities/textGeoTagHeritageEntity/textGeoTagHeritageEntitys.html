@@ -12,7 +12,6 @@
     </div>
 
     <div class="table-responsive">
-    <div ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" class="dropdown pointer">
         <table class="table table-striped">
             <thead>
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
@@ -24,6 +23,7 @@
                     <th jh-sort-by="longitude"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.longitude">Longitude</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="consolidatedTags"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.consolidatedTags">ConsolidatedTags</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="textDetails"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.textDetails">TextDetails</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="uploadTime"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.uploadTime">UploadTime</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="heritageCategoryCategoryName"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.heritageCategory">heritageCategory</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="heritageLanguageHeritageLanguage"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.heritageLanguage">heritageLanguage</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="customerLogin"><span translate="heritageMapperAppApp.textGeoTagHeritageEntity.customer">customer</span> <span class="glyphicon glyphicon-sort"></span></th>
@@ -40,6 +40,7 @@
                     <td>{{textGeoTagHeritageEntity.longitude}}</td>
                     <td>{{textGeoTagHeritageEntity.consolidatedTags}}</td>
                     <td>{{textGeoTagHeritageEntity.textDetails}}</td>
+                    <td>{{textGeoTagHeritageEntity.uploadTime | date:'medium'}}</td>
                     <td>
                         <a ui-sref="heritageCategory.detail({id:textGeoTagHeritageEntity.heritageCategoryId})">{{textGeoTagHeritageEntity.heritageCategoryCategoryName}}</a>
                     </td>
@@ -69,7 +70,6 @@
                 </tr>
             </tbody>
         </table>
-        </div>
     </div>
     <div class="text-center">
         <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>

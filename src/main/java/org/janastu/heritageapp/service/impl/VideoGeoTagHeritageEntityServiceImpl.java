@@ -3,16 +3,24 @@ package org.janastu.heritageapp.service.impl;
 import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.repository.VideoGeoTagHeritageEntityRepository;
+import org.janastu.heritageapp.web.rest.AppConstants;
 import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.VideoGeoTagHeritageEntityMapper;
+import org.janastu.heritageapp.web.rest.util.HeritageFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +40,8 @@ public class VideoGeoTagHeritageEntityServiceImpl implements VideoGeoTagHeritage
     
     @Inject
     private VideoGeoTagHeritageEntityMapper videoGeoTagHeritageEntityMapper;
+	@Autowired
+	private Environment environment;
     
     /**
      * Save a videoGeoTagHeritageEntity.
@@ -73,6 +83,27 @@ public class VideoGeoTagHeritageEntityServiceImpl implements VideoGeoTagHeritage
      */
     public void delete(Long id) {
         log.debug("Request to delete VideoGeoTagHeritageEntity : {}", id);
+        
+        VideoGeoTagHeritageEntity videoGeoTagHeritageEntity = videoGeoTagHeritageEntityRepository.findOne(id);
+        
+        String url = videoGeoTagHeritageEntity.getUrlOrfileLink();
+        
+        HeritageFileUtil fUtil  = new  HeritageFileUtil();
+    	log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
+		String pataHomeVar = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+        fUtil.getRootFolderName(pataHomeVar);
+        
+        String filename ="";
+		try {
+			filename = Paths.get(new URI(url).getPath()).getFileName().toString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        fUtil.deleteFile("VIDEO",filename);      	
+        
+        
         videoGeoTagHeritageEntityRepository.delete(id);
     }
 

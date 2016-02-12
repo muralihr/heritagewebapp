@@ -76,6 +76,14 @@
             "fieldName": "textDetails",
             "fieldType": "String"
            
+        },		
+		{
+            "fieldId": 8,
+            "fieldName": "uploadTime",
+            "fieldType": "DateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
         }
     ],
     "changelogDate": "20160120102349",

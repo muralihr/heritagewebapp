@@ -3,16 +3,24 @@ package org.janastu.heritageapp.service.impl;
 import org.janastu.heritageapp.service.AudioGeoTagHeritageEntityService;
 import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
 import org.janastu.heritageapp.repository.AudioGeoTagHeritageEntityRepository;
+import org.janastu.heritageapp.web.rest.AppConstants;
 import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.AudioGeoTagHeritageEntityMapper;
+import org.janastu.heritageapp.web.rest.util.HeritageFileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +40,9 @@ public class AudioGeoTagHeritageEntityServiceImpl implements AudioGeoTagHeritage
     
     @Inject
     private AudioGeoTagHeritageEntityMapper audioGeoTagHeritageEntityMapper;
+
+	@Autowired
+	private Environment environment;
     
     /**
      * Save a audioGeoTagHeritageEntity.
@@ -78,8 +89,30 @@ public class AudioGeoTagHeritageEntityServiceImpl implements AudioGeoTagHeritage
     /**
      *  delete the  audioGeoTagHeritageEntity by id.
      */
+   
     public void delete(Long id) {
         log.debug("Request to delete AudioGeoTagHeritageEntity : {}", id);
+        
+        AudioGeoTagHeritageEntity audioGeoTagHeritageEntity = audioGeoTagHeritageEntityRepository.findOne(id);
+        
+        String url = audioGeoTagHeritageEntity.getUrlOrfileLink();
+        
+        HeritageFileUtil fUtil  = new  HeritageFileUtil();
+    	log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
+		String pataHomeVar = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+        fUtil.getRootFolderName(pataHomeVar);
+        
+        String filename ="";
+		try {
+			filename = Paths.get(new URI(url).getPath()).getFileName().toString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        fUtil.deleteFile("AUDIO",filename);      	
+        
+        
         audioGeoTagHeritageEntityRepository.delete(id);
     }
 }

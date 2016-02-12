@@ -70,7 +70,7 @@ class TextGeoTagHeritageEntityGatlingTest extends Simulation {
             .exec(http("Create new textGeoTagHeritageEntity")
             .post("/api/textGeoTagHeritageEntitys")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "latitude":null, "longitude":null, "consolidatedTags":"SAMPLE_TEXT", "textDetails":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "address":"SAMPLE_TEXT", "latitude":null, "longitude":null, "consolidatedTags":"SAMPLE_TEXT", "textDetails":"SAMPLE_TEXT", "uploadTime":"2020-01-01T00:00:00.000Z"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_textGeoTagHeritageEntity_url")))
             .pause(10)

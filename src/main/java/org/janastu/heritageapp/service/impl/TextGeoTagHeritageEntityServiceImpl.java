@@ -75,10 +75,4 @@ public class TextGeoTagHeritageEntityServiceImpl implements TextGeoTagHeritageEn
         log.debug("Request to delete TextGeoTagHeritageEntity : {}", id);
         textGeoTagHeritageEntityRepository.delete(id);
     }
-
-	@Override
-	public List<TextGeoTagHeritageEntity> findAllAsAList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

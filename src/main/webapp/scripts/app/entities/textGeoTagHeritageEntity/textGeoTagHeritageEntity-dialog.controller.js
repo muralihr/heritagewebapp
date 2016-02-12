@@ -36,4 +36,13 @@ angular.module('heritageMapperAppApp').controller('TextGeoTagHeritageEntityDialo
         $scope.clear = function() {
             $uibModalInstance.dismiss('cancel');
         };
+        $scope.datePickerForUploadTime = {};
+
+        $scope.datePickerForUploadTime.status = {
+            opened: false
+        };
+
+        $scope.datePickerForUploadTimeOpen = function($event) {
+            $scope.datePickerForUploadTime.status.opened = true;
+        };
 }]);

@@ -4,6 +4,7 @@ angular.module('heritageMapperAppApp')
     .factory('Principal', function Principal($q, Account) {
         var _identity,
             _authenticated = false;
+        var reference = this;
 
         return {
             isIdentityResolved: function () {
@@ -36,6 +37,8 @@ angular.module('heritageMapperAppApp')
 
                 return false;
             },
+            
+            
             authenticate: function (identity) {
                 _identity = identity;
                 _authenticated = identity !== null;

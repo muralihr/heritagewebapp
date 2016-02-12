@@ -1,5 +1,6 @@
 package org.janastu.heritageapp.domain;
 
+import java.time.ZonedDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -45,6 +46,10 @@ public class TextGeoTagHeritageEntity implements Serializable {
 
     @Column(name = "text_details")
     private String textDetails;
+
+    @NotNull
+    @Column(name = "upload_time", nullable = false)
+    private ZonedDateTime uploadTime;
 
     @ManyToOne
     @JoinColumn(name = "heritage_category_id")
@@ -122,6 +127,14 @@ public class TextGeoTagHeritageEntity implements Serializable {
         this.textDetails = textDetails;
     }
 
+    public ZonedDateTime getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(ZonedDateTime uploadTime) {
+        this.uploadTime = uploadTime;
+    }
+
     public HeritageCategory getHeritageCategory() {
         return heritageCategory;
     }
@@ -174,6 +187,7 @@ public class TextGeoTagHeritageEntity implements Serializable {
             ", longitude='" + longitude + "'" +
             ", consolidatedTags='" + consolidatedTags + "'" +
             ", textDetails='" + textDetails + "'" +
+            ", uploadTime='" + uploadTime + "'" +
             '}';
     }
 }

@@ -1,5 +1,6 @@
 package org.janastu.heritageapp.web.rest.dto;
 
+import java.time.ZonedDateTime;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -33,6 +34,9 @@ public class TextGeoTagHeritageEntityDTO implements Serializable {
     private String consolidatedTags;
 
     private String textDetails;
+
+    @NotNull
+    private ZonedDateTime uploadTime;
 
     private Long heritageCategoryId;
 
@@ -108,6 +112,14 @@ public class TextGeoTagHeritageEntityDTO implements Serializable {
 
     public void setTextDetails(String textDetails) {
         this.textDetails = textDetails;
+    }
+
+    public ZonedDateTime getUploadTime() {
+        return uploadTime;
+    }
+
+    public void setUploadTime(ZonedDateTime uploadTime) {
+        this.uploadTime = uploadTime;
     }
 
     public Long getHeritageCategoryId() {
@@ -190,6 +202,7 @@ public class TextGeoTagHeritageEntityDTO implements Serializable {
             ", longitude='" + longitude + "'" +
             ", consolidatedTags='" + consolidatedTags + "'" +
             ", textDetails='" + textDetails + "'" +
+            ", uploadTime='" + uploadTime + "'" +
             '}';
     }
 }

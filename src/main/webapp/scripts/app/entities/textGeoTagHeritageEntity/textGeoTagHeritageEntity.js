@@ -68,6 +68,7 @@ angular.module('heritageMapperAppApp')
                                     longitude: null,
                                     consolidatedTags: null,
                                     textDetails: null,
+                                    uploadTime: null,
                                     id: null
                                 };
                             }

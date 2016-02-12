@@ -2,22 +2,22 @@
     "heritageMapperAppApp": {
         "heritageCategory" : {
             "home": {
-                "title": "HeritageCategorys",
-                "createLabel": "Create a new HeritageCategory",
-                "createOrEditLabel": "Create or edit a HeritageCategory"
+                "title": "Categories",
+                "createLabel": "Create a new Category",
+                "createOrEditLabel": "Create or edit a Category"
             },
-            "created": "A new HeritageCategory is created with identifier {{ param }}",
-            "updated": "A HeritageCategory is updated with identifier {{ param }}",
-            "deleted": "A HeritageCategory is deleted with identifier {{ param }}",
+            "created": "A new Category is created with id {{ param }}",
+            "updated": "A Category is updated with id {{ param }}",
+            "deleted": "A Category is deleted with id {{ param }}",
             "delete": {
-                "question": "Are you sure you want to delete HeritageCategory {{ id }}?"
+                "question": "Are you sure you want to delete Category {{ id }}?"
             },
             "detail": {
-                "title": "HeritageCategory"
+                "title": " Category"
             },
-            "categoryName": "CategoryName",
-            "categoryIcon": "CategoryIcon",
-            "categoryDecription": "CategoryDecription"
+            "categoryName": "Category Name",
+            "categoryIcon": "Category Icon",
+            "categoryDecription": "Category Description"
         }
     }
 }

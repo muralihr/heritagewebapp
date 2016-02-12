@@ -8,6 +8,7 @@ angular.module('heritageMapperAppApp')
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
+                    data.uploadTime = DateUtils.convertDateTimeFromServer(data.uploadTime);
                     return data;
                 }
             },

@@ -22,6 +22,7 @@
             "longitude": "Longitude",
             "consolidatedTags": "ConsolidatedTags",
             "textDetails": "TextDetails",
+            "uploadTime": "UploadTime",
             "heritageCategory": "HeritageCategory",
             "heritageLanguage": "HeritageLanguage",
             "customer": "Customer"

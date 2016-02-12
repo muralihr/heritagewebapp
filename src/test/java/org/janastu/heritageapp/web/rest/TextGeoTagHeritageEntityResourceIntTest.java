@@ -26,6 +26,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,6 +48,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @IntegrationTest
 public class TextGeoTagHeritageEntityResourceIntTest {
 
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withZone(ZoneId.of("Z"));
+
     private static final String DEFAULT_TITLE = "AAAAA";
     private static final String UPDATED_TITLE = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
@@ -60,6 +66,10 @@ public class TextGeoTagHeritageEntityResourceIntTest {
     private static final String UPDATED_CONSOLIDATED_TAGS = "BBBBB";
     private static final String DEFAULT_TEXT_DETAILS = "AAAAA";
     private static final String UPDATED_TEXT_DETAILS = "BBBBB";
+
+    private static final ZonedDateTime DEFAULT_UPLOAD_TIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final ZonedDateTime UPDATED_UPLOAD_TIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final String DEFAULT_UPLOAD_TIME_STR = dateTimeFormatter.format(DEFAULT_UPLOAD_TIME);
 
     @Inject
     private TextGeoTagHeritageEntityRepository textGeoTagHeritageEntityRepository;
@@ -101,6 +111,7 @@ public class TextGeoTagHeritageEntityResourceIntTest {
         textGeoTagHeritageEntity.setLongitude(DEFAULT_LONGITUDE);
         textGeoTagHeritageEntity.setConsolidatedTags(DEFAULT_CONSOLIDATED_TAGS);
         textGeoTagHeritageEntity.setTextDetails(DEFAULT_TEXT_DETAILS);
+        textGeoTagHeritageEntity.setUploadTime(DEFAULT_UPLOAD_TIME);
     }
 
     @Test
@@ -127,6 +138,7 @@ public class TextGeoTagHeritageEntityResourceIntTest {
         assertThat(testTextGeoTagHeritageEntity.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testTextGeoTagHeritageEntity.getConsolidatedTags()).isEqualTo(DEFAULT_CONSOLIDATED_TAGS);
         assertThat(testTextGeoTagHeritageEntity.getTextDetails()).isEqualTo(DEFAULT_TEXT_DETAILS);
+        assertThat(testTextGeoTagHeritageEntity.getUploadTime()).isEqualTo(DEFAULT_UPLOAD_TIME);
     }
 
     @Test
@@ -207,6 +219,25 @@ public class TextGeoTagHeritageEntityResourceIntTest {
 
     @Test
     @Transactional
+    public void checkUploadTimeIsRequired() throws Exception {
+        int databaseSizeBeforeTest = textGeoTagHeritageEntityRepository.findAll().size();
+        // set the field null
+        textGeoTagHeritageEntity.setUploadTime(null);
+
+        // Create the TextGeoTagHeritageEntity, which fails.
+        TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO = textGeoTagHeritageEntityMapper.textGeoTagHeritageEntityToTextGeoTagHeritageEntityDTO(textGeoTagHeritageEntity);
+
+        restTextGeoTagHeritageEntityMockMvc.perform(post("/api/textGeoTagHeritageEntitys")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(textGeoTagHeritageEntityDTO)))
+                .andExpect(status().isBadRequest());
+
+        List<TextGeoTagHeritageEntity> textGeoTagHeritageEntitys = textGeoTagHeritageEntityRepository.findAll();
+        assertThat(textGeoTagHeritageEntitys).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllTextGeoTagHeritageEntitys() throws Exception {
         // Initialize the database
         textGeoTagHeritageEntityRepository.saveAndFlush(textGeoTagHeritageEntity);
@@ -222,7 +253,8 @@ public class TextGeoTagHeritageEntityResourceIntTest {
                 .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
                 .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
                 .andExpect(jsonPath("$.[*].consolidatedTags").value(hasItem(DEFAULT_CONSOLIDATED_TAGS.toString())))
-                .andExpect(jsonPath("$.[*].textDetails").value(hasItem(DEFAULT_TEXT_DETAILS.toString())));
+                .andExpect(jsonPath("$.[*].textDetails").value(hasItem(DEFAULT_TEXT_DETAILS.toString())))
+                .andExpect(jsonPath("$.[*].uploadTime").value(hasItem(DEFAULT_UPLOAD_TIME_STR)));
     }
 
     @Test
@@ -242,7 +274,8 @@ public class TextGeoTagHeritageEntityResourceIntTest {
             .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
             .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.consolidatedTags").value(DEFAULT_CONSOLIDATED_TAGS.toString()))
-            .andExpect(jsonPath("$.textDetails").value(DEFAULT_TEXT_DETAILS.toString()));
+            .andExpect(jsonPath("$.textDetails").value(DEFAULT_TEXT_DETAILS.toString()))
+            .andExpect(jsonPath("$.uploadTime").value(DEFAULT_UPLOAD_TIME_STR));
     }
 
     @Test
@@ -269,6 +302,7 @@ public class TextGeoTagHeritageEntityResourceIntTest {
         textGeoTagHeritageEntity.setLongitude(UPDATED_LONGITUDE);
         textGeoTagHeritageEntity.setConsolidatedTags(UPDATED_CONSOLIDATED_TAGS);
         textGeoTagHeritageEntity.setTextDetails(UPDATED_TEXT_DETAILS);
+        textGeoTagHeritageEntity.setUploadTime(UPDATED_UPLOAD_TIME);
         TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO = textGeoTagHeritageEntityMapper.textGeoTagHeritageEntityToTextGeoTagHeritageEntityDTO(textGeoTagHeritageEntity);
 
         restTextGeoTagHeritageEntityMockMvc.perform(put("/api/textGeoTagHeritageEntitys")
@@ -287,6 +321,7 @@ public class TextGeoTagHeritageEntityResourceIntTest {
         assertThat(testTextGeoTagHeritageEntity.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testTextGeoTagHeritageEntity.getConsolidatedTags()).isEqualTo(UPDATED_CONSOLIDATED_TAGS);
         assertThat(testTextGeoTagHeritageEntity.getTextDetails()).isEqualTo(UPDATED_TEXT_DETAILS);
+        assertThat(testTextGeoTagHeritageEntity.getUploadTime()).isEqualTo(UPDATED_UPLOAD_TIME);
     }
 
     @Test
