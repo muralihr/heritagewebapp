@@ -233,9 +233,35 @@ public class ImageGeoTagHeritageEntityResource {
         
     	  log.debug( "DIR PATA HOME" +environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV ));
     	  String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+    	    String mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+	  		if(pataHome == null)
+	  		{
+	  			if(OSValidator.isUnix())
+	  			{
+	  				pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
+	  				log.debug("UNIX ENV");
+	  			}
+	  			if(OSValidator.isWindows())
+	  			{
+	  				pataHome = AppConstants.UPLOAD_FOLDER_WIN;
+	  				log.debug("WINDOWS ENV");
+	  			}
+	  				
+	  		}
+	  		
+	  		if(OSValidator.isUnix())
+	  		{
+	  			mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
+	  			log.debug("UNIX ENV");
+	  		}
+	  		if(OSValidator.isWindows())
+	  		{
+	  			mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+	  			log.debug("WINDOWS ENV");
+	  		}
     	  
     	 	String storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_IMAGES;
-    	 	String 	urlLinkToMedia = AppConstants.MEDIA_SERVER_URL +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_IMAGES;
+    	 	String 	urlLinkToMedia = mediaServerUrl +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_IMAGES;
     	 	
     	    String downLoadFileName = storageDirectory +"//"+ imageGeoTagHeritageEntityDTO.getUrlOrfileLink();
     	    
