@@ -79,7 +79,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.codahale.metrics.annotation.Timed;
-
+import org.janastu.heritageapp.web.rest.util.OSValidator;
  
 
 /**
