@@ -137,7 +137,7 @@ public class VideoGeoTagHeritageEntityResource {
 	  		}
     	  
     	 	String storageDirectory = pataHome +"//" + AppConstants.UPLOAD_FOLDER_IMAGES;
-    	 	String 	urlLinkToMedia = mediaServerUrl +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_IMAGES;
+    	 	String 	urlLinkToMedia = mediaServerUrl +"/"+AppConstants.MEDIA_APP_NAME +"/"+ AppConstants.MEDIA_ROOT_FOLDER_NAME +"/" +AppConstants.UPLOAD_FOLDER_VIDEO;
     	 		
   	    String downLoadFileName = storageDirectory +"//"+ videoGeoTagHeritageEntityDTO.getUrlOrfileLink();
   	    
