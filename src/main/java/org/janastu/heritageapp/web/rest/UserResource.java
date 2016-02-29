@@ -56,6 +56,7 @@ import java.util.stream.Collectors;
  * <p>Another option would be to have a specific JPA entity graph to handle this case.</p>
  */
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class UserResource {
 

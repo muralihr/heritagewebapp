@@ -27,6 +27,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class HeritageCategoryResource {
 
     private final Logger log = LoggerFactory.getLogger(HeritageCategoryResource.class);

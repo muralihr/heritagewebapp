@@ -40,9 +40,15 @@
             <column name="audio_file_content_type" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
+            <column name="upload_time" type="timestamp">
+                <constraints nullable="false" />
+            </column>
             <column name="heritage_category_id" type="bigint"/>
             <column name="heritage_language_id" type="bigint"/>
+            <column name="customer_id" type="bigint"/>
         </createTable>
+        <dropDefaultValue tableName="audio_geo_tag_heritage_entity" columnName="upload_time" columnDataType="datetime"/>
+
         
         <addForeignKeyConstraint baseColumnNames="heritage_category_id"
                                  baseTableName="audio_geo_tag_heritage_entity"
@@ -55,6 +61,12 @@
                                  constraintName="fk_audiogeotagheritageentity_heritagelanguage_id"
                                  referencedColumnNames="id"
                                  referencedTableName="heritage_language"/>
+
+        <addForeignKeyConstraint baseColumnNames="customer_id"
+                                 baseTableName="audio_geo_tag_heritage_entity"
+                                 constraintName="fk_audiogeotagheritageentity_customer_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>
