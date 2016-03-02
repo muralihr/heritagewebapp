@@ -224,6 +224,7 @@ public class GeoJsonHeritageSpotsResource {
 	// imageGeoTagHeritageFromMobile
 	@RequestMapping(value = "/createAnyMediaGeoTagHeritageFromMobile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
+	@CrossOrigin
 	public  MediaResponse  createAnyMediaGeoTagHeritageFromMobile(
 			MultipartHttpServletRequest request, HttpServletResponse response) throws URISyntaxException {
 		log.debug("uploadPost called title" + request.getParameter("title"));

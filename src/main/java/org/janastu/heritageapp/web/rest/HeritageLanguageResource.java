@@ -29,6 +29,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class HeritageLanguageResource {
 
     private final Logger log = LoggerFactory.getLogger(HeritageLanguageResource.class);
