@@ -126,7 +126,7 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "IMAGE");
 			properties.put("marker-symbol", "square");
-			properties.put("category", item.getHeritageCategory().getCategoryName());
+			//	properties.put("category", item.getHeritageCategory().getCategoryName());
 			// marker-size
 			// "marker-color": "#ff8888",
 
@@ -151,7 +151,7 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "VIDEO");
 			properties.put("marker-symbol", "rocket");
-			properties.put("category", item.getHeritageCategory().getCategoryName());
+			//	properties.put("category", item.getHeritageCategory().getCategoryName());
 			// #FFC107
 			// marker-size
 			// "marker-color": "#ff8888",
@@ -176,7 +176,7 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "AUDIO");
 			properties.put("marker-symbol", "circle");
-			properties.put("category", item.getHeritageCategory().getCategoryName());
+			//properties.put("category", item.getHeritageCategory().getCategoryName());
 			// #FFC107
 			// marker-size
 			// "marker-color": "#ff8888",
