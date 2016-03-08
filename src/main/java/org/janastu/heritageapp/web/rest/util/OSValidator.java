@@ -1,5 +1,5 @@
 package org.janastu.heritageapp.web.rest.util;
-
+ 
 public class OSValidator
 {
 	private static String OS = System.getProperty("os.name").toLowerCase();

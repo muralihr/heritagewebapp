@@ -97,6 +97,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/heritageCategorys").permitAll()
             .antMatchers("/api/heritageLanguages").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile").permitAll()
+            .antMatchers("/api/createAnyMediaGeoTagHeritageFromWeb").permitAll()
+            .antMatchers("/api/createMediaHeritageForm/**").permitAll()
+            
             //createAnyMediaGeoTagHeritageFromMobile
             
             
@@ -120,7 +123,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/configuration/ui").permitAll()
             .antMatchers("/swagger-ui/index.html").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated() 
-        .and()
+            .and()
             .apply(securityConfigurerAdapter());
 
     }
