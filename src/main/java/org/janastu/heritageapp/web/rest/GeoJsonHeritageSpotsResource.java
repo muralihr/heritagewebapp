@@ -18,6 +18,8 @@ import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.OSValidator;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.janastu.heritageapp.web.rest.dto.AudioGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.TextGeoTagHeritageEntityDTO;
@@ -50,6 +52,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -113,8 +118,7 @@ public class GeoJsonHeritageSpotsResource {
 		List<VideoGeoTagHeritageEntity> videoList = videoGeoTagHeritageEntityService.findAllAsAList();
 		List<ImageGeoTagHeritageEntity> imageList = imageGeoTagHeritageEntityService.findAllAsAList();
 		List<AudioGeoTagHeritageEntity> audioList = audioGeoTagHeritageEntityService.findAllAsAList();
-		// List<TextGeoTagHeritageEntity> textList =
-		// textGeoTagHeritageEntityService.findAllAsAList();
+		List<TextGeoTagHeritageEntity> textList =  textGeoTagHeritageEntityService.findAllAsAList();
 
 		for (ImageGeoTagHeritageEntity item : imageList) {
 
@@ -133,8 +137,19 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "IMAGE");
 			properties.put("marker-symbol", "camera");
-			// properties.put("category",
-			// item.getHeritageCategory().getCategoryName());
+			if(item.getHeritageCategory()!= null)
+			{
+				log.debug("getCategoryName   name " + item.getHeritageCategory().getCategoryName());
+				
+				properties.put("category",item.getHeritageCategory().getCategoryName());
+			}
+			if(item.getHeritageLanguage()!= null)
+			{
+				log.debug("getHeritageLanguage   name " + item.getHeritageLanguage().getHeritageLanguage());
+				
+				properties.put("language",item.getHeritageLanguage().getHeritageLanguage());
+			}
+			// 
 			// marker-size
 			// "marker-color": "#ff8888",
 
@@ -159,12 +174,19 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "VIDEO");
 			properties.put("marker-symbol", "cinema");
-			// properties.put("category",
-			// item.getHeritageCategory().getCategoryName());
-			// #FFC107
-			// marker-size
-			// "marker-color": "#ff8888",
+			if(item.getHeritageCategory()!= null)
+			{
+				log.debug("getCategoryName   name " + item.getHeritageCategory().getCategoryName());
+				
+				properties.put("category",item.getHeritageCategory().getCategoryName());
+			}
 
+			if(item.getHeritageLanguage()!= null)
+			{
+				log.debug("getHeritageLanguage   name " + item.getHeritageLanguage().getHeritageLanguage());
+				
+				properties.put("language",item.getHeritageLanguage().getHeritageLanguage());
+			}
 			f.setProperties(properties);
 			totalCollection.add(f);
 		}
@@ -185,34 +207,55 @@ public class GeoJsonHeritageSpotsResource {
 			properties.put("marker-size", "small");
 			properties.put("mediatype", "AUDIO");
 			properties.put("marker-symbol", "music");
-			// properties.put("category",
-			// item.getHeritageCategory().getCategoryName());
-			// #FFC107
-			// marker-size
-			// "marker-color": "#ff8888",
+			if(item.getHeritageCategory()!= null)
+			{
+				log.debug("getCategoryName   name " + item.getHeritageCategory().getCategoryName());
+				
+				properties.put("category",item.getHeritageCategory().getCategoryName());
+			}
+			
+			if(item.getHeritageLanguage()!= null)
+			{
+				log.debug("getHeritageLanguage   name " + item.getHeritageLanguage().getHeritageLanguage());
+				
+				properties.put("language",item.getHeritageLanguage().getHeritageLanguage());
+			}
 
 			f.setProperties(properties);
 			totalCollection.add(f);
 		}
 
-		/*
-		 * for (TextGeoTagHeritageEntity item : textList) {
-		 * 
-		 * LngLatAlt coordinates = new LngLatAlt(item.getLongitude(),
-		 * item.getLatitude()); Point c = new Point(coordinates); Feature f =
-		 * new Feature(); f.setGeometry(c); f.setId(item.getId().toString());
-		 * Map<String, Object> properties = new HashMap<String, Object>();
-		 * 
-		 * properties.put("title", item.getTitle());
-		 * properties.put("description", item.getDescription());
-		 * 
-		 * properties.put("marker-color", "#727272"); // ma#FFECB3rker-color
-		 * properties.put("marker-size", "small"); properties.put("mediatype",
-		 * "TEXT"); properties.put("marker-symbol", "circle"); // #FFC107 //
-		 * marker-size // "marker-color": "#ff8888",
-		 * 
-		 * f.setProperties(properties); totalCollection.add(f); }
-		 */
+		 for (TextGeoTagHeritageEntity item : textList) {
+			  
+			  LngLatAlt coordinates = new LngLatAlt(item.getLongitude(),
+			  item.getLatitude()); Point c = new Point(coordinates); 
+			  Feature f =			  new Feature(); 
+			  f.setGeometry(c);
+			  f.setId(item.getId().toString());
+			  Map<String, Object> properties = new HashMap<String, Object>();
+			  
+			  properties.put("title", item.getTitle());
+			  properties.put("description", item.getDescription());
+			  
+			  properties.put("marker-color", "#727272"); // ma#FFECB3rker-color
+			  properties.put("marker-size", "small"); 
+			  properties.put("mediatype",	  "TEXT"); 
+			  properties.put("marker-symbol", "golf"); // #FFC107 //
+			  
+			  if(item.getHeritageCategory()!= null)
+			  {
+					log.debug("getCategoryName   name " + item.getHeritageCategory().getCategoryName());
+					
+					properties.put("category",item.getHeritageCategory().getCategoryName());
+			  }
+			  if(item.getHeritageLanguage()!= null)
+				{
+					log.debug("getHeritageLanguage   name " + item.getHeritageLanguage().getHeritageLanguage());
+					
+					properties.put("language",item.getHeritageLanguage().getHeritageLanguage());
+				}
+			  
+			  f.setProperties(properties); totalCollection.add(f); }
 
 		return totalCollection;
 
@@ -379,6 +422,7 @@ public class GeoJsonHeritageSpotsResource {
 				break;
 			case AppConstants.TEXTTYPE:
 				// No upload just store ;
+				resultVal = createTextData(title, description, address, category, language, latitude, longitude );
 				break;
 			case AppConstants.VIDEOTYPE:
 				resultVal = createVideoData(title, description, address, category, language, latitude, longitude,
@@ -407,6 +451,9 @@ public class GeoJsonHeritageSpotsResource {
 	@CrossOrigin
 	public MediaResponse createAnyMediaGeoTagHeritageFromMobile(MultipartHttpServletRequest request,
 			HttpServletResponse response) throws URISyntaxException {
+		
+		MediaResponse retValue2 = new MediaResponse();
+		long resultVal = 0;
 		log.debug("uploadPost called title" + request.getParameter("title"));
 		log.debug("description  " + request.getParameter("description"));
 		log.debug("category  " + request.getParameter("category"));// category
@@ -425,6 +472,26 @@ public class GeoJsonHeritageSpotsResource {
 		String mediatypeStr = request.getParameter("mediatype");
 		int mediaType = Integer.parseInt(mediatypeStr);
 		String mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+		if(mediaType == AppConstants.TEXTTYPE )
+		{
+			try{
+				resultVal = createTextData(title, description, address, category, language, latitude, longitude);
+			}
+			catch(Exception e)
+			{
+				
+				retValue2.setCode(RestReturnCodes.EXCEPTION);
+				retValue2.setMediaCreatedId(-1);
+				retValue2.setMessage("Create  Media FAILED");
+				retValue2.setStatus("NOTOK");
+				return retValue2;
+			}
+			retValue2.setCode(RestReturnCodes.SUCCESS);
+			retValue2.setMediaCreatedId(resultVal);
+			retValue2.setMessage("Created Media Successfully");
+			retValue2.setStatus("OK");
+			return retValue2;
+		}
 
 		log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
@@ -535,8 +602,7 @@ public class GeoJsonHeritageSpotsResource {
 			log.error("Error while save and  upload file " + e);
 		}
 
-		MediaResponse retValue2 = new MediaResponse();
-		long resultVal = 0;
+	
 
 		try {
 			switch (mediaType) {
@@ -553,6 +619,8 @@ public class GeoJsonHeritageSpotsResource {
 				break;
 			case AppConstants.TEXTTYPE:
 				// No upload just store ;
+				
+
 				break;
 			case AppConstants.VIDEOTYPE:
 				resultVal = createVideoData(title, description, address, category, language, latitude, longitude,
@@ -577,6 +645,42 @@ public class GeoJsonHeritageSpotsResource {
 
 	}
 
+	private long createTextData(String title, String description, String address, String category, String language,
+			String latitude, String longitude )
+	{
+		
+		TextGeoTagHeritageEntityDTO textGeoTagHeritageEntityDTO = null;
+		textGeoTagHeritageEntityDTO = new TextGeoTagHeritageEntityDTO();
+
+		textGeoTagHeritageEntityDTO.setAddress(address);
+		textGeoTagHeritageEntityDTO.setLatitude(Double.valueOf(latitude));
+		textGeoTagHeritageEntityDTO.setLongitude(Double.valueOf(longitude));
+		textGeoTagHeritageEntityDTO.setTitle(title);
+		textGeoTagHeritageEntityDTO.setDescription("      " + description);
+		HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
+		if (hCategory != null)
+			textGeoTagHeritageEntityDTO.setHeritageCategoryId(hCategory.getId());
+		HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language);
+		if (hLanguage != null)
+			textGeoTagHeritageEntityDTO.setHeritageLanguageId(hLanguage.getId());
+		 
+		 //set the time ;
+		 
+		
+		String inputIso = "2014-03-19T21:00:00+05:30";
+		DateTimeZone timeZoneIndia = DateTimeZone.forID( "Asia/Kolkata" );
+		DateTime dateTimeIndia = new DateTime( inputIso, timeZoneIndia );
+		
+
+	    String s ="Asia/Kolkata";
+	    LocalDateTime dt = LocalDateTime.now();
+		ZoneId zone = ZoneId.of(s);
+	    ZonedDateTime uploadTime = dt.atZone(zone);	    
+	    textGeoTagHeritageEntityDTO.setUploadTime(uploadTime);
+	 
+		TextGeoTagHeritageEntityDTO result = textGeoTagHeritageEntityService.save(textGeoTagHeritageEntityDTO);
+		return result.getId();
+	}
 	private long createImageData(String title, String description, String address, String category, String language,
 			String latitude, String longitude, String urlLinkToMedia) {
 

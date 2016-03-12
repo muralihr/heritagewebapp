@@ -35,4 +35,6 @@ public interface TextGeoTagHeritageEntityService {
      *  delete the "id" textGeoTagHeritageEntity.
      */
     public void delete(Long id);
+
+	public List<TextGeoTagHeritageEntity> findAllAsAList();
 }

@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface TextGeoTagHeritageEntityRepository extends JpaRepository<TextGeoTagHeritageEntity,Long> {
 
+	List<TextGeoTagHeritageEntity> findAllByOrderByIdAsc(); 
 }
