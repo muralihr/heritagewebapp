@@ -1,0 +1,116 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "category",
+            "otherEntityName": "heritageCategory",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "categoryName"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "language",
+            "otherEntityName": "heritageLanguage",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "heritageLanguage"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "group",
+            "otherEntityName": "heritageGroup",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipId": 4,
+            "relationshipName": "heritageApp",
+            "otherEntityName": "heritageApp",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipId": 5,
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "latitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "longitude",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "mediaType",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "mediaFile",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "any"
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "urlOrfileLink",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "consolidatedTags",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "userAgent",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 11,
+            "fieldName": "uploadTime",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20160331094534",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "pagination": "pagination"
+}

@@ -1,0 +1,151 @@
+
+<div>
+    <h2><span translate="heritagemapperappApp.heritageMedia.detail.title">HeritageMedia</span> {{heritageMedia.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.title">Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.description">Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.address">Address</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.address}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.latitude">Latitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.latitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.longitude">Longitude</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.longitude}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.mediaType">MediaType</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.mediaType}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.mediaFile">MediaFile</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.mediaFile}}</span>
+                    <div>{{heritageMedia.mediaFileContentType}}  {{byteSize(heritageMedia.mediaFile)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.urlOrfileLink">UrlOrfileLink</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.urlOrfileLink}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.consolidatedTags">ConsolidatedTags</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.consolidatedTags}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.userAgent">UserAgent</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.userAgent}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.uploadTime">UploadTime</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageMedia.uploadTime | date:'medium'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.category">category</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageCategory.detail({id:heritageMedia.categoryId})">{{heritageMedia.categoryCategoryName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.language">language</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageLanguage.detail({id:heritageMedia.languageId})">{{heritageMedia.languageHeritageLanguage}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.group">group</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageGroup.detail({id:heritageMedia.groupId})">{{heritageMedia.groupName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.heritageApp">heritageApp</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageApp.detail({id:heritageMedia.heritageAppId})">{{heritageMedia.heritageAppName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageMedia.user">user</span>
+                </td>
+                <td>
+                    {{heritageMedia.userLogin}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

@@ -1,0 +1,99 @@
+<div>
+    <h2 translate="heritagemapperappApp.heritageMedia.home.title">HeritageMedias</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="heritageMedia.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="heritagemapperappApp.heritageMedia.home.createLabel">Create new HeritageMedia
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span translate="heritagemapperappApp.heritageMedia.title">Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span translate="heritagemapperappApp.heritageMedia.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="address"><span translate="heritagemapperappApp.heritageMedia.address">Address</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="latitude"><span translate="heritagemapperappApp.heritageMedia.latitude">Latitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="longitude"><span translate="heritagemapperappApp.heritageMedia.longitude">Longitude</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mediaType"><span translate="heritagemapperappApp.heritageMedia.mediaType">MediaType</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="mediaFile"><span translate="heritagemapperappApp.heritageMedia.mediaFile">MediaFile</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="urlOrfileLink"><span translate="heritagemapperappApp.heritageMedia.urlOrfileLink">UrlOrfileLink</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="consolidatedTags"><span translate="heritagemapperappApp.heritageMedia.consolidatedTags">ConsolidatedTags</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userAgent"><span translate="heritagemapperappApp.heritageMedia.userAgent">UserAgent</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="uploadTime"><span translate="heritagemapperappApp.heritageMedia.uploadTime">UploadTime</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="categoryCategoryName"><span translate="heritagemapperappApp.heritageMedia.category">category</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="languageHeritageLanguage"><span translate="heritagemapperappApp.heritageMedia.language">language</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="groupName"><span translate="heritagemapperappApp.heritageMedia.group">group</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="heritageAppName"><span translate="heritagemapperappApp.heritageMedia.heritageApp">heritageApp</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userLogin"><span translate="heritagemapperappApp.heritageMedia.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="heritageMedia in heritageMedias track by heritageMedia.id">
+                    <td><a ui-sref="heritageMedia.detail({id:heritageMedia.id})">{{heritageMedia.id}}</a></td>
+                    <td>{{heritageMedia.title}}</td>
+                    <td>{{heritageMedia.description}}</td>
+                    <td>{{heritageMedia.address}}</td>
+                    <td>{{heritageMedia.latitude}}</td>
+                    <td>{{heritageMedia.longitude}}</td>
+                    <td>{{heritageMedia.mediaType}}</td>
+                    <td>{{abbreviate(heritageMedia.mediaFile)}} {{heritageMedia.mediaFileContentType}} {{byteSize(heritageMedia.mediaFile)}}</td>
+                    <td>{{heritageMedia.urlOrfileLink}}</td>
+                    <td>{{heritageMedia.consolidatedTags}}</td>
+                    <td>{{heritageMedia.userAgent}}</td>
+                    <td>{{heritageMedia.uploadTime | date:'medium'}}</td>
+                    <td>
+                        <a ui-sref="heritageCategory.detail({id:heritageMedia.categoryId})">{{heritageMedia.categoryCategoryName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="heritageLanguage.detail({id:heritageMedia.languageId})">{{heritageMedia.languageHeritageLanguage}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="heritageGroup.detail({id:heritageMedia.groupId})">{{heritageMedia.groupName}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="heritageApp.detail({id:heritageMedia.heritageAppId})">{{heritageMedia.heritageAppName}}</a>
+                    </td>
+                    <td>
+                        {{heritageMedia.userLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="heritageMedia.detail({id:heritageMedia.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageMedia.edit({id:heritageMedia.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageMedia.delete({id:heritageMedia.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

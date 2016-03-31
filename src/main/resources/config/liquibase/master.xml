@@ -17,5 +17,6 @@
     <include file="classpath:config/liquibase/changelog/20160331081430_added_entity_HeritageApp.xml" relativeToChangelogFile="false"/>
   
     
+    <include file="classpath:config/liquibase/changelog/20160331094534_added_entity_HeritageMedia.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

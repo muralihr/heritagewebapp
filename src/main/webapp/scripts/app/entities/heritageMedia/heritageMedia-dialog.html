@@ -1,0 +1,180 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myHeritageMediaLabel" translate="heritagemapperappApp.heritageMedia.home.createOrEditLabel">Create or edit a HeritageMedia</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="heritageMedia.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="heritageMedia.title"
+                    required />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="heritageMedia.description"
+                    required />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                    ng-model="heritageMedia.address"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.latitude" for="field_latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" id="field_latitude"
+                    ng-model="heritageMedia.latitude"
+                    required />
+            <div ng-show="editForm.latitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.latitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.longitude" for="field_longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" id="field_longitude"
+                    ng-model="heritageMedia.longitude"
+                    required />
+            <div ng-show="editForm.longitude.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.longitude.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.mediaType" for="field_mediaType">MediaType</label>
+            <input type="number" class="form-control" name="mediaType" id="field_mediaType"
+                    ng-model="heritageMedia.mediaType"
+                    required />
+            <div ng-show="editForm.mediaType.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.mediaType.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.mediaType.$error.number" translate="entity.validation.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setMediaFile($file, heritageMedia)">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.mediaFile" for="field_mediaFile">MediaFile</label>
+            <div>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{abbreviate(heritageMedia.mediaFile)}} {{heritageMedia.mediaFileContentType}} {{byteSize(heritageMedia.mediaFile)}}</span>
+                    <button ng-click="heritageMedia.mediaFile=null;heritageMedia.mediaFileContentType=null;"
+                            ng-if="heritageMedia.mediaFile"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setMediaFile($file, heritageMedia)" translate="entity.action.addblob">
+                    Add blob
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="mediaFile" id="field_mediaFile"
+                    ng-model="heritageMedia.mediaFile"
+                     />
+            <input type="hidden" class="form-control" name="mediaFileContentType" id="field_mediaFileContentType"
+                    ng-model="heritageMedia.mediaFileContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.urlOrfileLink" for="field_urlOrfileLink">UrlOrfileLink</label>
+            <input type="text" class="form-control" name="urlOrfileLink" id="field_urlOrfileLink"
+                    ng-model="heritageMedia.urlOrfileLink"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.consolidatedTags" for="field_consolidatedTags">ConsolidatedTags</label>
+            <input type="text" class="form-control" name="consolidatedTags" id="field_consolidatedTags"
+                    ng-model="heritageMedia.consolidatedTags"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.userAgent" for="field_userAgent">UserAgent</label>
+            <input type="text" class="form-control" name="userAgent" id="field_userAgent"
+                    ng-model="heritageMedia.userAgent"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageMedia.uploadTime" for="field_uploadTime">UploadTime</label>
+            <input type="datetime-local" class="form-control" name="uploadTime" id="field_uploadTime"
+                    ng-model="heritageMedia.uploadTime"
+                     />
+        </div>
+
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageMedia.category" for="field_category">category</label>
+            <select class="form-control" id="field_category" name="category" ng-model="heritageMedia.categoryId" ng-options="heritageCategory.id as heritageCategory.categoryName for heritageCategory in heritagecategorys">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageMedia.language" for="field_language">language</label>
+            <select class="form-control" id="field_language" name="language" ng-model="heritageMedia.languageId" ng-options="heritageLanguage.id as heritageLanguage.heritageLanguage for heritageLanguage in heritagelanguages">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageMedia.group" for="field_group">group</label>
+            <select class="form-control" id="field_group" name="group" ng-model="heritageMedia.groupId" ng-options="heritageGroup.id as heritageGroup.name for heritageGroup in heritagegroups">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageMedia.heritageApp" for="field_heritageApp">heritageApp</label>
+            <select class="form-control" id="field_heritageApp" name="heritageApp" ng-model="heritageMedia.heritageAppId" ng-options="heritageApp.id as heritageApp.name for heritageApp in heritageapps">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageMedia.user" for="field_user">user</label>
+            <select class="form-control" id="field_user" name="user" ng-model="heritageMedia.userId" ng-options="user.id as user.login for user in users">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

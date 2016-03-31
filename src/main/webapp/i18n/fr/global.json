@@ -16,6 +16,7 @@
                 "heritageRegionName": "HeritageRegionName",
                 "heritageGroup": "HeritageGroup",
                 "heritageApp": "HeritageApp",
+                "heritageMedia": "HeritageMedia",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

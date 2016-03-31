@@ -1,0 +1,38 @@
+{
+    "heritagemapperappApp": {
+        "heritageMedia" : {
+            "home": {
+                "title": "HeritageMedias",
+                "createLabel": "Créer un nouveau HeritageMedia",
+                "createOrEditLabel": "Créer ou éditer un HeritageMedia",
+                "search": "Search for HeritageMedia"
+            },
+            "created": "Un nouveau HeritageMedia a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageMedia avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageMedia avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageMedia {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageMedia"
+            },
+            "title": "Title",
+            "description": "Description",
+            "address": "Address",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "mediaType": "MediaType",
+            "mediaFile": "MediaFile",
+            "urlOrfileLink": "UrlOrfileLink",
+            "consolidatedTags": "ConsolidatedTags",
+            "userAgent": "UserAgent",
+            "uploadTime": "UploadTime",
+            "category": "Category",
+            "language": "Language",
+            "group": "Group",
+            "heritageApp": "HeritageApp",
+            "user": "User"
+        }
+    }
+}
+
