@@ -1,0 +1,28 @@
+{
+    "heritagemapperappApp": {
+        "heritageApp" : {
+            "home": {
+                "title": "HeritageApps",
+                "createLabel": "Créer un nouveau HeritageApp",
+                "createOrEditLabel": "Créer ou éditer un HeritageApp",
+                "search": "Search for HeritageApp"
+            },
+            "created": "Un nouveau HeritageApp a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageApp avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageApp avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageApp {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageApp"
+            },
+            "name": "Name",
+            "contact": "Contact",
+            "region": "Region",
+            "group": "Group",
+            "language": "Language",
+            "category": "Category"
+        }
+    }
+}
+

@@ -15,6 +15,7 @@
                 "textGeoTagHeritageEntity": "TextGeoTagHeritageEntity",
                 "heritageRegionName": "HeritageRegionName",
                 "heritageGroup": "HeritageGroup",
+                "heritageApp": "HeritageApp",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

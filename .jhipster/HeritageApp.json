@@ -1,0 +1,58 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "region",
+            "otherEntityName": "heritageRegionName",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "group",
+            "otherEntityName": "heritageGroup",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "language",
+            "otherEntityName": "heritageLanguage",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "heritageLanguage",
+            "ownerSide": true
+        },
+        {
+            "relationshipId": 4,
+            "relationshipName": "category",
+            "otherEntityName": "heritageCategory",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "categoryName",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "contact",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20160331081430",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "pagination": "pagination"
+}

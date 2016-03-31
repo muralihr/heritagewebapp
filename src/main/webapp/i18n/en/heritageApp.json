@@ -1,0 +1,27 @@
+{
+    "heritagemapperappApp": {
+        "heritageApp" : {
+            "home": {
+                "title": "HeritageApps",
+                "createLabel": "Create a new HeritageApp",
+                "createOrEditLabel": "Create or edit a HeritageApp",
+                "search": "Search for HeritageApp"
+            },
+            "created": "A new HeritageApp is created with identifier {{ param }}",
+            "updated": "A HeritageApp is updated with identifier {{ param }}",
+            "deleted": "A HeritageApp is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete HeritageApp {{ id }}?"
+            },
+            "detail": {
+                "title": "HeritageApp"
+            },
+            "name": "Name",
+            "contact": "Contact",
+            "region": "Region",
+            "group": "Group",
+            "language": "Language",
+            "category": "Category"
+        }
+    }
+}

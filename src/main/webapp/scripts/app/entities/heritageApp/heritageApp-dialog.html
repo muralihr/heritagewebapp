@@ -1,0 +1,66 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myHeritageAppLabel" translate="heritagemapperappApp.heritageApp.home.createOrEditLabel">Create or edit a HeritageApp</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="heritageApp.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageApp.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="heritageApp.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageApp.contact" for="field_contact">Contact</label>
+            <input type="text" class="form-control" name="contact" id="field_contact"
+                    ng-model="heritageApp.contact"
+                    required />
+            <div ng-show="editForm.contact.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.contact.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageApp.region" for="field_region">region</label>
+            <select class="form-control" id="field_region" multiple name="region" ng-model="heritageApp.regions" ng-options="heritageRegionName as heritageRegionName.name for heritageRegionName in heritageregionnames track by heritageRegionName.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageApp.group" for="field_group">group</label>
+            <select class="form-control" id="field_group" multiple name="group" ng-model="heritageApp.groups" ng-options="heritageGroup as heritageGroup.name for heritageGroup in heritagegroups track by heritageGroup.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageApp.language" for="field_language">language</label>
+            <select class="form-control" id="field_language" multiple name="language" ng-model="heritageApp.languages" ng-options="heritageLanguage as heritageLanguage.heritageLanguage for heritageLanguage in heritagelanguages track by heritageLanguage.id"></select>
+        </div>
+        <div class="form-group">
+            <label translate="heritagemapperappApp.heritageApp.category" for="field_category">category</label>
+            <select class="form-control" id="field_category" multiple name="category" ng-model="heritageApp.categorys" ng-options="heritageCategory as heritageCategory.categoryName for heritageCategory in heritagecategorys track by heritageCategory.id"></select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
