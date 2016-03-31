@@ -1,0 +1,73 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myHeritageGroupLabel" translate="heritagemapperappApp.heritageGroup.home.createOrEditLabel">Create or edit a HeritageGroup</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id" translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="heritageGroup.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageGroup.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="heritageGroup.name"
+                    required />
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group" ngf-drop ngf-change="setIcon($file, heritageGroup)" ngf-pattern="'image/*'">
+            <label class="control-label" translate="heritagemapperappApp.heritageGroup.icon" for="field_icon">Icon</label>
+            <div>
+                <img data-ng-src="{{'data:' + heritageGroup.iconContentType + ';base64,' + heritageGroup.icon}}" style="max-height: 100px;" ng-if="heritageGroup.icon"/>
+                <div class="help-block clearfix">
+                    <span class="pull-left">{{heritageGroup.iconContentType}} {{byteSize(heritageGroup.icon)}}</span>
+                    <button ng-click="heritageGroup.icon=null;heritageGroup.iconContentType=null;"
+                            ng-if="heritageGroup.icon"
+                            class="btn btn-default btn-xs pull-right">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+                <button type="file" ngf-select class="btn btn-default btn-block"
+                        ngf-change="setIcon($file, heritageGroup)" accept="image/*" translate="entity.action.addimage">
+                    Add image
+                </button>
+            </div>
+            <input type="hidden" class="form-control" name="icon" id="field_icon"
+                    ng-model="heritageGroup.icon"
+                     />
+            <input type="hidden" class="form-control" name="iconContentType" id="field_iconContentType"
+                    ng-model="heritageGroup.iconContentType" />
+        </div>
+        <div class="form-group">
+            <label class="control-label" translate="heritagemapperappApp.heritageGroup.details" for="field_details">Details</label>
+            <input type="text" class="form-control" name="details" id="field_details"
+                    ng-model="heritageGroup.details"
+                    required />
+            <div ng-show="editForm.details.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.details.$error.required" translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

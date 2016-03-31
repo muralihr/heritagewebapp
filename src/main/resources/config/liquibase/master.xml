@@ -11,5 +11,7 @@
     <include file="classpath:config/liquibase/changelog/20160119132629_added_entity_VideoGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160120102255_added_entity_AudioGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160120102349_added_entity_TextGeoTagHeritageEntity.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160322083428_added_entity_HeritageRegionName.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160331072927_added_entity_HeritageGroup.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span translate="heritagemapperappApp.heritageGroup.detail.title">HeritageGroup</span> {{heritageGroup.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroup.name">Name</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageGroup.name}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroup.icon">Icon</span>
+                </td>
+                <td>
+                    <img data-ng-src="{{'data:' + heritageGroup.iconContentType + ';base64,' + heritageGroup.icon}}" style="max-width: 100%;" ng-if="heritageGroup.icon"/>
+                    <div>{{heritageGroup.iconContentType}}  {{byteSize(heritageGroup.icon)}}</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroup.details">Details</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageGroup.details}}</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

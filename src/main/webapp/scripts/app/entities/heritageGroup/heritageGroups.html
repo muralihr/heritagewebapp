@@ -1,0 +1,65 @@
+<div>
+    <h2 translate="heritagemapperappApp.heritageGroup.home.title">HeritageGroups</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="heritageGroup.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="heritagemapperappApp.heritageGroup.home.createLabel">Create new HeritageGroup
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span translate="heritagemapperappApp.heritageGroup.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="icon"><span translate="heritagemapperappApp.heritageGroup.icon">Icon</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="details"><span translate="heritagemapperappApp.heritageGroup.details">Details</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="heritageGroup in heritageGroups track by heritageGroup.id">
+                    <td><a ui-sref="heritageGroup.detail({id:heritageGroup.id})">{{heritageGroup.id}}</a></td>
+                    <td>{{heritageGroup.name}}</td>
+                    <td>
+                        <img data-ng-src="{{'data:' + heritageGroup.iconContentType + ';base64,' + heritageGroup.icon}}" style="max-height: 30px;" ng-if="heritageGroup.icon"/> {{heritageGroup.iconContentType}} {{byteSize(heritageGroup.icon)}}
+                    </td>
+                    <td>{{heritageGroup.details}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="heritageGroup.detail({id:heritageGroup.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageGroup.edit({id:heritageGroup.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageGroup.delete({id:heritageGroup.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

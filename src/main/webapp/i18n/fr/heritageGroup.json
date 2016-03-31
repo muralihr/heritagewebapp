@@ -1,0 +1,25 @@
+{
+    "heritagemapperappApp": {
+        "heritageGroup" : {
+            "home": {
+                "title": "HeritageGroups",
+                "createLabel": "Créer un nouveau HeritageGroup",
+                "createOrEditLabel": "Créer ou éditer un HeritageGroup",
+                "search": "Search for HeritageGroup"
+            },
+            "created": "Un nouveau HeritageGroup a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageGroup avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageGroup avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageGroup {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageGroup"
+            },
+            "name": "Name",
+            "icon": "Icon",
+            "details": "Details"
+        }
+    }
+}
+
