@@ -49,14 +49,14 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
-            <column name="residentStatus" type="boolean" valueBoolean="false">
+            <column name="resident_status" type="boolean" valueBoolean="false">
              
             </column>
             
-            <column name="ageGroup" type="varchar(11)">
+            <column name="age_group" type="varchar(11)">
               
             </column>
-            <column name="specialMessage" type="varchar(100)">
+            <column name="special_message" type="varchar(100)">
                
             </column>
         </createTable>

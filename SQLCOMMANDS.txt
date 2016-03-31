@@ -1,0 +1,4 @@
+ALTER TABLE `heritagemapperapp`.`jhi_user` 
+CHANGE COLUMN `residentStatus` `resident_status` BIT(1) NULL DEFAULT NULL ,
+CHANGE COLUMN `ageGroup` `age_group` VARCHAR(11) NULL DEFAULT NULL ,
+CHANGE COLUMN `specialMessage` `special_message` VARCHAR(100) NULL DEFAULT NULL ;
