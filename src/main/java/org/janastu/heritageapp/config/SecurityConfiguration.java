@@ -91,7 +91,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/registerForMobile").permitAll()
             .antMatchers("/api/imageGeoTagHeritageEntitysGeoJson").permitAll()
             .antMatchers("/api/allGeoTagHeritageEntitysGeoJson").permitAll()
-            // allGeoTagHeritageEntitysGeoJson
+            .antMatchers("/api/mapp").permitAll()
+            // /mapp
             .antMatchers("/api/heritageCategorys2").permitAll()
             .antMatchers("/api/heritageLanguages2").permitAll()
             .antMatchers("/api/heritageCategorys").permitAll()
@@ -99,6 +100,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromWeb").permitAll()
             .antMatchers("/api/createMediaHeritageForm/**").permitAll()
+            .antMatchers("/api/getAppConfigInfo/**").permitAll()
             
             //createAnyMediaGeoTagHeritageFromMobile
             

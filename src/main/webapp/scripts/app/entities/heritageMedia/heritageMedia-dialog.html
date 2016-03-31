@@ -75,7 +75,7 @@
                 </p>
             </div>
         </div>
-        <div class="form-group">
+    <!--     <div class="form-group">
             <label class="control-label" translate="heritagemapperappApp.heritageMedia.mediaType" for="field_mediaType">MediaType</label>
             <input type="number" class="form-control" name="mediaType" id="field_mediaType"
                     ng-model="heritageMedia.mediaType"
@@ -90,7 +90,25 @@
                     This field should be a number.
                 </p>
             </div>
-        </div>
+        </div> -->
+        
+        
+         <div class="form-group">
+                    <label class="control-label" for="mediaType"  >MediaType</label> </p>
+                    
+                    <input type="radio" id="mediaType" name='mediaType' ng-model="heritageMedia.mediaType" value="1" required>  IMAGE <br/>
+					<input type="radio" name='mediaType'  id="mediaType" ng-model="heritageMedia.mediaType" value="2" required> AUDIO <br/>
+					<input type="radio" name='mediaType'  id="mediaType" ng-model="heritageMedia.mediaType" value="3" required> VIDEO <br/>
+					<input type="radio" name='mediaType'  id="mediaType" ng-model="heritageMedia.mediaType" value="4" required> TEXT <br/>
+                   
+                    <div ng-show="heritageMedia.mediaType.$dirty && heritageMedia.mediaType.$invalid">
+                        <p class="help-block"
+                               ng-show="heritageMedia.mediaType.$error.required"  >
+                              mediatype   is required.
+                        </p>
+                        
+                    </div>
+                </div>
         <div class="form-group" ngf-drop ngf-change="setMediaFile($file, heritageMedia)">
             <label class="control-label" translate="heritagemapperappApp.heritageMedia.mediaFile" for="field_mediaFile">MediaFile</label>
             <div>

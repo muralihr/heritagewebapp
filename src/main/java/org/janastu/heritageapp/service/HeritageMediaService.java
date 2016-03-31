@@ -35,4 +35,6 @@ public interface HeritageMediaService {
      *  delete the "id" heritageMedia.
      */
     public void delete(Long id);
+
+	public List<HeritageMedia> findAllAsAList();
 }

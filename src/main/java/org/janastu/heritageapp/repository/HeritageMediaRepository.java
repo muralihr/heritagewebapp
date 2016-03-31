@@ -1,7 +1,7 @@
 package org.janastu.heritageapp.repository;
 
 import org.janastu.heritageapp.domain.HeritageMedia;
-
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -12,6 +12,8 @@ import java.util.List;
 public interface HeritageMediaRepository extends JpaRepository<HeritageMedia,Long> {
 
     @Query("select heritageMedia from HeritageMedia heritageMedia where heritageMedia.user.login = ?#{principal.username}")
-    List<HeritageMedia> findByUserIsCurrentUser();
+    public List<HeritageMedia> findByUserIsCurrentUser();
+    
+	 public List<HeritageMedia> findAllByOrderByIdAsc();
 
 }

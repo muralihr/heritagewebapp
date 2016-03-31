@@ -75,4 +75,15 @@ public class HeritageAppServiceImpl implements HeritageAppService{
         log.debug("Request to delete HeritageApp : {}", id);
         heritageAppRepository.delete(id);
     }
+
+	@Override
+	public HeritageAppDTO  findByName(String appId) {
+		// TODO Auto-generated method stub
+		
+		HeritageApp app = heritageAppRepository.findByName(appId);
+		
+		HeritageAppDTO heritageAppDTO = heritageAppMapper.heritageAppToHeritageAppDTO(app);
+        return heritageAppDTO;
+	 
+	}
 }

@@ -18,4 +18,6 @@ public interface HeritageAppRepository extends JpaRepository<HeritageApp,Long> {
     @Query("select heritageApp from HeritageApp heritageApp left join fetch heritageApp.regions left join fetch heritageApp.groups left join fetch heritageApp.languages left join fetch heritageApp.categorys where heritageApp.id =:id")
     HeritageApp findOneWithEagerRelationships(@Param("id") Long id);
 
+	HeritageApp findByName(String appName);
+
 }

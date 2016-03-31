@@ -35,4 +35,6 @@ public interface HeritageAppService {
      *  delete the "id" heritageApp.
      */
     public void delete(Long id);
+
+	public HeritageAppDTO  findByName(String appId);
 }
