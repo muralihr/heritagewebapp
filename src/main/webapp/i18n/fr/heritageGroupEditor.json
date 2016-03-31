@@ -1,0 +1,26 @@
+{
+    "heritagemapperappApp": {
+        "heritageGroupEditor" : {
+            "home": {
+                "title": "HeritageGroupEditors",
+                "createLabel": "Créer un nouveau HeritageGroupEditor",
+                "createOrEditLabel": "Créer ou éditer un HeritageGroupEditor",
+                "search": "Search for HeritageGroupEditor"
+            },
+            "created": "Un nouveau HeritageGroupEditor a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageGroupEditor avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageGroupEditor avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageGroupEditor {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageGroupEditor"
+            },
+            "about": "About",
+            "status": "Status",
+            "group": "Group",
+            "editor": "Editor"
+        }
+    }
+}
+

@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="heritagemapperappApp.heritageGroupEditor.detail.title">HeritageGroupEditor</span> {{heritageGroupEditor.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroupEditor.about">About</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageGroupEditor.about}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroupEditor.status">Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageGroupEditor.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroupEditor.group">group</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageGroup.detail({id:heritageGroupEditor.groupId})">{{heritageGroupEditor.groupName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageGroupEditor.editor">editor</span>
+                </td>
+                <td>
+                    {{heritageGroupEditor.editorLogin}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

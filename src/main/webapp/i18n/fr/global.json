@@ -18,6 +18,7 @@
                 "heritageApp": "HeritageApp",
                 "heritageMedia": "HeritageMedia",
                 "heritageGroupUser": "HeritageGroupUser",
+                "heritageGroupEditor": "HeritageGroupEditor",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {
