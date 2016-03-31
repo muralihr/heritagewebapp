@@ -1,0 +1,26 @@
+{
+    "heritagemapperappApp": {
+        "heritageGroupUser" : {
+            "home": {
+                "title": "HeritageGroupUsers",
+                "createLabel": "Créer un nouveau HeritageGroupUser",
+                "createOrEditLabel": "Créer ou éditer un HeritageGroupUser",
+                "search": "Search for HeritageGroupUser"
+            },
+            "created": "Un nouveau HeritageGroupUser a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageGroupUser avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageGroupUser avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageGroupUser {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageGroupUser"
+            },
+            "reason": "Reason",
+            "status": "Status",
+            "group": "Group",
+            "member": "Member"
+        }
+    }
+}
+

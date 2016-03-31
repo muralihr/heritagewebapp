@@ -1,0 +1,69 @@
+<div>
+    <h2 translate="heritagemapperappApp.heritageGroupUser.home.title">HeritageGroupUsers</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="heritageGroupUser.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="heritagemapperappApp.heritageGroupUser.home.createLabel">Create new HeritageGroupUser
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="reason"><span translate="heritagemapperappApp.heritageGroupUser.reason">Reason</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="status"><span translate="heritagemapperappApp.heritageGroupUser.status">Status</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="groupName"><span translate="heritagemapperappApp.heritageGroupUser.group">group</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="memberLogin"><span translate="heritagemapperappApp.heritageGroupUser.member">member</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="heritageGroupUser in heritageGroupUsers track by heritageGroupUser.id">
+                    <td><a ui-sref="heritageGroupUser.detail({id:heritageGroupUser.id})">{{heritageGroupUser.id}}</a></td>
+                    <td>{{heritageGroupUser.reason}}</td>
+                    <td>{{heritageGroupUser.status}}</td>
+                    <td>
+                        <a ui-sref="heritageGroup.detail({id:heritageGroupUser.groupId})">{{heritageGroupUser.groupName}}</a>
+                    </td>
+                    <td>
+                        {{heritageGroupUser.memberLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="heritageGroupUser.detail({id:heritageGroupUser.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageGroupUser.edit({id:heritageGroupUser.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageGroupUser.delete({id:heritageGroupUser.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>
