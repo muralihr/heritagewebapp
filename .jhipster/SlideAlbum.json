@@ -1,0 +1,30 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "imageGeoTagHeritageEntity",
+            "otherEntityName": "imageGeoTagHeritageEntity",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "slideAlbum"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "slideNo",
+            "fieldType": "Integer",
+            "fieldValidateRules": []
+        }
+    ],
+    "changelogDate": "20160207143352",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "pagination": "pagination"
+}

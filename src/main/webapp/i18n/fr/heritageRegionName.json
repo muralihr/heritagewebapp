@@ -1,0 +1,29 @@
+{
+    "heritagemapperappApp": {
+        "heritageRegionName" : {
+            "home": {
+                "title": "HeritageRegionNames",
+                "createLabel": "Créer un nouveau HeritageRegionName",
+                "createOrEditLabel": "Créer ou éditer un HeritageRegionName",
+                "search": "Search for HeritageRegionName"
+            },
+            "created": "Un nouveau HeritageRegionName a été créé avec l'identifiant {{ param }}",
+            "updated": "Le HeritageRegionName avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le HeritageRegionName avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le HeritageRegionName {{ id }} ?"
+            },
+            "detail": {
+                "title": "HeritageRegionName"
+            },
+            "name": "Name",
+            "centerLatitude": "CenterLatitude",
+            "centerLongitude": "CenterLongitude",
+            "topLatitude": "TopLatitude",
+            "topLongitude": "TopLongitude",
+            "bottomLatitude": "BottomLatitude",
+            "bottomLongitude": "BottomLongitude"
+        }
+    }
+}
+
