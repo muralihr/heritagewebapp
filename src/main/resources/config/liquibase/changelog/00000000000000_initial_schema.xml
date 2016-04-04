@@ -59,6 +59,9 @@
             <column name="special_message" type="varchar(100)">
                
             </column>
+            <column name="data_stored" type="bigint">
+               
+            </column>
         </createTable>
         
         <createIndex indexName="idx_user_login"

@@ -117,6 +117,47 @@ public class UserDTO {
     private String ageGroup; 
     private Boolean residentStatus;
     private String specialMessage;
+    private Integer dataStored;
+	public Integer getDataStored() {
+		return dataStored;
+	}
+
+	public void setDataStored(Integer dataStored) {
+		this.dataStored = dataStored;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
+
+	public void setLangKey(String langKey) {
+		this.langKey = langKey;
+	}
+
+	public void setAuthorities(Set<String> authorities) {
+		this.authorities = authorities;
+	}
+
 	public String getSpecialMessage() {
 		return specialMessage;
 	}

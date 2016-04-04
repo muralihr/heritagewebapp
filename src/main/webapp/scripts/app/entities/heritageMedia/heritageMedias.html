@@ -2,6 +2,19 @@
     <h2 translate="heritagemapperappApp.heritageMedia.home.title">HeritageMedias</h2>
     <jh-alert></jh-alert>
     <div class="container-fluid">
+    
+    <div id='map'></div>
+    
+    <div class="row">
+
+            <div class="col-md-10">
+                    <leaflet lf-center="center" tiles="tiles" geojson="geojson" width="115%" height="600px" markers="markers" event-broadcast="events"></leaflet>
+  <pre ng-bind="layers | json"></pre>
+                  <h4> Latitude  {{  lat2 }}</h4>
+                <h4> Longitude  {{ lng2 }}</h4> 
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-xs-4 no-padding-left">
                 <button class="btn btn-primary" ui-sref="heritageMedia.new" >
@@ -14,6 +27,8 @@
         </div>
     </div>
     <br/>
+    
+    <div ng-show="isAdmin">
     <div class="table-responsive">
         <table class="jh-table table table-striped">
             <thead>
@@ -92,6 +107,7 @@
                 </tr>
             </tbody>
         </table>
+    </div>
     </div>
     <div class="text-center">
         <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>

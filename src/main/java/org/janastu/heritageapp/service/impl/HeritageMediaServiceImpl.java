@@ -3,7 +3,10 @@ package org.janastu.heritageapp.service.impl;
 import org.janastu.heritageapp.service.HeritageMediaService;
 import org.janastu.heritageapp.domain.HeritageMedia;
 import org.janastu.heritageapp.repository.HeritageMediaRepository;
+import org.janastu.heritageapp.repository.UserRepository;
+import org.janastu.heritageapp.security.SecurityUtils;
 import org.janastu.heritageapp.web.rest.AppConstants;
+ 
 import org.janastu.heritageapp.web.rest.dto.HeritageMediaDTO;
 import org.janastu.heritageapp.web.rest.mapper.HeritageMediaMapper;
 import org.janastu.heritageapp.web.rest.util.OSValidator;
@@ -37,6 +40,8 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
     
     @Inject
     private HeritageMediaRepository heritageMediaRepository;
+    @Inject
+    private UserRepository userRepository;
     
     @Inject
     private HeritageMediaMapper heritageMediaMapper;
@@ -66,6 +71,10 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
                 	
         	
         }
+        
+       org.janastu.heritageapp.domain.User u = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+       heritageMediaDTO.setUserId(u.getId());
+       heritageMediaDTO.setUserLogin(u.getLogin());
         
         HeritageMedia heritageMedia = heritageMediaMapper.heritageMediaDTOToHeritageMedia(heritageMediaDTO);
         

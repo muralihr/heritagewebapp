@@ -3,6 +3,7 @@ package org.janastu.heritageapp.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import org.janastu.heritageapp.domain.HeritageMedia;
 import org.janastu.heritageapp.service.HeritageMediaService;
+import org.janastu.heritageapp.service.UserService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
 import org.janastu.heritageapp.web.rest.dto.HeritageMediaDTO;
@@ -39,6 +40,10 @@ public class HeritageMediaResource {
     @Inject
     private HeritageMediaService heritageMediaService;
     
+    
+    @Inject
+    private UserService userService;
+    
     @Inject
     private HeritageMediaMapper heritageMediaMapper;
     
@@ -54,6 +59,13 @@ public class HeritageMediaResource {
         if (heritageMediaDTO.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("heritageMedia", "idexists", "A new heritageMedia cannot already have an ID")).body(null);
         }
+        
+        //get the user 
+       
+        Integer newData = heritageMediaDTO.getMediaFile().length;
+        
+        userService.changeDataStored(newData);
+        
         HeritageMediaDTO result = heritageMediaService.save(heritageMediaDTO);
         return ResponseEntity.created(new URI("/api/heritageMedias/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("heritageMedia", result.getId().toString()))

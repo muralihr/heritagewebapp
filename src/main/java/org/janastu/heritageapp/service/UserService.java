@@ -6,6 +6,7 @@ import org.janastu.heritageapp.repository.AuthorityRepository;
 import org.janastu.heritageapp.repository.UserRepository;
 import org.janastu.heritageapp.security.SecurityUtils;
 import org.janastu.heritageapp.service.util.RandomUtil;
+import org.janastu.heritageapp.web.rest.AppConstants;
 import org.janastu.heritageapp.web.rest.dto.ManagedUserDTO;
 import java.time.ZonedDateTime;
 import java.time.LocalDate;
@@ -119,7 +120,7 @@ public class UserService {
             newUser.setLastName(lastName);
             newUser.setEmail(email);
             newUser.setLangKey(langKey);
-            
+            newUser.setDataStored(0);
             
             // new user is not active
             newUser.setActivated(true);
@@ -158,6 +159,8 @@ public class UserService {
         }
         String encryptedPassword = passwordEncoder.encode(RandomUtil.generatePassword());
         user.setPassword(encryptedPassword);
+
+        user.setDataStored(0);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(ZonedDateTime.now());
         user.setActivated(true);
@@ -192,6 +195,68 @@ public class UserService {
             log.debug("Changed password for User: {}", u);
         });
     }
+    
+    public Integer changeDataStored(Integer newData) {
+    	
+    	
+    	 Optional<User> user = userRepository.findOneByLogin(SecurityUtils.getCurrentUser().getUsername());
+    	Integer size = 0 ;
+    	 boolean c = user.isPresent();
+    	 if(c)
+    	 {
+    		 
+    		 User u  = user.get(); 
+    		 Integer current = u.getDataStored();
+    		 if(current == null)
+    		 {
+    			 current = 0 ;
+    		 }
+             Integer newSize = current + newData;
+             
+             if(newSize >  AppConstants.MAX_CAPACITY )
+             {
+            	 size =  AppConstants.MAX_CAPACITY ;
+             }
+             else
+             {	
+            	 size =  newSize ;
+            	 u.setDataStored(newSize);
+            	 userRepository.save(u);
+             }
+    	 }
+    	  
+       
+        return size;
+    }
+    
+    public Integer changeDataStoredUser(Long userId, Integer newData) {
+    	
+    	
+   	Optional<User> user = userRepository.findOneById(userId);
+   	Integer size = 0 ;
+   	 boolean c = user.isPresent();
+   	 if(c)
+   	 {
+   		 
+   		 User u  = user.get(); 
+   		 Integer current = u.getDataStored();
+            Integer newSize = current + newData;
+            
+            if(newSize >  AppConstants.MAX_CAPACITY )
+            {
+           	 size =  AppConstants.MAX_CAPACITY ;
+            }
+            else
+            {	
+           	 size =  newSize ;
+           	 u.setDataStored(newSize);
+           	 userRepository.save(u);
+            }
+   	 }
+   	  
+      
+       return size;
+   }
 
     @Transactional(readOnly = true)
     public Optional<User> getUserWithAuthoritiesByLogin(String login) {

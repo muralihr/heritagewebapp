@@ -219,6 +219,17 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private Boolean residentStatus;
     @Column ( name="special_message")  
     private String specialMessage;
+    
+    @Column ( name="data_stored")  
+    private Integer dataStored;
+
+	public Integer getDataStored() {
+		return dataStored;
+	}
+
+	public void setDataStored(Integer dataStored) {
+		this.dataStored = dataStored;
+	}
 
 	public String getAgeGroup() {
 		return ageGroup;
