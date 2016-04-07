@@ -2,7 +2,9 @@ package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.janastu.heritageapp.domain.HeritageGroupUser;
+import org.janastu.heritageapp.domain.User;
 import org.janastu.heritageapp.service.HeritageGroupUserService;
+import org.janastu.heritageapp.service.UserService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
 import org.janastu.heritageapp.web.rest.dto.HeritageGroupUserDTO;
@@ -38,6 +40,11 @@ public class HeritageGroupUserResource {
         
     @Inject
     private HeritageGroupUserService heritageGroupUserService;
+
+    
+    @Inject
+    private  UserService userService;
+    
     
     @Inject
     private HeritageGroupUserMapper heritageGroupUserMapper;
@@ -125,4 +132,58 @@ public class HeritageGroupUserResource {
         heritageGroupUserService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("heritageGroupUser", id.toString())).build();
     }
+    
+    // add user to group  - 1
+    
+    @RequestMapping(value = "/registerToGroup/user/{userId}/group/{groupId}",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<HeritageGroupUserDTO> registerToGroup(@PathVariable String userId, @PathVariable Long groupId ,  @RequestParam String reason) throws URISyntaxException {
+    	
+    	
+    	 log.debug("REST  userId   {}", userId);
+    	 log.debug("REST groupId   {}", groupId);     
+    	
+    	ResponseEntity<HeritageGroupUserDTO> t = new ResponseEntity<HeritageGroupUserDTO> (HttpStatus.OK);
+    	HeritageGroupUserDTO heritageGroupUserDTO = new HeritageGroupUserDTO();
+    	heritageGroupUserDTO.setGroupId(groupId);
+    	
+    	String userLogin = null;
+		heritageGroupUserDTO.setMemberLogin(userLogin);
+		heritageGroupUserDTO.setStatus(1);
+		//String reason = "sss";
+		heritageGroupUserDTO.setReason(reason);
+		//userService
+		Optional<User> u = userService.getUserWithAuthoritiesByLogin(userId);
+		if(u.isPresent())
+		{
+		     User u1 = u.get();			
+			 heritageGroupUserDTO.setMemberId(u1.getId());
+			 HeritageGroupUserDTO heritageGroupUserDTO2 =  heritageGroupUserService.findByUserAndGroupId(u1.getId() , groupId);
+			 if(heritageGroupUserDTO2 != null)
+			 {
+				 return new ResponseEntity<>(HttpStatus.CREATED);
+			 }
+			 
+			 
+	    }    	
+		else
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+		HeritageGroupUserDTO result2 = heritageGroupUserService.save(heritageGroupUserDTO );
+		
+		 return Optional.ofNullable(result2)
+		            .map(result -> new ResponseEntity<>(
+		                result,
+		                HttpStatus.OK))
+		            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+ 
+    	
+        }
+    // register request - 0  
+    // remove  - -1 
+    // block - 2
 }

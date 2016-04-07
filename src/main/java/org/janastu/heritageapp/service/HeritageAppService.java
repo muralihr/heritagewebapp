@@ -24,7 +24,8 @@ public interface HeritageAppService {
      *  @return the list of entities
      */
     public Page<HeritageApp> findAll(Pageable pageable);
-
+    public List<HeritageApp> findAllAsAList();
+    
     /**
      *  get the "id" heritageApp.
      *  @return the entity

@@ -20,4 +20,6 @@ public interface HeritageAppRepository extends JpaRepository<HeritageApp,Long> {
 
 	HeritageApp findByName(String appName);
 
+	List<HeritageApp> findAllByOrderByIdAsc();
+
 }

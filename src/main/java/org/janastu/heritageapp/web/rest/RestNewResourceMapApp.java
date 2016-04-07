@@ -6,16 +6,20 @@ import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.HeritageApp ;
 import org.janastu.heritageapp.domain.HeritageCategory;
 import org.janastu.heritageapp.domain.HeritageGroup;
+import org.janastu.heritageapp.domain.HeritageGroupUser;
 import org.janastu.heritageapp.domain.HeritageLanguage;
 import org.janastu.heritageapp.domain.HeritageMedia ;
 import org.janastu.heritageapp.domain.HeritageRegionName;
 import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.TextGeoTagHeritageEntity;
+import org.janastu.heritageapp.domain.User;
 import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.util.RestReturnCodes;
 import org.janastu.heritageapp.repository.HeritageAppRepository;
 import org.janastu.heritageapp.repository.HeritageCategoryRepository;
+import org.janastu.heritageapp.repository.HeritageGroupUserRepository;
 import org.janastu.heritageapp.repository.HeritageLanguageRepository;
+import org.janastu.heritageapp.repository.UserRepository;
 import org.janastu.heritageapp.service.AudioGeoTagHeritageEntityService;
 import org.janastu.heritageapp.service.HeritageAppService;
 import org.janastu.heritageapp.service.HeritageMediaService;
@@ -82,6 +86,7 @@ import org.geojson.FeatureCollection;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -124,15 +129,20 @@ public class RestNewResourceMapApp {
 	HeritageLanguageRepository heritageLanguageRepository;
 	@Inject 
 	HeritageAppRepository heritageAppNameRepository;
+	
+	@Inject 
+	HeritageGroupUserRepository heritageGroupUserRepository;
+	
+
+	@Inject 
+	 UserRepository userRepository;
 
 	@Autowired
-	private Environment environment;
-	
+	private Environment environment;	
 	String errMessageException;
-	
-    
-@Inject
-private HeritageAppService heritageAppNameService;
+	  
+	@Inject
+	private HeritageAppService heritageAppNameService;
 
  
 	
@@ -554,7 +564,37 @@ private HeritageAppService heritageAppNameService;
 	}
 	
 	
-	
+////
+
+	@CrossOrigin
+	@RequestMapping(value = "/getUserGroups/user/{userId}", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public @ResponseBody List<HeritageGroup> getUserGroups(	@PathVariable String userId	)
+	{		
+		List<HeritageGroup> hGroupList = new ArrayList<HeritageGroup>();
+		Optional<User> u = userRepository.findOneByLogin(userId);
+		if(u.isPresent())
+		{
+					
+			List<HeritageGroupUser> lusers = heritageGroupUserRepository.findAll();
+			for(HeritageGroupUser g : lusers )
+			{
+		 
+				 User user =  g.getMember();
+				 if(user.getLogin().compareTo(userId) == 0 && g.getStatus() == 2)
+				 {
+					 HeritageGroup h =  g.getGroup();
+					 h.setIcon(null);
+					 hGroupList.add( h );				 
+				 } 			
+			}
+		}
+		 
+		return hGroupList;
+		
+		
+	}
+	///
 	
 		 
 }

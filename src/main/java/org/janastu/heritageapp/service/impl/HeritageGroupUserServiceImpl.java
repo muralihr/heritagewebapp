@@ -75,4 +75,25 @@ public class HeritageGroupUserServiceImpl implements HeritageGroupUserService{
         log.debug("Request to delete HeritageGroupUser : {}", id);
         heritageGroupUserRepository.delete(id);
     }
+    
+    public HeritageGroupUserDTO findByUserAndGroupId(Long userId, Long groupId) 
+    {
+    	Pageable pageable  = null;
+    	 List<HeritageGroupUser> result = heritageGroupUserRepository.findAll( ); 
+    	 HeritageGroupUser heritageGroupUser;
+    	 for(HeritageGroupUser t : result)
+    	 {
+    		 if(t.getMember().getId() == userId && t.getGroup().getId() == groupId) 
+    		 {
+    			 heritageGroupUser = t;
+    			 
+    			 log.debug("heritageGroupUser fopund with userId/groupID "+  userId + "groupId"+ groupId);
+    			 HeritageGroupUserDTO heritageGroupUserDTO = heritageGroupUserMapper.heritageGroupUserToHeritageGroupUserDTO(heritageGroupUser);
+    			 return heritageGroupUserDTO;
+    		 }
+    		 
+    	 }
+        
+         return null;
+    }
 }

@@ -78,14 +78,20 @@
                         </p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="langKey" translate="settings.form.language">Language</label>
-                    <select id="langKey" name="langKey" class="form-control" ng-model="settingsAccount.langKey" ng-controller="LanguageController" ng-options="code as (code | findLanguageFromKey) for code in languages"></select>
-                </div>
+              
 
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
             </form>
         </div>
     </div>
 
+<div>
+
+  <div class="form-group">
+            <label >Add Groups to Users</label>
+            <select class="form-control" id="field_heritageApp" name="heritageApp" ng-model="heritageMedia.heritageAppId" ng-options="heritageApp.id as heritageApp.name for heritageApp in heritageapps">
+                <option value=""></option>
+            </select>
+        </div>
+</div>
 </div>

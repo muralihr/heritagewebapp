@@ -2,6 +2,8 @@ package org.janastu.heritageapp.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import org.janastu.heritageapp.domain.HeritageApp;
+import org.janastu.heritageapp.domain.HeritageCategory;
+import org.janastu.heritageapp.domain.HeritageGroup;
 import org.janastu.heritageapp.service.HeritageAppService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.PaginationUtil;
@@ -22,9 +24,13 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -86,16 +92,59 @@ public class HeritageAppResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @Transactional(readOnly = true)
-    public ResponseEntity<List<HeritageAppDTO>> getAllHeritageApps(Pageable pageable)
+    public  ResponseEntity<List<HeritageAppDTO>> getAllHeritageApps(Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of HeritageApps");
         Page<HeritageApp> page = heritageAppService.findAll(pageable); 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/heritageApps");
-        return new ResponseEntity<>(page.getContent().stream()
-            .map(heritageAppMapper::heritageAppToHeritageAppDTO)
-            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
+        
+        ResponseEntity<List<HeritageAppDTO>>  l = new ResponseEntity<>(page.getContent().stream()
+                .map(heritageAppMapper::heritageAppToHeritageAppDTO)
+                .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
+        
+      
+        return l;
     }
-
+    @RequestMapping(value = "/heritageAppsMob",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        @Transactional(readOnly = true)
+        public    List<HeritageApp>  getAllHeritageAppsMob()
+            throws URISyntaxException {
+            log.debug("REST request to get a page of HeritageApps");
+            List<HeritageApp> l = heritageAppService.findAllAsAList();
+            List<HeritageApp> modList = new ArrayList<HeritageApp>();
+            for(HeritageApp d : l )
+            {
+            	Set<HeritageCategory> cats = d.getCategorys();
+            	Set<HeritageGroup> groups = d.getGroups();
+            	
+            	 Set<HeritageCategory> modcats = new HashSet<HeritageCategory>();
+             	Set<HeritageGroup> modgroups = new HashSet<HeritageGroup>();
+             	
+            	
+            	for(HeritageCategory c : cats)
+            	{
+            		c.setCategoryIcon(null);
+            		modcats.add(c);
+            	}
+            	
+            	for(HeritageGroup g : groups)
+            	{
+            		g.setIcon( null);
+            		modgroups.add(g);
+            	}
+            	 
+            	d.setCategorys(modcats);
+            	d.setGroups(modgroups);	
+            	
+            	modList.add(d);
+            }
+            
+          
+            return modList;
+        }
     /**
      * GET  /heritageApps/:id -> get the "id" heritageApp.
      */

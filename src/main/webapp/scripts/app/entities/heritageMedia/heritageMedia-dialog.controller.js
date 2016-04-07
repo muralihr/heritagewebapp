@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('heritageMapperAppApp').controller('HeritageMediaDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'HeritageMedia', 'HeritageCategory', 'HeritageLanguage', 'sharedGeoProperties','HeritageGroup', 'HeritageApp', 'User',
-        function($scope, $stateParams, $uibModalInstance, DataUtils, entity, HeritageMedia, HeritageCategory, HeritageLanguage, sharedGeoProperties, HeritageGroup, HeritageApp, User) {
+    ['$scope','$http', '$stateParams', '$uibModalInstance', 'DataUtils', 'entity', 'HeritageMedia', 'Principal','HeritageCategory', 'HeritageLanguage', 'sharedGeoProperties','HeritageGroup', 'HeritageApp', 'User',
+        function($scope, $http,$stateParams, $uibModalInstance, DataUtils, entity, HeritageMedia, Principal,HeritageCategory, HeritageLanguage, sharedGeoProperties, HeritageGroup, HeritageApp, User) {
 
         $scope.heritageMedia = entity;
         
@@ -11,7 +11,9 @@ angular.module('heritageMapperAppApp').controller('HeritageMediaDialogController
         $scope.heritageMedia.longitude = sharedGeoProperties.getLongitude();  
         $scope.heritagecategorys = HeritageCategory.query();
         $scope.heritagelanguages = HeritageLanguage.query();
-        $scope.heritagegroups = HeritageGroup.query();
+       // $scope.heritagegroups = HeritageGroup.query();
+        
+        
         $scope.heritageapps = HeritageApp.query();
         $scope.users = User.query();
         $scope.load = function(id) {
@@ -20,6 +22,20 @@ angular.module('heritageMapperAppApp').controller('HeritageMediaDialogController
             });
         };
 
+    
+        Principal.identity().then(function(account) {
+            $scope.settingsAccount = copyAccount(account);
+            
+            var ugetgroups =  'api/getUserGroups/user/'+ $scope.settingsAccount.login;
+            $http.get(ugetgroups).success(function(data, status, headers, config) {
+                $scope.heritagegroups = data;
+                console.log( $scope.myheritagegroups);
+            });
+            
+             
+        });
+        
+       
         var onSaveSuccess = function (result) {
             $scope.$emit('heritagemapperappApp:heritageMediaUpdate', result);
             $uibModalInstance.close(result);
@@ -73,6 +89,18 @@ angular.module('heritageMapperAppApp').controller('HeritageMediaDialogController
         $scope.datePickerForUploadTimeOpen = function($event) {
             $scope.datePickerForUploadTime.status.opened = true;
         };
+        //
+        
+        var copyAccount = function (account) {
+            return {
+                activated: account.activated,
+                email: account.email,
+                firstName: account.firstName,
+                langKey: account.langKey,
+                lastName: account.lastName,
+                login: account.login
+            }
+        }
         
         ///brower detect
         

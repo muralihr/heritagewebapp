@@ -1,6 +1,7 @@
 package org.janastu.heritageapp.service.impl;
 
 import org.janastu.heritageapp.service.HeritageAppService;
+import org.janastu.heritageapp.domain.AudioGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.HeritageApp;
 import org.janastu.heritageapp.repository.HeritageAppRepository;
 import org.janastu.heritageapp.web.rest.dto.HeritageAppDTO;
@@ -53,9 +54,17 @@ public class HeritageAppServiceImpl implements HeritageAppService{
     public Page<HeritageApp> findAll(Pageable pageable) {
         log.debug("Request to get all HeritageApps");
         Page<HeritageApp> result = heritageAppRepository.findAll(pageable); 
+        
+        
+      
         return result;
     }
 
+    public List<HeritageApp> findAllAsAList()
+    {    	
+    	//
+    	return heritageAppRepository.findAllWithEagerRelationships();
+    }
     /**
      *  get one heritageApp by id.
      *  @return the entity
@@ -78,10 +87,8 @@ public class HeritageAppServiceImpl implements HeritageAppService{
 
 	@Override
 	public HeritageAppDTO  findByName(String appId) {
-		// TODO Auto-generated method stub
-		
-		HeritageApp app = heritageAppRepository.findByName(appId);
-		
+		// 		
+		HeritageApp app = heritageAppRepository.findByName(appId);		
 		HeritageAppDTO heritageAppDTO = heritageAppMapper.heritageAppToHeritageAppDTO(app);
         return heritageAppDTO;
 	 

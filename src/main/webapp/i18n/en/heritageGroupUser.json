@@ -2,7 +2,7 @@
     "heritagemapperappApp": {
         "heritageGroupUser" : {
             "home": {
-                "title": "HeritageGroupUsers",
+                "title": "Approve HeritageGroupUser",
                 "createLabel": "Create a new HeritageGroupUser",
                 "createOrEditLabel": "Create or edit a HeritageGroupUser",
                 "search": "Search for HeritageGroupUser"

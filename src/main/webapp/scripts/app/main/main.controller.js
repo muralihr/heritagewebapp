@@ -80,7 +80,7 @@ angular.module('heritageMapperAppApp')
     	 
 
          //$http.get("https://a.tiles.mapbox.com/v4/feelcreative.llm8dpdk/features.json?access_token=pk.eyJ1IjoibXVyYWxpaHI3NyIsImEiOiJjaWo5c2tqZjYwMDNtdXhseGFqeHlsZnQ4In0.W_DdV-qM8lNZzacVotHDEA").success(function(data) {
-    	 $http.get("api/allGeoTagHeritageEntitysGeoJson").success(function(data) {
+    	 $http.get("api/mapp").success(function(data) {
            //  $scope.geojson.data = data;
            //  console.log("geojson data "+data);
     		 

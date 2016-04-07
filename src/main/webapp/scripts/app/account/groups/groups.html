@@ -1,0 +1,61 @@
+<div>
+    <div class="row">
+     <div class="col-md-8 col-md-offset-2">
+
+<strong> Current  Groups!</strong>
+            
+      
+<div class="form-group" ng-repeat=" heritagegroup in myheritagegroups">
+  {{ heritagegroup.name }}
+</div>
+
+</div>
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          
+     <strong> Select & Subscribe to  Group!</strong>
+            
+            <div class="alert alert-success" ng-show="success" >
+                <strong>Group request added succesfully!</strong>
+            </div>
+
+            <div class="alert alert-danger" ng-show="errorGroupExists" >
+                <strong>Group is  already added!</strong> Please choose another one.
+            </div>
+
+            <div class="alert alert-danger" ng-show="error"  >
+                <strong>An error has occurred!</strong> Groups could not be saved.
+            </div>
+             <span ng-show="showmsg">
+		             <div class="alert alert-success">
+				     
+				         <strong>OK Added to group </strong>.			         
+				     
+				   </div>
+		    </span>
+
+
+            <form name="form" role="form" novalidate ng-submit="registerToGroup()" show-validation>
+
+                <div class="form-group">
+                    <p>Reason: <input type="text" name="reason" ng-model="reason" required /></p>
+                </div>
+                
+                 <div class="form-group">
+						<div class="form-group">
+					            <label >Add to group</label>
+					            <select class="form-control" id="field_group" name="group" ng-model="groupId" ng-options="heritageGroup.id as heritageGroup.name for heritageGroup in heritagegroups">
+					                <option value=""></option>
+					            </select>
+					    </div>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="groups.form.button">Add to group</button>
+            </form>
+        </div>
+    </div>
+
+<div>
+
+  
+</div>
+</div>

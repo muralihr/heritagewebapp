@@ -30,6 +30,8 @@ public interface HeritageGroupUserService {
      *  @return the entity
      */
     public HeritageGroupUserDTO findOne(Long id);
+    
+    public HeritageGroupUserDTO findByUserAndGroupId(Long userId, Long groupId);
 
     /**
      *  delete the "id" heritageGroupUser.
