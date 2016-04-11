@@ -461,6 +461,9 @@ public class GeoJsonHeritageSpotsResource {
 		log.debug("latitude  " + request.getParameter("latitude"));
 		log.debug("longitude  " + request.getParameter("longitude"));
 		log.debug("mediatype  " + request.getParameter("mediatype"));
+		log.debug("group  " + request.getParameter("group"));
+		log.debug("user  " + request.getParameter("user"));
+		log.debug("uploadTime  " + request.getParameter("uploadTime"));
 		ResponseEntity<ImageGeoTagHeritageEntityDTO> retValue = null;
 		String title = request.getParameter("title");
 		String description = request.getParameter("description");

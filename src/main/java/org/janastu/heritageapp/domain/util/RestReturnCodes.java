@@ -11,4 +11,7 @@ public class RestReturnCodes
     public static int SUCCESS = 200;
     
     public static int MEDIA_CREATION_EXCEPTION = 505;
+    public static int GROUP_NOT_FOUND_EXCEPTION = 506;
+    public static int USER_NOT_FOUND_EXCEPTION  = 507;
+    public static int USER_STORAGE_CAPACITY_EXCEEDED = 508;
 }

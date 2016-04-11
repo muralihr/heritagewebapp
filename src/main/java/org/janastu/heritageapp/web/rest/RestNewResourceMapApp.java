@@ -17,6 +17,7 @@ import org.janastu.heritageapp.domain.VideoGeoTagHeritageEntity;
 import org.janastu.heritageapp.domain.util.RestReturnCodes;
 import org.janastu.heritageapp.repository.HeritageAppRepository;
 import org.janastu.heritageapp.repository.HeritageCategoryRepository;
+import org.janastu.heritageapp.repository.HeritageGroupRepository;
 import org.janastu.heritageapp.repository.HeritageGroupUserRepository;
 import org.janastu.heritageapp.repository.HeritageLanguageRepository;
 import org.janastu.heritageapp.repository.UserRepository;
@@ -26,6 +27,7 @@ import org.janastu.heritageapp.service.HeritageMediaService;
  
 import org.janastu.heritageapp.service.ImageGeoTagHeritageEntityService;
 import org.janastu.heritageapp.service.TextGeoTagHeritageEntityService;
+import org.janastu.heritageapp.service.UserService;
 import org.janastu.heritageapp.service.VideoGeoTagHeritageEntityService;
 import org.janastu.heritageapp.web.rest.util.HeaderUtil;
 import org.janastu.heritageapp.web.rest.util.OSValidator;
@@ -106,7 +108,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class RestNewResourceMapApp {
 
-	private final Logger log = LoggerFactory.getLogger(GeoJsonHeritageSpotsResource.class);
+	private final Logger log = LoggerFactory.getLogger(RestNewResourceMapApp.class);
 	@Inject
 	private VideoGeoTagHeritageEntityService videoGeoTagHeritageEntityService;
 	
@@ -136,6 +138,13 @@ public class RestNewResourceMapApp {
 
 	@Inject 
 	 UserRepository userRepository;
+	
+	@Inject 
+	 UserService userService;
+	
+
+	@Inject 
+	 HeritageGroupRepository groupRepository;
 
 	@Autowired
 	private Environment environment;	
@@ -145,8 +154,372 @@ public class RestNewResourceMapApp {
 	private HeritageAppService heritageAppNameService;
 
  
+	@RequestMapping(value = "/createAnyMediaGeoTagHeritageFromMobile2", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@CrossOrigin
+	public MediaResponse createAnyMediaGeoTagHeritageFromMobile(MultipartHttpServletRequest request,
+			HttpServletResponse response) throws URISyntaxException {
+		
+		MediaResponse retValue2 = new MediaResponse();
+		long resultVal = 0;
+		log.debug("uploadPost called title" + request.getParameter("title"));
+		log.debug("description  " + request.getParameter("description"));
+		log.debug("category  " + request.getParameter("category"));// category
+		log.debug("language  " + request.getParameter("language"));
+		log.debug("latitude  " + request.getParameter("latitude"));
+		log.debug("longitude  " + request.getParameter("longitude"));
+		log.debug("mediatype  " + request.getParameter("mediatype"));
+		log.debug("appName  " + request.getParameter("appName"));
+		log.debug("groupName  " + request.getParameter("groupName"));
+		log.debug("userName  " + request.getParameter("userName"));
+		log.debug("uploadTime  " + request.getParameter("uploadTime"));
+		log.debug("userAgent  " + request.getParameter("userAgent"));
+		
+		//appName
+		ResponseEntity<ImageGeoTagHeritageEntityDTO> retValue = null;
+		String title = request.getParameter("title");
+		String description = request.getParameter("description");
+		String language = request.getParameter("language");
+		String category = request.getParameter("category");
+		String address = request.getParameter("address");
+		String latitude = request.getParameter("latitude");
+		String longitude = request.getParameter("longitude");
+		String mediatypeStr = request.getParameter("mediatype");
+		Long appId;
+		String newFilenameBase = null;
+		Integer dataStored = 0;
+		//add following additional data - 
+		//user/group/useragent/uploadtime
+		String groupName  = request.getParameter("groupName");
+		String appName  = request.getParameter("appName");
+		String userName  = request.getParameter("userName");
+		String uploadTime  = request.getParameter("uploadTime");
+		String userAgent  = request.getParameter("userAgent");
+		//
+		Optional<HeritageGroup> g  = groupRepository.findOneByName(groupName);
+		Long groupId;
+		Long userId;
+		String downLoadFileName;
+		String newFilename =null;
+		String contentType = null;
+		if(g.isPresent() == false)
+		{	
+			
+			Optional<HeritageGroup> g2  = groupRepository.findOneByName("Default");
+			groupId = g2.get().getId(); 
+		}
+		else
+		{
+			groupId = g.get().getId();
+		}
+		
+		Optional<User> u  = userRepository.findOneByLogin(userName);
+		
+		if(u.isPresent() == false)
+		{
+			retValue2.setCode(RestReturnCodes.USER_NOT_FOUND_EXCEPTION);
+			retValue2.setMediaCreatedId(-1);
+			retValue2.setMessage("Create  Media FAILED USER_NOT_FOUND_EXCEPTION");
+			retValue2.setStatus("NOTOK");
+			return retValue2;
+		}
+		else
+		{
+			userId = u.get().getId();
+			log.debug("userId found :: " + userId);
+			
+			dataStored = u.get().getDataStored();
+			
+					/**/
+			
+		}
+		
+		HeritageAppDTO happ = heritageAppNameService.findByName(appName);
+		
+		if(happ != null )
+		{
+			appId = happ.getId();
+		}
+		
+		
+		///
+		int mediaType = Integer.parseInt(mediatypeStr);
+		String mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+		if(mediaType == AppConstants.TEXTTYPE )
+		{
+			try{
+		//		resultVal = createTextData(title, description, address, category, language, latitude, longitude);
+			}
+			catch(Exception e)
+			{
+				
+				retValue2.setCode(RestReturnCodes.EXCEPTION);
+				retValue2.setMediaCreatedId(-1);
+				retValue2.setMessage("Create  Media FAILED");
+				retValue2.setStatus("NOTOK");
+				return retValue2;
+			}
+			retValue2.setCode(RestReturnCodes.SUCCESS);
+			retValue2.setMediaCreatedId(resultVal);
+			retValue2.setMessage("Created Media Successfully");
+			retValue2.setStatus("OK");
+			return retValue2;
+		}
+
+		log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
+		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+		if (pataHome == null) {
+			if (OSValidator.isUnix()) {
+				pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
+				log.debug("UNIX ENV");
+			}
+			if (OSValidator.isWindows()) {
+				pataHome = AppConstants.UPLOAD_FOLDER_WIN;
+				log.debug("WINDOWS ENV");
+			}
+		}
+
+		if (OSValidator.isUnix()) {
+			mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
+			log.debug("UNIX ENV");
+		}
+		if (OSValidator.isWindows()) {
+			mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+			log.debug("WINDOWS ENV");
+		}
+
+		log.debug("UPLOAD  FOLDER LOCATION " + pataHome);
+		Iterator<String> itr = request.getFileNames();
+		MultipartFile mpf = null;
+		byte[] photo = null;
+		String urlLinkToMedia = "";
+		try {
+			File newFile = null;
+			while (itr.hasNext()) {
+
+				mpf = request.getFile(itr.next());
+				log.debug("Uploading {}", mpf.getOriginalFilename());
+
+				mpf.getOriginalFilename();
+				String originalFileExtension = mpf.getOriginalFilename()
+						.substring(mpf.getOriginalFilename().lastIndexOf("."));
+				// String newFilename = newFilenameBase + originalFileExtension;
+				  newFilename = mpf.getOriginalFilename();
+				  
+				 Integer currentSize = (int) (dataStored + mpf.getSize());
+				if(currentSize.compareTo(AppConstants.MAX_CAPACITY) > 0)
+				{
+					retValue2.setCode(RestReturnCodes.USER_STORAGE_CAPACITY_EXCEEDED);
+					retValue2.setMediaCreatedId(-1);
+					retValue2.setMessage("Create  Media FAILED USER_STORAGE_CAPACITY_EXCEEDED");
+					retValue2.setStatus("NOTOK");
+					return retValue2;
+				}
+				// String storageDirectory = fileUploadDirectory;
+				// String audioStorageDirectory = pataHome + "//heritageaudio";
+
+				String storageDirectory = "";
+
+				switch (mediaType) {
+				case AppConstants.AUDIOTYPE:
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_AUDIO;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
+					break;
+				case AppConstants.IMAGETYPE:
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
+					break;
+				case AppConstants.TEXTTYPE:
+					// No upload just store ;
+					break;
+				case AppConstants.VIDEOTYPE:
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
+					break;
+				}
+
+				  downLoadFileName = storageDirectory + "//" + mpf.getOriginalFilename();
+				  contentType = mpf.getContentType();
+				// directory exists - no create directory ;
+				File theDir = new File(storageDirectory);
+
+				// if the directory does not exist, create it
+				if (!theDir.exists()) {
+					log.debug("creating directory: " + storageDirectory);
+					boolean result = false;
+
+					try {
+						theDir.mkdir();
+						result = true;
+					} catch (SecurityException se) {
+						// handle it
+					}
+					if (result) {
+						log.debug("DIR created" + storageDirectory);
+					}
+				}
+
+				try {
+					newFile = new File(downLoadFileName);
+
+					log.debug("uploaded file to PATH" + newFile.getAbsolutePath());
+					mpf.transferTo(newFile);
+					photo = FileUtils.readFileToByteArray(newFile);
+					userService.changeDataStoredMobile(userName, (int) newFile.length());
+				} catch (FileNotFoundException e) {
+					log.error("Could not upload file " + newFile, e);
+
+				} catch (IOException e) {
+					log.error("Could not upload file " + mpf.getOriginalFilename(), e);
+				}
+			}
+			/// check
+
+			//
+
+		} catch (Exception e) {
+
+			log.error("Error while save and  upload file " + e);
+		}
+
+	/*
+	 * private MediaResponse createMediaData(String title, String description, String address, String category, String language,
+			String latitude, String longitude, String fileurl, Integer groupId, String appName, Integer userId, String contentType, Integer mediaType, String fileLink, String userAgent )
+	 */
+
+		//MediaResponse retValue = new MediaResponse();
+		MediaResponse retValue3 =  createMediaData2(title, description, address, category, language, latitude, longitude,
+				newFilename       ,groupId, appName,userId,contentType, mediaType,urlLinkToMedia,userAgent,userName );
+
+		retValue3.setCode(RestReturnCodes.SUCCESS);
+		retValue3.setMediaCreatedId(resultVal);
+		retValue3.setMessage("Created Media Successfully");
+		retValue3.setStatus("OK");
+
+		return retValue3;
+
+	}
 	
+	private MediaResponse createMediaData2(String title, String description,
+			String address, String category, String language, String latitude, String longitude, String newFilenameBase,
+			Long groupId, String appName, Long userId, String contentType, int mediaType, String urlLinkToMedia,
+			String userAgent, String userLogin) {
+		// TODO Auto-generated method stub
+		HeritageMediaDTO heritageMediaEntityDTO = null;
+		heritageMediaEntityDTO = new HeritageMediaDTO();
+
+		heritageMediaEntityDTO.setAddress(address);
+		heritageMediaEntityDTO.setLatitude(Double.valueOf(latitude));
+		heritageMediaEntityDTO.setLongitude(Double.valueOf(longitude));
+		heritageMediaEntityDTO.setTitle(title);
+		heritageMediaEntityDTO.setDescription("  " + description);
+ 
+		heritageMediaEntityDTO.setGroupId(groupId );
+		
+		//contentType
+		heritageMediaEntityDTO.setMediaFileContentType(contentType);
+		heritageMediaEntityDTO.setUrlOrfileLink(urlLinkToMedia+"/"+newFilenameBase);
+		heritageMediaEntityDTO.setMediaType(mediaType);
+		heritageMediaEntityDTO.setUserAgent(userAgent);	
+		
 	
+		MediaResponse retValue = new MediaResponse();
+		 
+		
+		HeritageApp  heritageAppNameId = heritageAppNameRepository.findByName(appName);
+		if(heritageAppNameId != null)
+		{
+			heritageMediaEntityDTO.setHeritageAppId( heritageAppNameId.getId());
+		}
+		else
+		{
+			retValue.setCode(441);
+			retValue.setMessage("Media Creation failed - App name - "+appName + " - INVALIDE");
+			retValue.setStatus("NOTOK");
+			return retValue;
+		}
+		//userIdLongVar
+		 
+		
+		
+		HeritageCategory hCategory = heritageCategoryRepository.findByCategoryName(category);
+		if (hCategory != null)
+		{
+			heritageMediaEntityDTO.setCategoryId(hCategory.getId());
+		}
+		else
+		{
+			retValue.setCode(441);
+			retValue.setMessage("Media Creation failed HeritageCategory -  "  + category+ " -INVALID CATEGORY");
+			retValue.setStatus("NOTOK");
+			return retValue;
+		}
+		HeritageLanguage hLanguage = heritageLanguageRepository.findByHeritageLanguage(language); 
+		
+		if (hLanguage != null)
+		{
+			heritageMediaEntityDTO.setLanguageId(hLanguage.getId());
+		}
+		else
+		{
+			retValue.setCode(441);
+			retValue.setMessage("Media Creation failed -  HeritageLanguage - "  + language+ "- INVALID LANGUAGE");
+			retValue.setStatus("NOTOK");
+			return retValue;
+		}
+		 // group repo
+		
+ 
+		
+		//  user repo 
+		//  app repo
+		
+		 //set the time ;
+		 
+		
+		String inputIso = "2014-03-19T21:00:00+05:30";
+		DateTimeZone timeZoneIndia = DateTimeZone.forID( "Asia/Kolkata" );
+		DateTime dateTimeIndia = new DateTime( inputIso, timeZoneIndia );
+		
+		HeritageMediaDTO result = null;
+	    String s ="Asia/Kolkata";
+	    LocalDateTime dt = LocalDateTime.now();
+		ZoneId zone = ZoneId.of(s);
+	    ZonedDateTime uploadTime = dt.atZone(zone);	    
+	    heritageMediaEntityDTO.setUploadTime(uploadTime);
+	    
+	    try
+	    {
+	    	byte[] mediaFile = new byte[1];
+	    	heritageMediaEntityDTO.setMediaFile(mediaFile);
+	    	log.debug("heritageMediaEntityDTO userId set" +userId);
+			heritageMediaEntityDTO.setUserId( userId );
+			log.debug("heritageMediaEntityDTO userLogin set" +userLogin);
+			heritageMediaEntityDTO.setUserLogin(userLogin);
+	    	result  = heritageMediaEntityService.saveMobile(heritageMediaEntityDTO);
+	    	result.getId();
+	    }catch(Exception e)
+	    {
+	    	errMessageException = e.getMessage();
+	    	
+	    	retValue.setCode(441);
+			retValue.setMessage("Media Creation failed"+errMessageException);
+			retValue.setStatus("NOTOK");
+			return retValue;
+	    	
+	    }
+	    
+	    
+	    retValue.setCode(RestReturnCodes.SUCCESS);
+		retValue.setMediaCreatedId(result.getId());
+		retValue.setMessage("Created Media Successfully");
+		retValue.setStatus("OK");
+		return retValue;
+	}
+
 	@CrossOrigin
 	@RequestMapping(value = "/createNewMediaHeritageForm/app/{appId}/user/{userId}/group/{groupId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -397,7 +770,7 @@ public class RestNewResourceMapApp {
 	
 	///
 	@CrossOrigin
-	@RequestMapping(value = "/getAppConfigInfo/app/{appId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/getAppConfigInfo/app/{appId}", method = { RequestMethod.GET, RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public @ResponseBody ResponseEntity<HeritageAppDTO> getConfigInfoForAppId(
 			@PathVariable("appId") String appId 
@@ -458,8 +831,9 @@ public class RestNewResourceMapApp {
 		
 		 for (HeritageMedia  item : heritageList) {
 			  
-			  LngLatAlt coordinates = new LngLatAlt(item.getLongitude(),
-			  item.getLatitude()); Point c = new Point(coordinates); 
+			  LngLatAlt coordinates = new LngLatAlt(item.getLongitude(),			  item.getLatitude()); 
+			  
+			  Point c = new Point(coordinates); 
 			  Feature f =			  new Feature(); 
 			  f.setGeometry(c);
 			  f.setId(item.getId().toString());

@@ -99,6 +99,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/heritageLanguages").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromWeb").permitAll()
+            .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile2").permitAll()
+            
             .antMatchers("/api/createMediaHeritageForm/**").permitAll()
             .antMatchers("/api/getAppConfigInfo/**").permitAll()
             .antMatchers("/api/addUserToGroup/**").permitAll()
@@ -107,7 +109,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/getUserGroups/**").permitAll()
             
             //.antMatchers("/api/addUserToGroup/**").hasAuthority(AuthoritiesConstants.USER)
-            //createAnyMediaGeoTagHeritageFromMobile ///addUserToGroup/
+            //createAnyMediaGeoTagHeritageFromMobile2 ///addUserToGroup/
             
             
             .antMatchers("/api/**").authenticated()

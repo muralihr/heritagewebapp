@@ -30,6 +30,9 @@ public interface HeritageMediaService {
      *  @return the entity
      */
     public HeritageMediaDTO findOne(Long id);
+    
+    public HeritageMediaDTO saveMobile(HeritageMediaDTO heritageMediaDTO);
+
 
     /**
      *  delete the "id" heritageMedia.

@@ -228,6 +228,38 @@ public class UserService {
        
         return size;
     }
+    public Integer changeDataStoredMobile(String userName, Integer newData) {
+    	
+    	
+   	 Optional<User> user = userRepository.findOneByLogin(userName);
+   	Integer size = 0 ;
+   	 boolean c = user.isPresent();
+   	 if(c)
+   	 {
+   		 
+   		 User u  = user.get(); 
+   		 Integer current = u.getDataStored();
+   		 if(current == null)
+   		 {
+   			 current = 0 ;
+   		 }
+            Integer newSize = current + newData;
+            
+            if(newSize >  AppConstants.MAX_CAPACITY )
+            {
+           	 size =  AppConstants.MAX_CAPACITY ;
+            }
+            else
+            {	
+           	 size =  newSize ;
+           	 u.setDataStored(newSize);
+           	 userRepository.save(u);
+            }
+   	 }
+   	  
+      
+       return size;
+   }
     
     public Integer changeDataStoredUser(Long userId, Integer newData) {
     	

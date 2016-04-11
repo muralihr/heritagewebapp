@@ -83,6 +83,37 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
         HeritageMediaDTO result = heritageMediaMapper.heritageMediaToHeritageMediaDTO(heritageMedia);
         return result;
     }
+    
+    public HeritageMediaDTO saveMobile(HeritageMediaDTO heritageMediaDTO) {
+        log.debug("Request to save HeritageMedia : {}", heritageMediaDTO);
+        
+        ///move the file to a specific folder 
+        //get http link if not found move the file - 
+    	/*byte[] mediaFile = new byte[1];
+        if(heritageMediaDTO.getUrlOrfileLink().startsWith("http"))
+        {
+    
+			heritageMediaDTO.setMediaFile(mediaFile);
+        }
+        else
+        {
+         	String urlLinkToMedia = copyMediaFile(heritageMediaDTO);;
+        	heritageMediaDTO.setMediaFile(mediaFile);       
+			//urlLinkToMedia
+        	heritageMediaDTO.setUrlOrfileLink(urlLinkToMedia);
+                	
+        	
+        }*/
+        
+   
+        
+        HeritageMedia heritageMedia = heritageMediaMapper.heritageMediaDTOToHeritageMedia(heritageMediaDTO);
+        
+        ///
+        heritageMedia = heritageMediaRepository.save(heritageMedia);
+        HeritageMediaDTO result = heritageMediaMapper.heritageMediaToHeritageMediaDTO(heritageMedia);
+        return result;
+    }
 
     /**
      *  get all the heritageMedias.

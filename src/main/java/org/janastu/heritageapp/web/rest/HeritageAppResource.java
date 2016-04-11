@@ -106,11 +106,11 @@ public class HeritageAppResource {
         return l;
     }
     @RequestMapping(value = "/heritageAppsMob",
-            method = RequestMethod.GET,
+    	method = { RequestMethod.GET, RequestMethod.POST },
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
         @Transactional(readOnly = true)
-        public    List<HeritageApp>  getAllHeritageAppsMob()
+        public       List<HeritageApp> getAllHeritageAppsMob()
             throws URISyntaxException {
             log.debug("REST request to get a page of HeritageApps");
             List<HeritageApp> l = heritageAppService.findAllAsAList();
