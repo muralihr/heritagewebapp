@@ -105,6 +105,7 @@ public class HeritageAppResource {
       
         return l;
     }
+    @CrossOrigin
     @RequestMapping(value = "/heritageAppsMob",
     	method = { RequestMethod.GET, RequestMethod.POST },
             produces = MediaType.APPLICATION_JSON_VALUE)

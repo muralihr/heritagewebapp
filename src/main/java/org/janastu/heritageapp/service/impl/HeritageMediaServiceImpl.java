@@ -112,6 +112,7 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
         ///
         heritageMedia = heritageMediaRepository.save(heritageMedia);
         HeritageMediaDTO result = heritageMediaMapper.heritageMediaToHeritageMediaDTO(heritageMedia);
+        log.debug("save mobile}", heritageMediaDTO);
         return result;
     }
 

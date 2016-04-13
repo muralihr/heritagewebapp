@@ -61,10 +61,17 @@ public class HeritageMediaResource {
         }
         
         //get the user 
-       
-        Integer newData = heritageMediaDTO.getMediaFile().length;
+        if(heritageMediaDTO.getUrlOrfileLink().startsWith("http"))
+        {        
         
-        userService.changeDataStored(newData);
+        }
+        else
+        {
+        	 Integer newData = heritageMediaDTO.getMediaFile().length;             
+             userService.changeDataStored(newData);
+        	 
+        }
+       
         
         HeritageMediaDTO result = heritageMediaService.save(heritageMediaDTO);
         return ResponseEntity.created(new URI("/api/heritageMedias/" + result.getId()))
