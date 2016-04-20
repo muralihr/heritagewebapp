@@ -485,7 +485,7 @@ public class RestNewResourceMapApp {
 	@CrossOrigin
 	@RequestMapping(value = "/createNewMediaHeritageForm/app/{appId}/user/{userId}/group/{groupId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public @ResponseBody MediaResponse createAnyMediaGeoTagHeritageFromWebWitMap(@PathVariable("appId") String appId,
+	public @ResponseBody MediaResponse createAnyMediaGeoTagHeritageFromWebWithMap(@PathVariable("appId") String appId,
 			@PathVariable("userId") Integer userId, @PathVariable("groupId") Integer groupId,
 			@RequestParam("title") String title, @RequestParam("description") String description,
 			@RequestParam("category") String category, @RequestParam("language") String language,

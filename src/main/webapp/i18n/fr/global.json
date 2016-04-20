@@ -19,6 +19,8 @@
                 "heritageMedia": "HeritageMedia",
                 "heritageGroupUser": "HeritageGroupUser",
                 "heritageGroupEditor": "HeritageGroupEditor",
+                "heritageWalk": "HeritageWalk",
+                "heritageSlide": "HeritageSlide",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

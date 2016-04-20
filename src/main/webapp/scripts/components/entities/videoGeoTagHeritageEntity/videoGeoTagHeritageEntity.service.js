@@ -19,6 +19,8 @@ angular.module('heritageMapperAppApp' )
 .service('sharedGeoProperties', function () {
     var longitude = 0;
     var latitude = 0 ;
+    
+    var geoJSON = null;
 
     return {
         getLongitude: function () {
@@ -35,7 +37,14 @@ angular.module('heritageMapperAppApp' )
         setLatitude: function(value) {
         	console.log("setLatitude"+value);
         	latitude = value;
-        }  
+        },        
+        getGeoJSON: function () {
+            return geoJSON;
+        },
+        setGeoJSON: function(value) {
+        	console.log("setGeoJSON"+value);
+        	geoJSON = value;
+        }
     };
 });
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('heritageMapperAppApp', ['LocalStorageModule', 'tmh.dynamicLocale', 'pascalprecht.translate', 
-    'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngSanitize', 'ngFileUpload','ngMap', 'leaflet-directive', 'angularReverseGeocode','checklist-model',
+    'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngSanitize', 'dndLists','ngFileUpload','ngMap', 'leaflet-directive', 'angularReverseGeocode','checklist-model',
     // jhipster-needle-angularjs-add-module JHipster will add new module leaflet-directive leaflet-directive
     'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar'])
 

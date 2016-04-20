@@ -1,4 +1,56 @@
-<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+
+
+    <div class="modal-header">
+        
+         <h1>Add Slide</h1>  
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        
+         <input type="text" class="form-control" id="id" name="id"
+                    ng-model="titleSelected" readonly />
+      
+        {{descrSelected}}
+        </p>
+        
+          <span ng-if="media === 'AUDIO'">
+       	AUDIO	
+       	  <audio controls>
+ 			<source src="{{urlLink}}"   type='audio/mp3'>
+ 
+ 				<p>Your user agent does not support the HTML5 Audio element.</p>
+			</audio>
+
+     	</span>
+     	<span ng-if="media == 'VIDEO'">
+       		VIDEO
+       		  
+ 		<video controls>
+       		<source ng-src="{{urlLink}}" height="200" width="250" type="video/mp4"/>
+		</video>
+ 		
+ 
+     	</span>
+     	
+     	<span ng-if="media == 'IMAGE'">
+       		IMAGE
+       		
+       		<img src="{{urlLink}}" height="200" width="250"  >
+     	</span>
+     
+     
+    </div>
+    <div class="modal-footer">
+        
+    
+     
+       <h1>Location</h1>
+   
+    </div>
+    
+    
+<form name="editForm" role="form" novalidate ng-submit="addSlideToList()" show-validation>
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -34,25 +86,30 @@
                     ng-model="heritageSlide.notes"
                      />
         </div>
-
-        <div class="form-group">
-            <label translate="heritagemapperappApp.heritageSlide.heritageMedia" for="field_heritageMedia">heritageMedia</label>
-            <select class="form-control" id="field_heritageMedia" name="heritageMedia" ng-model="heritageSlide.heritageMediaId" ng-options="heritageMedia.id as heritageMedia.title for heritageMedia in heritagemedias">
-                <option value=""></option>
-            </select>
-        </div>
+        
         <div class="form-group">
             <label translate="heritagemapperappApp.heritageSlide.heritageWalk" for="field_heritageWalk">heritageWalk</label>
             <select class="form-control" id="field_heritageWalk" name="heritageWalk" ng-model="heritageSlide.heritageWalkId" ng-options="heritageWalk.id as heritageWalk.name for heritageWalk in heritagewalks">
                 <option value=""></option>
             </select>
+        </div> 
+
+       <!--  <div class="form-group">
+            <label translate="heritagemapperappApp.heritageSlide.heritageMedia" for="field_heritageMedia">heritageMedia</label>
+            <select class="form-control" id="field_heritageMedia" name="heritageMedia" ng-model="heritageSlide.heritageMediaId" ng-options="heritageMedia.id as heritageMedia.title for heritageMedia in heritagemedias">
+                <option value=""></option>
+            </select>
         </div>
-        <div class="form-group">
+        
+        
+         <div class="form-group">
             <label translate="heritagemapperappApp.heritageSlide.user" for="field_user">user</label>
             <select class="form-control" id="field_user" name="user" ng-model="heritageSlide.userId" ng-options="user.id as user.login for user in users">
                 <option value=""></option>
             </select>
         </div>
+        -->
+       
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -63,3 +120,5 @@
         </button>
     </div>
 </form>
+    
+

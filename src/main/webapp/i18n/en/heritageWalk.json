@@ -1,0 +1,24 @@
+{
+    "heritagemapperappApp": {
+        "heritageWalk" : {
+            "home": {
+                "title": "HeritageWalks",
+                "createLabel": "Create a new HeritageWalk",
+                "createOrEditLabel": "Create or edit a HeritageWalk",
+                "search": "Search for HeritageWalk"
+            },
+            "created": "A new HeritageWalk is created with identifier {{ param }}",
+            "updated": "A HeritageWalk is updated with identifier {{ param }}",
+            "deleted": "A HeritageWalk is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete HeritageWalk {{ id }}?"
+            },
+            "detail": {
+                "title": "HeritageWalk"
+            },
+            "name": "Name",
+            "background": "Background",
+            "user": "User"
+        }
+    }
+}

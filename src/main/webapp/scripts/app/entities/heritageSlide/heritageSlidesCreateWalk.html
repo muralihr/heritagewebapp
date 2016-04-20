@@ -1,0 +1,84 @@
+<div ng-cloak>
+<div class="row">
+	<div class="row">
+	   <div id='map'></div>
+	   <leaflet lf-center="towncenter" tiles="tiles" geojson="geojson"
+	      width="100%" height="480px" markers="markers"
+	      event-broadcast="events"></leaflet>
+	 
+	   <div class="alert alert-success">
+	      <span ng-if="showmsg == true">
+	         <strong>
+	         {{titleSelected}} </strong>.
+	         <h3>{{descrSelected }}</h3>
+	         <h5>{{urlLink }}</h5>
+	         <h5>Click to see {{media }}</h5>
+	      </span>
+	   </div>
+	   <span ng-if="showmsg == false"> </span>
+	</div>
+<div>
+<div class="simpleDemo row">
+   <div class="col-md-6">
+      <div class="row">
+         <div class="panel panel-info">
+            <div class="panel-heading">
+               <h3 class="panel-title">Click on A Map Point and Create Walk </h3>
+            </div>
+            <div class="panel-body">
+               <ul dnd-list="slideList">
+                  <!-- The dnd-draggable directive makes an element draggable and will
+                     transfer the object that was assigned to it. If an element was
+                     dragged away, you have to remove it from the original list
+                     yourself using the dnd-moved attribute -->
+                  <li ng-repeat="slide in slideList" dnd-draggable="slide"
+                     dnd-moved="slideList.splice($index, 1)" dnd-effect-allowed="move"
+                     dnd-selected="selected = slide"
+                     ng-class="{'selected':  selected === slide}">
+	                     <div name="debug" >
+	                       </p> 	{{slide.notes}}  
+	                     </div>
+                     <span ng-if="slide.media === 'AUDIO'">
+                         	
+                        <audio controls>
+                           <source ng-src="{{slide.url}}"   height="100" width="100" type='audio/mp3'>
+                           <p>Your user agent does not support the HTML5 Audio element.</p>
+                        </audio>
+                     </span>
+                     <span ng-if="slide.media == 'VIDEO'">
+                         
+                        <video controls>
+                           <source ng-src="{{slide.url}}" height="100" width="100" type="video/mp4"/>
+                        </video>
+                     </span>
+                     <span ng-if="slide.media == 'IMAGE'">
+                     <img ng-src="{{slide.url}}" height="100" width="100"  >
+                     </span>
+                      				 
+                  </li>
+               </ul>
+            </div>
+         </div>
+      </div>
+      
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="convertListToGeoJSONAndSave()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;  PREVIEW</span>
+        </button>
+        
+        
+      <div view-source="simple"></div>
+   </div>
+   <div class="col-md-4">
+      <div class="panel panel-default">
+         <div class="panel-heading">
+            <h3 class="panel-title">Generated Model</h3>
+         </div>
+         <div class="panel-body">
+            <pre class="code">{{modelAsJson}}</pre>
+         </div>
+      </div>
+   </div>
+</div>
+
+ 
+<script></script>

@@ -1,0 +1,62 @@
+
+<div>
+    <h2><span translate="heritagemapperappApp.heritageSlide.detail.title">HeritageSlide</span> {{heritageSlide.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="entity.detail.field">Field</th>
+                <th translate="entity.detail.value">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageSlide.indexVal">IndexVal</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageSlide.indexVal}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageSlide.notes">Notes</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{heritageSlide.notes}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageSlide.heritageMedia">heritageMedia</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageMedia.detail({id:heritageSlide.heritageMediaId})">{{heritageSlide.heritageMediaTitle}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageSlide.heritageWalk">heritageWalk</span>
+                </td>
+                <td>
+                    <a class="form-control-static" ui-sref="heritageWalk.detail({id:heritageSlide.heritageWalkId})">{{heritageSlide.heritageWalkName}}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span translate="heritagemapperappApp.heritageSlide.user">user</span>
+                </td>
+                <td>
+                    {{heritageSlide.userLogin}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

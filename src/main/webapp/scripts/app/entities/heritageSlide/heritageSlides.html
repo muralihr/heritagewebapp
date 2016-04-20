@@ -1,0 +1,73 @@
+<div>
+    <h2 translate="heritagemapperappApp.heritageSlide.home.title">HeritageSlides</h2>
+    <jh-alert></jh-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="heritageSlide.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                        translate="heritagemapperappApp.heritageSlide.home.createLabel">Create new HeritageSlide
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="indexVal"><span translate="heritagemapperappApp.heritageSlide.indexVal">IndexVal</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="notes"><span translate="heritagemapperappApp.heritageSlide.notes">Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="heritageMediaTitle"><span translate="heritagemapperappApp.heritageSlide.heritageMedia">heritageMedia</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="heritageWalkName"><span translate="heritagemapperappApp.heritageSlide.heritageWalk">heritageWalk</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="userLogin"><span translate="heritagemapperappApp.heritageSlide.user">user</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="heritageSlide in heritageSlides track by heritageSlide.id">
+                    <td><a ui-sref="heritageSlide.detail({id:heritageSlide.id})">{{heritageSlide.id}}</a></td>
+                    <td>{{heritageSlide.indexVal}}</td>
+                    <td>{{heritageSlide.notes}}</td>
+                    <td>
+                        <a ui-sref="heritageMedia.detail({id:heritageSlide.heritageMediaId})">{{heritageSlide.heritageMediaTitle}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="heritageWalk.detail({id:heritageSlide.heritageWalkId})">{{heritageSlide.heritageWalkName}}</a>
+                    </td>
+                    <td>
+                        {{heritageSlide.userLogin}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="heritageSlide.detail({id:heritageSlide.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageSlide.edit({id:heritageSlide.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="heritageSlide.delete({id:heritageSlide.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm" translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
+</div>

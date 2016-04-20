@@ -1,0 +1,26 @@
+{
+    "heritagemapperappApp": {
+        "heritageSlide" : {
+            "home": {
+                "title": "HeritageSlides",
+                "createLabel": "Create a new HeritageSlide",
+                "createOrEditLabel": "Create or edit a HeritageSlide",
+                "search": "Search for HeritageSlide"
+            },
+            "created": "A new HeritageSlide is created with identifier {{ param }}",
+            "updated": "A HeritageSlide is updated with identifier {{ param }}",
+            "deleted": "A HeritageSlide is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete HeritageSlide {{ id }}?"
+            },
+            "detail": {
+                "title": "HeritageSlide"
+            },
+            "indexVal": "IndexVal",
+            "notes": "Notes",
+            "heritageMedia": "HeritageMedia",
+            "heritageWalk": "HeritageWalk",
+            "user": "User"
+        }
+    }
+}
