@@ -84,7 +84,7 @@ import java.util.stream.Collectors;
 @CrossOrigin
 public class GeoJsonHeritageSpotsResource {
 
-	private final Logger log = LoggerFactory.getLogger(GeoJsonHeritageSpotsResource.class);
+	/*private final Logger log = LoggerFactory.getLogger(GeoJsonHeritageSpotsResource.class);
 	@Inject
 	private VideoGeoTagHeritageEntityService videoGeoTagHeritageEntityService;
 
@@ -105,7 +105,6 @@ public class GeoJsonHeritageSpotsResource {
 
 	@Autowired
 	private Environment environment;
-
 	@CrossOrigin
 	@RequestMapping(value = "/allGeoTagHeritageEntitysGeoJson", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -259,7 +258,7 @@ public class GeoJsonHeritageSpotsResource {
 
 		return totalCollection;
 
-	}
+	}*/
 	
 	/*
 	 * This function is needed to send the mapId to the user - 
@@ -267,7 +266,7 @@ public class GeoJsonHeritageSpotsResource {
 	 *-/api/function/mapname/{mapnameId}
 	 */
 	
-	@CrossOrigin
+	/*@CrossOrigin
 	@RequestMapping(value = "/createMediaHeritageForm/map/{mapId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public @ResponseBody MediaResponse createAnyMediaGeoTagHeritageFromWebWitMap(@PathVariable("mapId") String mapId,
@@ -295,12 +294,13 @@ public class GeoJsonHeritageSpotsResource {
 		retValue.setMessage("Created Media Successfully");
 		retValue.setStatus("OK");
 		return retValue;
-	}
+	}*/
 //write a URL mapped 
 	/*
 	 * This is the api for web - ANy web should directly call this API;
 	 * 
 	 */
+	/*
 	@CrossOrigin
 	@RequestMapping(value = "/createAnyMediaGeoTagHeritageFromWeb", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -444,7 +444,9 @@ public class GeoJsonHeritageSpotsResource {
 		retValue2.setStatus("OK");
 		return retValue2;
 
-	}
+	}*/
+	
+	/*
 
 	@RequestMapping(value = "/createAnyMediaGeoTagHeritageFromMobile", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -784,5 +786,5 @@ public class GeoJsonHeritageSpotsResource {
 		return result.getId();
 
 	}
-
+*/
 }

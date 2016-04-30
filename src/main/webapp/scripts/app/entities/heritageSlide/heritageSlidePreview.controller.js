@@ -95,15 +95,20 @@ angular.module('heritageMapperAppApp')
                  zoom: 14
              },
              
-             
-            
-             
+           
+     
            
              
              events: {
  		        markers: {
  		            enable: ['click'],
- 		            logic: 'emit'
+ 		            logic: 'emit',
+ 		           icon: {
+ 		        	  iconUrl: 'http://circusnow.org/wp-content/uploads/leaflet-maps-marker-icons/blank_grey.png',
+
+	            	    iconSize:     [38, 35], // size of the icon
+	            	    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+                   }
  		        }
  		    },
              tiles: {
@@ -131,15 +136,25 @@ angular.module('heritageMapperAppApp')
            //  $scope.geojson.data = data;
            //  console.log("geojson data "+data);
     		 var data = [
- 	    	            { title: 'Location A', description: 'AA',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.81968641281128 },
- 	    	            { title: 'Location B', description: 'BB',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.91968641281128},
- 	    	            { title: 'Location C', description: 'CC',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.71968641281128 }
+ 	    	            { title: 'Location A', 'marker-symbol': '1', description: 'AA',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.81968641281128 },
+ 	    	            { title: 'Location B', 'marker-symbol': '2',description: 'BB',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.91968641281128},
+ 	    	            { title: 'Location C','marker-symbol': '3',  description: 'CC',url:' ', media: 'VIDEO',walkName: "sss", lat: 11.930508703668062, lng: 79.71968641281128 }
  	    	          ];
  	    	          
  	    	          
-    	//	 var geojson2 = GeoJSON.parse(data, {Point: ['lat', 'lng']});
+    	 var geojson2 = GeoJSON.parse(data, {Point: ['lat', 'lng']});
     		 
-    		 var geojson2 = sharedGeoProperties.getGeoJSON( );
+    		// var geojson2 = sharedGeoProperties.getGeoJSON( );
+    		 var index = 1;
+    		 
+    		 geojson2.features.forEach(function(feature){
+    			 
+    			 var c = feature;
+    			 feature.properties.markersymbol = index;
+    			 index++;
+    			 console.log("c"+c);
+    		        
+    		      });
  	    	
     		 angular.extend($scope, {
     	            geojson: {

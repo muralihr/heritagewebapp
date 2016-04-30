@@ -102,7 +102,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromWeb").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile2").permitAll()
             .antMatchers("/api/createNewMediaHeritageForm/app/**").permitAll()
-            .antMatchers("/api/createNewMediaHeritageForm/**").permitAll()
+            .antMatchers("/api/createNewMediaHeritageForm2/**").permitAll()
             //createNewMediaHeritageForm //
             .antMatchers("/api/createMediaHeritageForm/**").permitAll()
             .antMatchers("/api/getAppConfigInfo/**").permitAll()
