@@ -345,9 +345,21 @@ public class RestNewResourceMapApp {
 						userService.changeDataStoredMobile(userName, (int) newFile.length());
 					} catch (FileNotFoundException e) {
 						log.error("Could not upload file " + newFile, e);
+						
+						retValue2.setCode(RestReturnCodes.EXCEPTION);
+						retValue2.setMediaCreatedId(-1);
+						retValue2.setMessage("Create  Media FAILED FileNotFoundException");
+						retValue2.setStatus("NOTOK");
+						return retValue2;
 
 					} catch (IOException e) {
 						log.error("Could not upload file " + mpf.getOriginalFilename(), e);
+						
+						retValue2.setCode(RestReturnCodes.EXCEPTION);
+						retValue2.setMediaCreatedId(-1);
+						retValue2.setMessage("Create  Media FAILED IOException");
+						retValue2.setStatus("NOTOK");						 
+						return retValue2;
 					}
 				} //mediaa type check 
 			}//while end
@@ -358,16 +370,17 @@ public class RestNewResourceMapApp {
 		} catch (Exception e) {
 
 			log.error("Error while save and  upload file " + e);
+			
+			retValue2.setCode(RestReturnCodes.EXCEPTION);
+			retValue2.setMediaCreatedId(-1);
+			retValue2.setMessage("Error while save and  upload file " +e);
+			retValue2.setStatus("NOTOK");
+			return retValue2;
 		}
  
 		MediaResponse retValue3 = createMediaData2(title, description, address, category, language, latitude, longitude,
 				newFilename, groupId, appName, userId, contentType, mediaType, urlLinkToMedia, userAgent, userName);
-
-		retValue3.setCode(RestReturnCodes.SUCCESS);
-		retValue3.setMediaCreatedId(resultVal);
-		retValue3.setMessage("Created Media Successfully");
-		retValue3.setStatus("OK");
-
+		
 		return retValue3;
 
 	}
@@ -905,8 +918,44 @@ public class RestNewResourceMapApp {
 	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSON() throws URISyntaxException {
 
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
-		;
+		 
 		FeatureCollection totalCollection = convertListToFeatures(heritageList);
+
+		return totalCollection;
+
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value = "/mapp/app/{appId}", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@Transactional(readOnly = true)
+	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSONForApp(@PathVariable("appId") String appId) throws URISyntaxException {
+
+		//check if appId is valid;
+		
+		//return null 
+		
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
+		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
+		
+		for(HeritageMedia m : heritageList)
+		{
+			//
+			
+			int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
+			
+			if(result == 0 )
+			{
+				
+				heritageFilterList.add(m);
+			}
+			
+			//
+			
+		}
+		
+		FeatureCollection totalCollection = convertListToFeatures(heritageFilterList);
 
 		return totalCollection;
 
@@ -1035,5 +1084,25 @@ public class RestNewResourceMapApp {
 
 	}
 	///
+	
+	@CrossOrigin
+	@RequestMapping(value = "/getCurrentStorageSize/user/{userId}", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public @ResponseBody Integer getCurrentStorageSize(@PathVariable String userId) {
+		
+		Optional<User> u = userRepository.findOneByLogin(userId);
+		User user = null;
+		if (u.isPresent())
+		{
+
+			user = u.get();	
+			return user.getDataStored();
+		}
+		return -1;
+
+		
+
+	}
 
 }
