@@ -1,10 +1,13 @@
 'use strict';
 
 angular.module('heritageMapperAppApp')
-    .controller('MainController',['$scope', '$http','$uibModal', '$location', 'Principal','leafletData','HeritageCategory','HeritageLanguage', 
+
+   .controller('MainController',['$scope', '$http','$uibModal', '$location', 'Principal','leafletData','HeritageCategory','HeritageLanguage', 
                                   'ImageGeoTagHeritageEntity','AudioGeoTagHeritageEntity','VideoGeoTagHeritageEntity','TextGeoTagHeritageEntity',
-                                  function ($scope,$http,$uibModal, $location, Principal,  leafletData , HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity) {
-       
+                                  function ($scope,$http,$uibModal, $location, Principal,  leafletData , HeritageCategory,HeritageLanguage ,ImageGeoTagHeritageEntity,AudioGeoTagHeritageEntity,VideoGeoTagHeritageEntity,TextGeoTagHeritageEntity)
+  {
+                                  
+                                  
     	
     	
     	Principal.identity().then(function(account) {

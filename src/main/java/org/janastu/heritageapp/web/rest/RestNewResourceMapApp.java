@@ -665,93 +665,6 @@ public class RestNewResourceMapApp {
 		String urlLinkToMedia = null;
 
 		String storageDirectory = "";
-		if (pataHome == null) {
-			if (OSValidator.isUnix()) {
-				pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
-				log.debug("UNIX ENV");
-			}
-			if (OSValidator.isWindows()) {
-				pataHome = AppConstants.UPLOAD_FOLDER_WIN;
-				log.debug("WINDOWS ENV");
-			}
-
-		}
-
-		if (OSValidator.isUnix()) {
-			mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
-			log.debug("UNIX ENV");
-		}
-		if (OSValidator.isWindows()) {
-			mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
-			log.debug("WINDOWS ENV");
-		}
-
-		try {
-			switch (mediaTypeInt) {
-			case AppConstants.AUDIOTYPE:
-				storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_AUDIO;
-				urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
-						+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
-
-				break;
-			case AppConstants.IMAGETYPE:
-
-				storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
-				urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
-						+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
-
-				break;
-			case AppConstants.TEXTTYPE:
-				// No upload just store ;
-
-				break;
-			case AppConstants.VIDEOTYPE:
-				storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
-				urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
-						+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
-
-				break;
-			}
-		} catch (Exception e) {
-			retValue2.setCode(RestReturnCodes.MEDIA_CREATION_EXCEPTION);
-			retValue2.setMediaCreatedId(-1);
-			retValue2.setMessage("Error creating media" + e);
-			retValue2.setStatus("NOTOK");
-			return retValue2;
-
-		}
-
-		String downLoadFileName = storageDirectory + "//" + file.getOriginalFilename();
-		String contentType = file.getContentType();
-		// directory exists - no create directory ;
-
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-				// Creating the directory to store file
-				// Create the file on server
-				File serverFile = new File(downLoadFileName);
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-				log.debug("Server File Location=" + serverFile.getAbsolutePath());
-
-			} catch (Exception e) {
-				retValue2.setCode(440);
-				retValue2.setMessage("You FAILED uploaded file");
-				retValue2.setStatus("NOTOK");
-				 
-				return retValue2;
-			}
-		} else {
-			retValue2.setCode(440);
-			retValue2.setMessage("You FAILED uploaded file file emplty");
-			retValue2.setStatus("NOTOK");
-			 
-			return retValue2;
-		}
-
-		
 		Integer userId = -1;
 		//userName
 		Optional<User>  u = userRepository.findOneByLogin(userName);
@@ -769,7 +682,100 @@ public class RestNewResourceMapApp {
 			retValue2.setStatus("NOTOK");		 
 			return retValue2;
 		}
-		
+		String contentType = "";
+		if(!fileOrURLLink.startsWith("http"))
+		{
+			if (pataHome == null) {
+				if (OSValidator.isUnix()) {
+					pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
+					log.debug("UNIX ENV");
+				}
+				if (OSValidator.isWindows()) {
+					pataHome = AppConstants.UPLOAD_FOLDER_WIN;
+					log.debug("WINDOWS ENV");
+				}
+	
+			}
+	
+			if (OSValidator.isUnix()) {
+				mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
+				log.debug("UNIX ENV");
+			}
+			if (OSValidator.isWindows()) {
+				mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
+				log.debug("WINDOWS ENV");
+			}
+	
+			try {
+				switch (mediaTypeInt) {
+				case AppConstants.AUDIOTYPE:
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_AUDIO;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
+	
+					break;
+				case AppConstants.IMAGETYPE:
+	
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
+	
+					break;
+				case AppConstants.TEXTTYPE:
+					// No upload just store ;
+	
+					break;
+				case AppConstants.VIDEOTYPE:
+					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
+					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
+							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
+	
+					break;
+				}
+			} catch (Exception e) {
+				retValue2.setCode(RestReturnCodes.MEDIA_CREATION_EXCEPTION);
+				retValue2.setMediaCreatedId(-1);
+				retValue2.setMessage("Error creating media" + e);
+				retValue2.setStatus("NOTOK");
+				return retValue2;
+	
+			}
+	
+			String downLoadFileName = storageDirectory + "//" + file.getOriginalFilename();
+			  contentType = file.getContentType();
+			// directory exists - no create directory ;
+	
+			if (!file.isEmpty()) {
+				try {
+					byte[] bytes = file.getBytes();
+					// Creating the directory to store file
+					// Create the file on server
+					File serverFile = new File(downLoadFileName);
+					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+					stream.write(bytes);
+					stream.close();
+					log.debug("Server File Location=" + serverFile.getAbsolutePath());
+	
+				} catch (Exception e) {
+					retValue2.setCode(440);
+					retValue2.setMessage("You FAILED uploaded file");
+					retValue2.setStatus("NOTOK");
+					 
+					return retValue2;
+				}
+			} else {
+				retValue2.setCode(440);
+				retValue2.setMessage("You FAILED uploaded file file emplty");
+				retValue2.setStatus("NOTOK");
+				 
+				return retValue2;
+			}
+		}
+		else
+		{
+			urlLinkToMedia = fileOrURLLink;
+		}		
+		 
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
 		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
@@ -811,7 +817,7 @@ public class RestNewResourceMapApp {
 		} else {
 			retValue.setCode(441);
 			log.debug("Media Creation failed - App name -  ");
-			retValue.setMessage("Media Creation failed - App name - " + appName + " - INVALIDE");
+			retValue.setMessage("Media Creation failed - App name - " + appName + " - INVALID");
 			retValue.setStatus("NOTOK");
 			return retValue;
 		}
