@@ -645,6 +645,8 @@ public class RestNewResourceMapApp {
 		log.debug("mapId  " + appId);
 		log.debug("userName  " + userName);
 		log.debug("groupId  " + groupId);
+		boolean isTextData = false;
+		boolean shouldWeUploadFile = false;
 
 		log.debug("description " + description);
 		// request.getParameter("description");
@@ -685,6 +687,14 @@ public class RestNewResourceMapApp {
 		String contentType = "";
 		if(!fileOrURLLink.startsWith("http"))
 		{
+			shouldWeUploadFile = true;
+		}
+		if(mediaTypeInt == AppConstants.TEXTTYPE)
+		{
+			isTextData = true;
+		}
+		if( shouldWeUploadFile == false || isTextData == false )
+		{
 			if (pataHome == null) {
 				if (OSValidator.isUnix()) {
 					pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
@@ -712,6 +722,7 @@ public class RestNewResourceMapApp {
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_AUDIO;
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
+					shouldWeUploadFile = true;
 	
 					break;
 				case AppConstants.IMAGETYPE:
@@ -719,16 +730,20 @@ public class RestNewResourceMapApp {
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
+					shouldWeUploadFile = true;
 	
 					break;
 				case AppConstants.TEXTTYPE:
 					// No upload just store ;
+					shouldWeUploadFile = false;
+					
 	
 					break;
 				case AppConstants.VIDEOTYPE:
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
+					shouldWeUploadFile = true;
 	
 					break;
 				}
@@ -742,7 +757,7 @@ public class RestNewResourceMapApp {
 			}
 	
 			String downLoadFileName = storageDirectory + "//" + file.getOriginalFilename();
-			  contentType = file.getContentType();
+			 contentType = file.getContentType();
 			// directory exists - no create directory ;
 	
 			if (!file.isEmpty()) {
