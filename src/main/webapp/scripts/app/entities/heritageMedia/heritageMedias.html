@@ -84,8 +84,9 @@
                     <td>{{heritageMedia.latitude}}</td>
                     <td>{{heritageMedia.longitude}}</td>
                     <td>{{heritageMedia.mediaType}}</td>
+                    
                     <td>{{abbreviate(heritageMedia.mediaFile)}} {{heritageMedia.mediaFileContentType}} {{byteSize(heritageMedia.mediaFile)}}</td>
-                    <td>{{heritageMedia.urlOrfileLink}}</td>
+                    <td><a href={{heritageMedia.urlOrfileLink}}>{{heritageMedia.urlOrfileLink}}</a></td>
                     <td>{{heritageMedia.consolidatedTags}}</td>
                     <td>{{heritageMedia.userAgent}}</td>
                     <td>{{heritageMedia.uploadTime | date:'medium'}}</td>

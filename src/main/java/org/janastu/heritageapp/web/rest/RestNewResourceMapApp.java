@@ -69,6 +69,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -90,6 +91,7 @@ import org.geojson.Point;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -685,16 +687,49 @@ public class RestNewResourceMapApp {
 			return retValue2;
 		}
 		String contentType = "";
-		if(!fileOrURLLink.startsWith("http"))
+		
+		log.debug("fileOrURLLink." +fileOrURLLink );
+		String decodeUrl="";
+		//decode before assigning;
+		try
 		{
+			decodeUrl  = URLDecoder.decode(fileOrURLLink,"UTF-8");
+			log.debug("decodeUrl "  + decodeUrl);
+			log.debug("fileOrURLLink "  + fileOrURLLink);
+		}catch(Exception e)
+		{
+			retValue2.setCode(440);
+			retValue2.setMessage("Decoding of URL failed ::" +decodeUrl +"fileOrURLLink"+fileOrURLLink);
+			retValue2.setStatus("NOTOK");
+			 
+			return retValue2;
+		}
+		String time = uploadTime();
+		if (decodeUrl.startsWith("http:") == true || decodeUrl.startsWith("https:") == true)
+		{
+			log.debug("fileOrURLLink   start with -http:-"  );
+			shouldWeUploadFile = false;
+		}
+		else
+		{
+			
+			log.debug("fileOrURLLink. does not .startsWith http"  );			
 			shouldWeUploadFile = true;
 		}
+		log.debug("mediaTypeInt." +mediaTypeInt );
 		if(mediaTypeInt == AppConstants.TEXTTYPE)
 		{
+			log.debug("mediaTypeInt. TEXTTYPE" +mediaTypeInt );
 			isTextData = true;
+			shouldWeUploadFile = false;
 		}
-		if( shouldWeUploadFile == false || isTextData == false )
+		else
 		{
+			log.debug("mediaTypeInt. NOT TEXTTYPE"  );
+		}
+		if( shouldWeUploadFile )
+		{
+			log.debug("Uploading file info" );
 			if (pataHome == null) {
 				if (OSValidator.isUnix()) {
 					pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
@@ -723,6 +758,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
 					shouldWeUploadFile = true;
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
 	
 					break;
 				case AppConstants.IMAGETYPE:
@@ -731,6 +767,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					shouldWeUploadFile = true;
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
 	
 					break;
 				case AppConstants.TEXTTYPE:
@@ -744,6 +781,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					shouldWeUploadFile = true;
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
 	
 					break;
 				}
@@ -755,17 +793,28 @@ public class RestNewResourceMapApp {
 				return retValue2;
 	
 			}
-	
-			String downLoadFileName = storageDirectory + "//" + file.getOriginalFilename();
+			
+			log.debug("UPload time=" + time);
+			String downLoadFileName = storageDirectory + "//" + time+userName+file.getOriginalFilename();
 			 contentType = file.getContentType();
 			// directory exists - no create directory ;
 	
 			if (!file.isEmpty()) {
 				try {
 					byte[] bytes = file.getBytes();
+					
+					log.debug("UPload File Size=" + bytes.length);
+					log.debug("UPload File Name=" + file.getOriginalFilename());
 					// Creating the directory to store file
 					// Create the file on server
+					
+					
+					 
 					File serverFile = new File(downLoadFileName);
+					if(serverFile.exists())
+					{
+						serverFile = new File(downLoadFileName);
+					}
 					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 					stream.write(bytes);
 					stream.close();
@@ -773,14 +822,14 @@ public class RestNewResourceMapApp {
 	
 				} catch (Exception e) {
 					retValue2.setCode(440);
-					retValue2.setMessage("You FAILED uploaded file");
+					retValue2.setMessage("Exception while copying file "+e);
 					retValue2.setStatus("NOTOK");
 					 
 					return retValue2;
 				}
 			} else {
 				retValue2.setCode(440);
-				retValue2.setMessage("You FAILED uploaded file file emplty");
+				retValue2.setMessage("File is empty");
 				retValue2.setStatus("NOTOK");
 				 
 				return retValue2;
@@ -788,13 +837,15 @@ public class RestNewResourceMapApp {
 		}
 		else
 		{
-			urlLinkToMedia = fileOrURLLink;
+			
+			
+			urlLinkToMedia = decodeUrl;
 		}		
 		 
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
 		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
-				urlLinkToMedia + "//" + file.getOriginalFilename(), groupId, appId, userId, contentType, mediaTypeInt,
+				urlLinkToMedia , groupId, appId, userId, contentType, mediaTypeInt,
 				urlLinkToMedia, userAgent);
 
 		return retValue;
@@ -895,6 +946,14 @@ public class RestNewResourceMapApp {
 		retValue.setMessage("Created Media Successfully");
 		retValue.setStatus("OK");
 		return retValue;
+	}
+	
+	private String uploadTime()
+	{
+		
+		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+		String data = df.format(new Date());
+		return data;
 	}
 
 	///

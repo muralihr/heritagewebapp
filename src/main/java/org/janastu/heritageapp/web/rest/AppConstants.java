@@ -19,7 +19,7 @@ public class AppConstants {
 	 
 	 public static final String MEDIA_APP_NAME = "heritagedocs";
 	 public static final String MEDIA_ROOT_FOLDER_NAME = "list";
-	public static final String UPLOAD_FOLDER_WIN = "D:\\tempheritage";   
+	public static final String UPLOAD_FOLDER_WIN = "E:\\tempheritage";   
 	public static final Integer MAX_CAPACITY =  100000000;
 	 
 
