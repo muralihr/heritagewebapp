@@ -80,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/account/reset_password/finish").permitAll()
             .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/audits/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api/imageGeoTagHeritageEntitys").permitAll()
+            .antMatchers("/api/heritageMedias").permitAll()
             .antMatchers("/api/videoGeoTagHeritageEntitys").permitAll()
             .antMatchers("/api/audioGeoTagHeritageEntitys").permitAll()
             .antMatchers("/api/textGeoTagHeritageEntitys").permitAll()
@@ -104,6 +104,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile2").permitAll()
             .antMatchers("/api/createNewMediaHeritageForm/app/**").permitAll()
             .antMatchers("/api/createNewMediaHeritageForm2/**").permitAll()
+            .antMatchers("/api/editNewMediaHeritageForm2/**").permitAll()
+            
             //createNewMediaHeritageForm //
             .antMatchers("/api/createMediaHeritageForm/**").permitAll()
             .antMatchers("/api/getAppConfigInfo/**").permitAll()
