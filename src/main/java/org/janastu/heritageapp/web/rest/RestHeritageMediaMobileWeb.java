@@ -143,8 +143,30 @@ public class RestHeritageMediaMobileWeb {
 	private HeritageAppService heritageAppNameService;
 
 		
-	
-
+	 
+	@CrossOrigin //editNewMediaHeritageForm2
+	@RequestMapping(value = "/deleteNewMediaHeritageForm2/{id}" , method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public @ResponseBody MediaResponse deleteAnyMediaGeoTagHeritageFromWeb(@PathVariable Long id)
+	{	
+		MediaResponse retValue2 = new MediaResponse();	
+		HeritageMediaDTO mediaDTO = heritageMediaEntityService.findOne(id );
+		if(mediaDTO == null)
+		{
+			retValue2.setCode(440);
+			retValue2.setMessage("ID not found");
+			retValue2.setStatus("NOTOK");		 
+			return retValue2;
+		}
+		else
+		{		
+			heritageMediaEntityService.delete(id);		
+			retValue2.setCode(200);
+			retValue2.setMessage("delete success for ID" + id);
+			retValue2.setStatus("OK");
+			return retValue2;
+		}
+	}
 	
 	@CrossOrigin //editNewMediaHeritageForm2
 	@RequestMapping(value = "/editNewMediaHeritageForm2", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

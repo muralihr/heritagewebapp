@@ -105,6 +105,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/createNewMediaHeritageForm/app/**").permitAll()
             .antMatchers("/api/createNewMediaHeritageForm2/**").permitAll()
             .antMatchers("/api/editNewMediaHeritageForm2/**").permitAll()
+            .antMatchers("/api/deleteNewMediaHeritageForm2/**").permitAll()
+            
             
             //createNewMediaHeritageForm //
             .antMatchers("/api/createMediaHeritageForm/**").permitAll()
