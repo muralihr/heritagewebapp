@@ -59,22 +59,26 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
     	byte[] mediaFile = new byte[1];
         if(heritageMediaDTO.getUrlOrfileLink().startsWith("http"))
         {
+        	
+        	log.debug("URL LINK check start with http to save HeritageMedia : {}", heritageMediaDTO.getUrlOrfileLink());
     
 			heritageMediaDTO.setMediaFile(mediaFile);
         }
         else
         {
-         	String urlLinkToMedia = copyMediaFile(heritageMediaDTO);;
-        	heritageMediaDTO.setMediaFile(mediaFile);       
+        	log.debug("URL LINK check does not start with http to save HeritageMedia : {}", heritageMediaDTO.getUrlOrfileLink());
+         	//String urlLinkToMedia = copyMediaFile(heritageMediaDTO);;
+        	heritageMediaDTO.setMediaFile(mediaFile);     
 			//urlLinkToMedia
-        	heritageMediaDTO.setUrlOrfileLink(urlLinkToMedia);
-                	
+        	heritageMediaDTO.setUrlOrfileLink(heritageMediaDTO.getUrlOrfileLink());    	
         	
         }
         
-       org.janastu.heritageapp.domain.User u = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
-       heritageMediaDTO.setUserId(u.getId());
-       heritageMediaDTO.setUserLogin(u.getLogin());
+    //   org.janastu.heritageapp.domain.User u = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        
+        Long userID = heritageMediaDTO.getUserId();
+       heritageMediaDTO.setUserId(userID);
+       heritageMediaDTO.setUserLogin(heritageMediaDTO.getUserLogin());
         
         HeritageMedia heritageMedia = heritageMediaMapper.heritageMediaDTOToHeritageMedia(heritageMediaDTO);
         
@@ -100,13 +104,9 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
          	String urlLinkToMedia = copyMediaFile(heritageMediaDTO);;
         	heritageMediaDTO.setMediaFile(mediaFile);       
 			//urlLinkToMedia
-        	heritageMediaDTO.setUrlOrfileLink(urlLinkToMedia);
-                	
+        	heritageMediaDTO.setUrlOrfileLink(urlLinkToMedia);              	
         	
         }*/
-        
-   
-        
         HeritageMedia heritageMedia = heritageMediaMapper.heritageMediaDTOToHeritageMedia(heritageMediaDTO);
         
         ///

@@ -624,7 +624,7 @@ public class RestNewResourceMapApp {
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
 		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
-				urlLinkToMedia + "//" + file.getOriginalFilename(), groupId, appId, userId, contentType, mediaTypeInt,
+				urlLinkToMedia + "//" + file.getOriginalFilename(), groupId, appId, userId,"", contentType, mediaTypeInt,
 				urlLinkToMedia, userAgent);
 
 		return retValue;
@@ -671,9 +671,13 @@ public class RestNewResourceMapApp {
 		String storageDirectory = "";
 		Integer userId = -1;
 		//userName
+		
+		log.debug("findOneByLogin  " + userName); // category
 		Optional<User>  u = userRepository.findOneByLogin(userName);
 		if(u.isPresent() )
 		{
+			
+			log.debug("findOneByLogin  success " + u.get().getLogin()); //  
 			User user = u.get();
 			Long userIdLong = user.getId();
 			userId = userIdLong.intValue();
@@ -845,7 +849,7 @@ public class RestNewResourceMapApp {
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
 		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
-				urlLinkToMedia , groupId, appId, userId, contentType, mediaTypeInt,
+				urlLinkToMedia , groupId, appId, userId,userName, contentType, mediaTypeInt,
 				urlLinkToMedia, userAgent);
 
 		return retValue;
@@ -855,7 +859,7 @@ public class RestNewResourceMapApp {
 	// app/{appId}/user/{userId}/group/{groupId
 	private MediaResponse createMediaData(String title, String description, String address, String category,
 			String language, String latitude, String longitude, String fileurl, Integer groupId, String appName,
-			Integer userId, String contentType, Integer mediaType, String fileLink, String userAgent) {
+			Integer userId, String loginName,String contentType, Integer mediaType, String fileLink, String userAgent) {
 
 		HeritageMediaDTO heritageMediaEntityDTO = null;
 		heritageMediaEntityDTO = new HeritageMediaDTO();
@@ -875,6 +879,8 @@ public class RestNewResourceMapApp {
 
 		Long userIdLongVar = userId.longValue();
 		heritageMediaEntityDTO.setUserId(userIdLongVar);
+		heritageMediaEntityDTO.setUserLogin(loginName);
+		//heritageMediaEntityDTO.setUserLogin();
 		MediaResponse retValue = new MediaResponse();
 
 		HeritageApp heritageAppNameId = heritageAppNameRepository.findByName(appName);
