@@ -36,7 +36,7 @@ spring:
          host: smtp.gmail.com
          port: 587
          username: pondymap.server@gmail.com  
-         password: markking          
+         password: markking3354         
          protocol: smtp
          tls: true
          properties.mail.smtp:

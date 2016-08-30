@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class HeritageGroupUserResource {
 
     private final Logger log = LoggerFactory.getLogger(HeritageGroupUserResource.class);
