@@ -106,6 +106,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/createNewMediaHeritageForm2/**").permitAll()
             .antMatchers("/api/editNewMediaHeritageForm2/**").permitAll()
             .antMatchers("/api/deleteNewMediaHeritageForm2/**").permitAll()
+            .antMatchers("/api/getCurrentStorageSize/user/**").permitAll()
+            //getCurrentStorageSize
             ///permission api/getUserGroups/user/userid(str) with auth 
             
             .antMatchers("/api/registerToGroup/**").permitAll()
