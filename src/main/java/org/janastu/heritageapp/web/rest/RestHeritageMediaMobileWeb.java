@@ -144,7 +144,7 @@ public class RestHeritageMediaMobileWeb {
 
 		
 	 
-	@CrossOrigin //editNewMediaHeritageForm2
+	@CrossOrigin //deleteNewMediaHeritageForm2
 	@RequestMapping(value = "/deleteNewMediaHeritageForm2/{id}" , method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public @ResponseBody MediaResponse deleteAnyMediaGeoTagHeritageFromWeb(@PathVariable Long id)
@@ -160,7 +160,7 @@ public class RestHeritageMediaMobileWeb {
 		}
 		else
 		{		
-			heritageMediaEntityService.delete(id);		
+			heritageMediaEntityService.delete(id);
 			retValue2.setCode(200);
 			retValue2.setMessage("delete success for ID" + id);
 			retValue2.setStatus("OK");

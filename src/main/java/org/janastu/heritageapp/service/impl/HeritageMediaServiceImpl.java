@@ -2,6 +2,7 @@ package org.janastu.heritageapp.service.impl;
 
 import org.janastu.heritageapp.service.HeritageMediaService;
 import org.janastu.heritageapp.domain.HeritageMedia;
+import org.janastu.heritageapp.domain.ImageGeoTagHeritageEntity;
 import org.janastu.heritageapp.repository.HeritageMediaRepository;
 import org.janastu.heritageapp.repository.UserRepository;
 import org.janastu.heritageapp.security.SecurityUtils;
@@ -9,6 +10,7 @@ import org.janastu.heritageapp.web.rest.AppConstants;
  
 import org.janastu.heritageapp.web.rest.dto.HeritageMediaDTO;
 import org.janastu.heritageapp.web.rest.mapper.HeritageMediaMapper;
+import org.janastu.heritageapp.web.rest.util.HeritageFileUtil;
 import org.janastu.heritageapp.web.rest.util.OSValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +26,9 @@ import javax.inject.Inject;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -142,8 +147,26 @@ public class HeritageMediaServiceImpl implements HeritageMediaService{
     /**
      *  delete the  heritageMedia by id.
      */
-    public void delete(Long id) {
-        log.debug("Request to delete HeritageMedia : {}", id);
+    public void delete(Long id) 
+    {
+    	
+        log.debug("Request to delete HeritageMedia : {}", id);        
+        HeritageMedia heritageMedia  = heritageMediaRepository.findOne(id);        
+        String url = heritageMedia.getUrlOrfileLink();        
+        HeritageFileUtil fUtil  = new  HeritageFileUtil();
+        log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
+		String pataHomeVar = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
+        fUtil.getRootFolderName(pataHomeVar);        
+        String filename ="";
+		try {
+			filename = Paths.get(new URI(url).getPath()).getFileName().toString();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+        fUtil.deleteFile("IMAGE",filename);
+        
         heritageMediaRepository.delete(id);
     }
     

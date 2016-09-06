@@ -64,7 +64,7 @@ public class HeritageFileUtil {
 				// Log.(file.getName() + " is deleted!");
 					log.debug(file.getName() + " is deleted!");
 			} else {
-				log.debug( "Delete operation   failed.");
+				log.debug( "Delete operation   failed for "+ file.getName() );
 			}
 
 		} catch (Exception e) {

@@ -86,8 +86,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.io.FileUtils;
 import org.geojson.Feature;
 import org.geojson.FeatureCollection;
+import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
+import org.geojson.LineString;
+import org.geojson.Polygon; 
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -1003,13 +1006,10 @@ public class RestNewResourceMapApp {
 	@Transactional(readOnly = true)
 	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSON() throws URISyntaxException {
 
-		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
-		 
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		 
 		FeatureCollection totalCollection = convertListToFeatures(heritageList);
-
 		return totalCollection;
-
-	}
+	}	
 	
 	@CrossOrigin
 	@RequestMapping(value = "/mapp/app/{appId}", method = { RequestMethod.GET,
