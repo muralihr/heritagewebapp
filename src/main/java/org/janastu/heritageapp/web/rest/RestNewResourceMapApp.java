@@ -668,6 +668,8 @@ public class RestNewResourceMapApp {
 
 		String newFilename = file.getOriginalFilename();
 		newFilename  = newFilename.trim();
+		newFilename  = newFilename.replaceAll("\\s", "_");
+		
 		
 		// String storageDirectory = fileUploadDirectory;
 		// String audioStorageDirectory = pataHome + "//heritageaudio";
