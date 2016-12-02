@@ -649,7 +649,7 @@ public class RestNewResourceMapApp {
 		log.debug("uploadPost called title" + title);
 		log.debug("mapId  " + appId);
 		log.debug("userName  " + userName);
-		log.debug("groupId  " + groupId);
+		log.debug("groupId  " + groupId);		
 		boolean isTextData = false;
 		boolean shouldWeUploadFile = false;
 
