@@ -667,6 +667,8 @@ public class RestNewResourceMapApp {
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
 
 		String newFilename = file.getOriginalFilename();
+		newFilename  = newFilename.trim();
+		
 		// String storageDirectory = fileUploadDirectory;
 		// String audioStorageDirectory = pataHome + "//heritageaudio";
 		String urlLinkToMedia = null;
@@ -765,7 +767,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
 	
 					break;
 				case AppConstants.IMAGETYPE:
@@ -774,7 +776,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
 	
 					break;
 				case AppConstants.TEXTTYPE:
@@ -788,7 +790,7 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+file.getOriginalFilename();
+					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
 	
 					break;
 				}
@@ -802,7 +804,7 @@ public class RestNewResourceMapApp {
 			}
 			
 			log.debug("UPload time=" + time);
-			String downLoadFileName = storageDirectory + "//" + time+userName+file.getOriginalFilename();
+			String downLoadFileName = storageDirectory + "//" + time+userName+newFilename;
 			 contentType = file.getContentType();
 			// directory exists - no create directory ;
 	
@@ -811,7 +813,7 @@ public class RestNewResourceMapApp {
 					byte[] bytes = file.getBytes();
 					
 					log.debug("UPload File Size=" + bytes.length);
-					log.debug("UPload File Name=" + file.getOriginalFilename());
+					log.debug("UPload File Name=" + newFilename);
 					// Creating the directory to store file
 					// Create the file on server
 					
