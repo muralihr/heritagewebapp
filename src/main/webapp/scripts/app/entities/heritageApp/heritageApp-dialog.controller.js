@@ -1,14 +1,30 @@
 'use strict';
 
 angular.module('heritageMapperAppApp').controller('HeritageAppDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'HeritageApp', 'HeritageRegionName', 'HeritageGroup', 'HeritageLanguage', 'HeritageCategory',
-        function($scope, $stateParams, $uibModalInstance, entity, HeritageApp, HeritageRegionName, HeritageGroup, HeritageLanguage, HeritageCategory) {
+    ['$scope','$http','$stateParams', '$uibModalInstance', 'entity', 'HeritageApp', 'HeritageRegionName', 'HeritageGroup', 'HeritageLanguage', 'HeritageCategory',
+        function($scope, $http, $stateParams, $uibModalInstance, entity, HeritageApp, HeritageRegionName, HeritageGroup, HeritageLanguage, HeritageCategory) {
 
         $scope.heritageApp = entity;
-        $scope.heritageregionnames = HeritageRegionName.query();
-        $scope.heritagegroups = HeritageGroup.query();
-        $scope.heritagelanguages = HeritageLanguage.query();
-        $scope.heritagecategorys = HeritageCategory.query();
+        $scope.heritageregionnames = null;// HeritageRegionName.query();
+        $scope.heritagegroups = null;// HeritageGroup.query();
+        $scope.heritagelanguages = null;//HeritageLanguage.query();
+        $scope.heritagecategorys = null;        
+       
+        $http.get("api/heritageCategorys2").success(function(data) {
+              $scope.heritagecategorys = data;
+        });
+
+        $http.get("api/heritageRegionNames2").success(function(data) {
+              $scope.heritageregionnames = data;
+        });
+
+        $http.get("api/heritageLanguages2").success(function(data) {
+              $scope.heritagelanguages = data;
+        });
+
+        $http.get("api/heritageGroups2").success(function(data) {
+              $scope.heritagegroups = data;
+        });
         $scope.load = function(id) {
             HeritageApp.get({id : id}, function(result) {
                 $scope.heritageApp = result;
