@@ -35,4 +35,6 @@ public interface HeritageRegionNameService {
      *  delete the "id" heritageRegionName.
      */
     public void delete(Long id);
+
+	List<HeritageRegionName> findAll();
 }

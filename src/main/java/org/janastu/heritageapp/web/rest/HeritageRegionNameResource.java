@@ -125,4 +125,19 @@ public class HeritageRegionNameResource {
         heritageRegionNameService.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("heritageRegionName", id.toString())).build();
     }
+    
+    
+    
+    @RequestMapping(value = "/heritageRegionNames2",
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<HeritageRegionName>> getAllHeritageRegionName2( )
+            throws URISyntaxException {
+            log.debug("REST request to get a page of heritageRegionNames");
+            List<HeritageRegionName> regions =   heritageRegionNameService.findAll( ); 
+            HttpHeaders headers = new HttpHeaders();
+            return new ResponseEntity<>(regions, headers, HttpStatus.OK);
+    }
+        
 }

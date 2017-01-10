@@ -89,7 +89,7 @@ public class HeritageLanguageResource {
     }
     
     @RequestMapping(value = "/heritageLanguages2",
-            method = RequestMethod.POST,
+    		method = {RequestMethod.POST, RequestMethod.GET},
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed  
         public ResponseEntity<List<HeritageLanguage>> getAllHeritageLanguages2( )
@@ -130,4 +130,7 @@ public class HeritageLanguageResource {
         heritageLanguageRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("heritageLanguage", id.toString())).build();
     }
+    
+    
+    
 }

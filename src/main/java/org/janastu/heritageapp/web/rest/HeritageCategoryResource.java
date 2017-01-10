@@ -86,7 +86,7 @@ public class HeritageCategoryResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     @RequestMapping(value = "/heritageCategorys2",
-            method = RequestMethod.POST,
+            method = {RequestMethod.POST, RequestMethod.GET},
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
         public ResponseEntity<List<HeritageCategory>> getAllHeritageCategorys2( )

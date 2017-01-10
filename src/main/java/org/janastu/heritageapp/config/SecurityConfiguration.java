@@ -94,9 +94,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/mapp/**").permitAll()
             .antMatchers("/api/mapp/app/*").permitAll()
             .antMatchers("/api/users/*").permitAll()
-            // /mapp
+            // /added to support retreiving groups/regions and languages
             .antMatchers("/api/heritageCategorys2").permitAll()
+            .antMatchers("/api/heritageRegionNames2").permitAll()
+            .antMatchers("/api/heritageGroups2").permitAll()
             .antMatchers("/api/heritageLanguages2").permitAll()
+
+            
             .antMatchers("/api/heritageCategorys").permitAll()
             .antMatchers("/api/heritageLanguages").permitAll()
             .antMatchers("/api/createAnyMediaGeoTagHeritageFromMobile").permitAll()

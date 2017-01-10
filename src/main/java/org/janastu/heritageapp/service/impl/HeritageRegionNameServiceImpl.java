@@ -1,6 +1,7 @@
 package org.janastu.heritageapp.service.impl;
 
 import org.janastu.heritageapp.service.HeritageRegionNameService;
+import org.janastu.heritageapp.domain.HeritageGroup;
 import org.janastu.heritageapp.domain.HeritageRegionName;
 import org.janastu.heritageapp.repository.HeritageRegionNameRepository;
 import org.janastu.heritageapp.web.rest.dto.HeritageRegionNameDTO;
@@ -75,4 +76,12 @@ public class HeritageRegionNameServiceImpl implements HeritageRegionNameService{
         log.debug("Request to delete HeritageRegionName : {}", id);
         heritageRegionNameRepository.delete(id);
     }
+    
+    @Override
+	public List<HeritageRegionName> findAll() {
+		// TODO Auto-generated method stub
+		
+		List<HeritageRegionName> result = heritageRegionNameRepository.findAll(); 
+		return result ;
+	}
 }

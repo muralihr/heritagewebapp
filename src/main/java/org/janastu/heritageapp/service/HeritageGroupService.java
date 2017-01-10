@@ -35,4 +35,6 @@ public interface HeritageGroupService {
      *  delete the "id" heritageGroup.
      */
     public void delete(Long id);
+
+	public List<HeritageGroup> findAll();
 }

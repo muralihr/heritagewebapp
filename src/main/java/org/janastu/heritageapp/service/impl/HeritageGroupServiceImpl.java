@@ -75,4 +75,12 @@ public class HeritageGroupServiceImpl implements HeritageGroupService{
         log.debug("Request to delete HeritageGroup : {}", id);
         heritageGroupRepository.delete(id);
     }
+
+	@Override
+	public List<HeritageGroup> findAll() {
+		// TODO Auto-generated method stub
+		
+		List<HeritageGroup> result = heritageGroupRepository.findAll(); 
+		return result ;
+	}
 }

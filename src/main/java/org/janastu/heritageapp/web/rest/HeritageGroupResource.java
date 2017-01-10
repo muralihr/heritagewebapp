@@ -95,6 +95,20 @@ public class HeritageGroupResource {
             .map(heritageGroupMapper::heritageGroupToHeritageGroupDTO)
             .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
     }
+    
+    @RequestMapping(value = "/heritageGroups2",
+            method = {RequestMethod.POST, RequestMethod.GET},
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<HeritageGroup>> getAllHeritageGroups2( )
+            throws URISyntaxException {
+            log.debug("REST request to get a page of HeritageGroups");
+            List<HeritageGroup> groups =   heritageGroupService.findAll( ); 
+            HttpHeaders headers = new HttpHeaders();
+             //= PaginationUtil/(  "/api/heritageCategorys");
+            return new ResponseEntity<>(groups, headers, HttpStatus.OK);
+        }
+
 
     /**
      * GET  /heritageGroups/:id -> get the "id" heritageGroup.
