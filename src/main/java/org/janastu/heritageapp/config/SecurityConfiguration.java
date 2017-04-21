@@ -93,6 +93,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/allGeoTagHeritageEntitysGeoJson").permitAll()
             .antMatchers("/api/mapp/**").permitAll()
             .antMatchers("/api/mapp/app/*").permitAll()
+            .antMatchers("/api/mapplist/**").permitAll()            
+            .antMatchers("/api/mapplist/app/*").permitAll()
+            
             .antMatchers("/api/users/*").permitAll()
             // /added to support retreiving groups/regions and languages
             .antMatchers("/api/heritageCategorys2").permitAll()

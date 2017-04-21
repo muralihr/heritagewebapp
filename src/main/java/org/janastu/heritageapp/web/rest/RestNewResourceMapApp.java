@@ -1001,6 +1001,48 @@ public class RestNewResourceMapApp {
 		return Optional.ofNullable(heritageAppNameDTO).map(result -> new ResponseEntity<>(result, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
+	
+	//get array as heritagemedia
+	
+	@CrossOrigin
+	@RequestMapping(value = "/mapplist", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@Transactional(readOnly = true)
+	
+	public List<HeritageMedia>  getAllMediaHeritageMediaEntitysAsArray() throws URISyntaxException {
+
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		 
+		
+		return heritageList;
+	}
+	
+	@CrossOrigin
+	@RequestMapping(value ="/mapplist/app/{appId}", method = { RequestMethod.GET,
+			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@Transactional(readOnly = true)
+	
+	public List<HeritageMedia>  getMediaForAppHeritageMediaEntitysAsArray(@PathVariable("appId") String appId) throws URISyntaxException {
+
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
+		
+		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
+		for(HeritageMedia m : heritageList)
+		{
+			int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);			
+			if(result == 0 )
+			{				
+				heritageFilterList.add(m);
+			}		
+	
+		}
+		
+		
+		return heritageFilterList;
+	}	
+
+
 
 	// mapp/
 	@CrossOrigin
