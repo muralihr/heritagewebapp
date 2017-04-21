@@ -876,7 +876,18 @@ public class RestNewResourceMapApp {
 		heritageMediaEntityDTO.setLongitude(Double.valueOf(longitude));
 		heritageMediaEntityDTO.setTitle(title);
 		heritageMediaEntityDTO.setDescription("  " + description);
-		Long groupIdlongVar = groupId.longValue();
+	//	Long groupIdlongVar = groupId.longValue();
+		
+		Long groupIdlongVar = new Long(1);
+		if(groupId == null || groupId == 0 )
+		{
+			Optional<HeritageGroup> g2 = groupRepository.findOneByName("Default");
+			groupIdlongVar = g2.get().getId();
+		}
+		else
+		{
+		                  groupIdlongVar = groupId.longValue();
+		}
 		heritageMediaEntityDTO.setGroupId(groupIdlongVar);
 		// contentType
 		heritageMediaEntityDTO.setMediaFileContentType(contentType);
