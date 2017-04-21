@@ -41,6 +41,7 @@ import org.janastu.heritageapp.web.rest.dto.ImageGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.TextGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.dto.VideoGeoTagHeritageEntityDTO;
 import org.janastu.heritageapp.web.rest.mapper.HeritageAppMapper;
+import org.janastu.heritageapp.web.rest.mapper.HeritageMediaMapper;
 import org.janastu.heritageapp.web.rest.mapper.VideoGeoTagHeritageEntityMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,6 +146,10 @@ public class RestNewResourceMapApp {
 
 	@Inject
 	UserService userService;
+	
+
+    @Inject
+    private HeritageMediaMapper heritageMediaMapper;
 
 	@Inject
 	HeritageGroupRepository groupRepository;
@@ -1021,11 +1026,15 @@ public class RestNewResourceMapApp {
 	@Timed
 	@Transactional(readOnly = true)
 	
-	public List<HeritageMedia>  getAllMediaHeritageMediaEntitysAsArray() throws URISyntaxException {
+	public ResponseEntity<List<HeritageMediaDTO>>   getAllMediaHeritageMediaEntitysAsArray() throws URISyntaxException {
 
-		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		 
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		
-		return heritageList;
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(null, "/api/mapplist");
+		return new ResponseEntity<>(heritageList.stream()
+	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
+		
 	}
 	
 	@CrossOrigin
@@ -1034,10 +1043,9 @@ public class RestNewResourceMapApp {
 	@Timed
 	@Transactional(readOnly = true)
 	
-	public List<HeritageMedia>  getMediaForAppHeritageMediaEntitysAsArray(@PathVariable("appId") String appId) throws URISyntaxException {
+	public ResponseEntity<List<HeritageMediaDTO>>  getMediaForAppHeritageMediaEntitysAsArray(@PathVariable("appId") String appId) throws URISyntaxException {
 
-		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
-		
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		
 		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
 		for(HeritageMedia m : heritageList)
 		{
@@ -1047,11 +1055,14 @@ public class RestNewResourceMapApp {
 				heritageFilterList.add(m);
 			}		
 	
-		}
+		}	
 		
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(null, "/api/mapplist");
+		return new ResponseEntity<>(heritageFilterList.stream()
+	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);	
 		
-		return heritageFilterList;
-	}	
+	}
 
 
 
