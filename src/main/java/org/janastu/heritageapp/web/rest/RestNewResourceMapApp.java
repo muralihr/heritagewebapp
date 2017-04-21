@@ -1030,7 +1030,7 @@ public class RestNewResourceMapApp {
 
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(null, "/api/mapplist");
+		  HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(heritageList.stream()
 	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
 	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
@@ -1057,7 +1057,7 @@ public class RestNewResourceMapApp {
 	
 		}	
 		
-		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(null, "/api/mapplist");
+		HttpHeaders headers = new HttpHeaders();
 		return new ResponseEntity<>(heritageFilterList.stream()
 	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
 	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);	
