@@ -1044,9 +1044,20 @@ public class RestNewResourceMapApp {
 	@Transactional(readOnly = true)
 	
 	public ResponseEntity<List<HeritageMediaDTO>>  getMediaForAppHeritageMediaEntitysAsArray(@PathVariable("appId") String appId) throws URISyntaxException {
-
+		
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		
 		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
+		log.debug("getMediaForAppHeritageMediaEntitysAsArray   Appname " + appId);
+		if(appId == null)
+		{
+		
+			HttpHeaders headers = new HttpHeaders();
+			return new ResponseEntity<>(heritageFilterList.stream()
+		            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+		            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);	
+			
+		}
+
 		for(HeritageMedia m : heritageList)
 		{
 			int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);			
@@ -1089,9 +1100,15 @@ public class RestNewResourceMapApp {
 		//check if appId is valid;
 		
 		//return null 
-		
+		FeatureCollection totalCollection = new FeatureCollection();
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
+		log.debug("getAllHeritageMediaEntitysAsGeoJSONForApp   Appname " + appId);
+		if(appId == null)
+		{
+		
+			return  totalCollection ;
+		}
 		
 		for(HeritageMedia m : heritageList)
 		{
@@ -1109,7 +1126,7 @@ public class RestNewResourceMapApp {
 			
 		}
 		
-		FeatureCollection totalCollection = convertListToFeatures(heritageFilterList);
+		totalCollection = convertListToFeatures(heritageFilterList);
 
 		return totalCollection;
 
