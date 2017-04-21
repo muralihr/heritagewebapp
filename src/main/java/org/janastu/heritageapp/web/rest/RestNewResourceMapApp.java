@@ -1060,11 +1060,14 @@ public class RestNewResourceMapApp {
 
 		for(HeritageMedia m : heritageList)
 		{
-			int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);			
-			if(result == 0 )
-			{				
-				heritageFilterList.add(m);
-			}		
+			if(m != null || m.getHeritageApp() != null || m.getHeritageApp().getName() != null)
+			{
+				int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);			
+				if(result == 0 )
+				{				
+					heritageFilterList.add(m);
+				}
+			}
 	
 		}	
 		
@@ -1113,15 +1116,17 @@ public class RestNewResourceMapApp {
 		for(HeritageMedia m : heritageList)
 		{
 			//
-			
-			int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
-			
-			if(result == 0 )
+			if(m != null || m.getHeritageApp() != null || m.getHeritageApp().getName() != null)
 			{
+				int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
 				
-				heritageFilterList.add(m);
-			}
+				if(result == 0 )
+				{
+					
+					heritageFilterList.add(m);
+				}
 			
+			}
 			//
 			
 		}
