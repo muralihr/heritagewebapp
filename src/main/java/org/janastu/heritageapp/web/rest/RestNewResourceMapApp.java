@@ -91,7 +91,7 @@ import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
 import org.geojson.Point;
 import org.geojson.LineString;
-import org.geojson.Polygon; 
+import org.geojson.Polygon;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -146,10 +146,9 @@ public class RestNewResourceMapApp {
 
 	@Inject
 	UserService userService;
-	
 
-    @Inject
-    private HeritageMediaMapper heritageMediaMapper;
+	@Inject
+	private HeritageMediaMapper heritageMediaMapper;
 
 	@Inject
 	HeritageGroupRepository groupRepository;
@@ -244,7 +243,6 @@ public class RestNewResourceMapApp {
 		///
 		int mediaType = Integer.parseInt(mediatypeStr);
 		String mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
-		 
 
 		log.debug("DIR PATA HOME" + environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV));
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
@@ -273,11 +271,9 @@ public class RestNewResourceMapApp {
 		MultipartFile mpf = null;
 		byte[] photo = null;
 		String urlLinkToMedia = "";
-		try 
-		{
+		try {
 			File newFile = null;
-			while (itr.hasNext()) 
-			{
+			while (itr.hasNext()) {
 				String storageDirectory = "";
 				switch (mediaType) {
 				case AppConstants.AUDIOTYPE:
@@ -298,20 +294,20 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					break;
-				}			
+				}
 
-				if (mediaType != AppConstants.TEXTTYPE)
-				{
+				if (mediaType != AppConstants.TEXTTYPE) {
 					mpf = request.getFile(itr.next());
 					log.debug("Uploading  ---", mpf.getOriginalFilename());
 
 					mpf.getOriginalFilename();
 					String originalFileExtension = mpf.getOriginalFilename()
 							.substring(mpf.getOriginalFilename().lastIndexOf("."));
-					// String newFilename = newFilenameBase + originalFileExtension;
-					newFilename = mpf.getOriginalFilename();	
-					
-					log.debug("heritageMediaEntityDTO NOT AppConstants.TEXTTYPE" );
+					// String newFilename = newFilenameBase +
+					// originalFileExtension;
+					newFilename = mpf.getOriginalFilename();
+
+					log.debug("heritageMediaEntityDTO NOT AppConstants.TEXTTYPE");
 					downLoadFileName = storageDirectory + "//" + mpf.getOriginalFilename();
 					contentType = mpf.getContentType();
 					log.debug(" getContentType() -- ", mpf.getContentType());
@@ -355,7 +351,7 @@ public class RestNewResourceMapApp {
 						userService.changeDataStoredMobile(userName, (int) newFile.length());
 					} catch (FileNotFoundException e) {
 						log.error("Could not upload file " + newFile, e);
-						
+
 						retValue2.setCode(RestReturnCodes.EXCEPTION);
 						retValue2.setMediaCreatedId(-1);
 						retValue2.setMessage("Create  Media FAILED FileNotFoundException");
@@ -364,33 +360,33 @@ public class RestNewResourceMapApp {
 
 					} catch (IOException e) {
 						log.error("Could not upload file " + mpf.getOriginalFilename(), e);
-						
+
 						retValue2.setCode(RestReturnCodes.EXCEPTION);
 						retValue2.setMediaCreatedId(-1);
 						retValue2.setMessage("Create  Media FAILED IOException");
-						retValue2.setStatus("NOTOK");						 
+						retValue2.setStatus("NOTOK");
 						return retValue2;
 					}
-				} //mediaa type check 
-			}//while end
-			/// check
+				} // mediaa type check
+			} // while end
+				/// check
 
 			//
 
 		} catch (Exception e) {
 
 			log.error("Error while save and  upload file " + e);
-			
+
 			retValue2.setCode(RestReturnCodes.EXCEPTION);
 			retValue2.setMediaCreatedId(-1);
-			retValue2.setMessage("Error while save and  upload file " +e);
+			retValue2.setMessage("Error while save and  upload file " + e);
 			retValue2.setStatus("NOTOK");
 			return retValue2;
 		}
- 
+
 		MediaResponse retValue3 = createMediaData2(title, description, address, category, language, latitude, longitude,
 				newFilename, groupId, appName, userId, contentType, mediaType, urlLinkToMedia, userAgent, userName);
-		
+
 		return retValue3;
 
 	}
@@ -426,10 +422,10 @@ public class RestNewResourceMapApp {
 		if (heritageAppNameId != null) {
 			heritageMediaEntityDTO.setHeritageAppId(heritageAppNameId.getId());
 		} else {
-			
+
 			retValue.setCode(441);
 			log.debug("setting contentType: " + contentType);
-			log.debug("Media Creation failed - App nam"+ appName );
+			log.debug("Media Creation failed - App nam" + appName);
 			retValue.setMessage("Media Creation failed - App name - " + appName + " - INVALIDE");
 			retValue.setStatus("NOTOK");
 			return retValue;
@@ -442,7 +438,7 @@ public class RestNewResourceMapApp {
 		} else {
 			retValue.setCode(441);
 			log.debug("setting contentType: " + contentType);
-			
+
 			retValue.setMessage("Media Creation failed HeritageCategory -  " + category + " -INVALID CATEGORY");
 			retValue.setStatus("NOTOK");
 			return retValue;
@@ -486,27 +482,26 @@ public class RestNewResourceMapApp {
 			log.debug("heritageMediaEntityDTO setUserLogin: " + userLogin);
 			result = heritageMediaEntityService.saveMobile(heritageMediaEntityDTO);
 			log.debug("heritageMediaEntityDTO result.getId(): " + result.getId());
-		 
+
 			result.getId();
 		} catch (Exception e) {
 			errMessageException = e.getMessage();
-			log.debug("heritageMediaEntityDTO  errMessageException e.getMessage(): " +  e.getMessage());
+			log.debug("heritageMediaEntityDTO  errMessageException e.getMessage(): " + e.getMessage());
 			retValue.setCode(441);
 			retValue.setMessage("Media Creation failed" + errMessageException);
 			retValue.setStatus("NOTOK");
 			return retValue;
 
 		}
-		log.debug("heritageMediaEntityDTO SUCCESS  " + result.getId() );
+		log.debug("heritageMediaEntityDTO SUCCESS  " + result.getId());
 		retValue.setCode(RestReturnCodes.SUCCESS);
 		retValue.setMediaCreatedId(result.getId());
 		retValue.setMessage("Created Media Successfully");
 		retValue.setStatus("OK");
 		return retValue;
 	}
-//createAnyMediaGeoTagHeritageFromMobile3
-	
-	
+	// createAnyMediaGeoTagHeritageFromMobile3
+
 	@CrossOrigin
 	@RequestMapping(value = "/createNewMediaHeritageForm/app/{appId}/user/{userId}/group/{groupId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -632,29 +627,28 @@ public class RestNewResourceMapApp {
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
 		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
-				urlLinkToMedia + "//" + file.getOriginalFilename(), groupId, appId, userId,"", contentType, mediaTypeInt,
-				urlLinkToMedia, userAgent);
+				urlLinkToMedia + "//" + file.getOriginalFilename(), groupId, appId, userId, "", contentType,
+				mediaTypeInt, urlLinkToMedia, userAgent);
 
 		return retValue;
 	}
 
-	
-	@CrossOrigin //createNewMediaHeritageForm2
+	@CrossOrigin // createNewMediaHeritageForm2
 	@RequestMapping(value = "/createNewMediaHeritageForm2", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	public @ResponseBody MediaResponse createAnyMediaGeoTagHeritageFromWebWithMapFix(@RequestParam("appId") String appId,
-			@RequestParam("userName") String userName, @RequestParam("groupId") Integer groupId,
-			@RequestParam("title") String title, @RequestParam("description") String description,
-			@RequestParam("category") String category, @RequestParam("language") String language,
-			@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude,
-			@RequestParam("mediatype") String mediaType, @RequestParam("uploadTime") String uploadTime,
-			@RequestParam("userAgent") String userAgent, @RequestParam("fileOrURLLink") String fileOrURLLink,
-			@RequestParam("picture") MultipartFile file) {
+	public @ResponseBody MediaResponse createAnyMediaGeoTagHeritageFromWebWithMapFix(
+			@RequestParam("appId") String appId, @RequestParam("userName") String userName,
+			@RequestParam("groupId") Integer groupId, @RequestParam("title") String title,
+			@RequestParam("description") String description, @RequestParam("category") String category,
+			@RequestParam("language") String language, @RequestParam("latitude") String latitude,
+			@RequestParam("longitude") String longitude, @RequestParam("mediatype") String mediaType,
+			@RequestParam("uploadTime") String uploadTime, @RequestParam("userAgent") String userAgent,
+			@RequestParam("fileOrURLLink") String fileOrURLLink, @RequestParam("picture") MultipartFile file) {
 
 		log.debug("uploadPost called title" + title);
 		log.debug("mapId  " + appId);
 		log.debug("userName  " + userName);
-		log.debug("groupId  " + groupId);		
+		log.debug("groupId  " + groupId);
 		boolean isTextData = false;
 		boolean shouldWeUploadFile = false;
 
@@ -672,80 +666,67 @@ public class RestNewResourceMapApp {
 		String pataHome = environment.getProperty(AppConstants.UPLOAD_FOLDER_ENV);
 
 		String newFilename = file.getOriginalFilename();
-		newFilename  = newFilename.trim();
-		newFilename  = newFilename.replaceAll("\\s", "_");
-		
-		
+		newFilename = newFilename.trim();
+		newFilename = newFilename.replaceAll("\\s", "_");
+
 		// String storageDirectory = fileUploadDirectory;
 		// String audioStorageDirectory = pataHome + "//heritageaudio";
 		String urlLinkToMedia = null;
 
 		String storageDirectory = "";
 		Integer userId = -1;
-		//userName
-		
+		// userName
+
 		log.debug("findOneByLogin  " + userName); // category
-		Optional<User>  u = userRepository.findOneByLogin(userName);
-		if(u.isPresent() )
-		{
-			
-			log.debug("findOneByLogin  success " + u.get().getLogin()); //  
+		Optional<User> u = userRepository.findOneByLogin(userName);
+		if (u.isPresent()) {
+
+			log.debug("findOneByLogin  success " + u.get().getLogin()); //
 			User user = u.get();
 			Long userIdLong = user.getId();
 			userId = userIdLong.intValue();
-			
-		}
-		else
-		{
+
+		} else {
 			retValue2.setCode(440);
 			retValue2.setMessage("username not found");
-			retValue2.setStatus("NOTOK");		 
+			retValue2.setStatus("NOTOK");
 			return retValue2;
 		}
 		String contentType = "";
-		
-		log.debug("fileOrURLLink." +fileOrURLLink );
-		String decodeUrl="";
-		//decode before assigning;
-		try
-		{
-			decodeUrl  = URLDecoder.decode(fileOrURLLink,"UTF-8");
-			log.debug("decodeUrl "  + decodeUrl);
-			log.debug("fileOrURLLink "  + fileOrURLLink);
-		}catch(Exception e)
-		{
+
+		log.debug("fileOrURLLink." + fileOrURLLink);
+		String decodeUrl = "";
+		// decode before assigning;
+		try {
+			decodeUrl = URLDecoder.decode(fileOrURLLink, "UTF-8");
+			log.debug("decodeUrl " + decodeUrl);
+			log.debug("fileOrURLLink " + fileOrURLLink);
+		} catch (Exception e) {
 			retValue2.setCode(440);
-			retValue2.setMessage("Decoding of URL failed ::" +decodeUrl +"fileOrURLLink"+fileOrURLLink);
+			retValue2.setMessage("Decoding of URL failed ::" + decodeUrl + "fileOrURLLink" + fileOrURLLink);
 			retValue2.setStatus("NOTOK");
-			 
+
 			return retValue2;
 		}
 		String time = uploadTime();
-		if (decodeUrl.startsWith("http:") == true || decodeUrl.startsWith("https:") == true)
-		{
-			log.debug("fileOrURLLink   start with -http:-"  );
+		if (decodeUrl.startsWith("http:") == true || decodeUrl.startsWith("https:") == true) {
+			log.debug("fileOrURLLink   start with -http:-");
 			shouldWeUploadFile = false;
-		}
-		else
-		{
-			
-			log.debug("fileOrURLLink. does not .startsWith http"  );			
+		} else {
+
+			log.debug("fileOrURLLink. does not .startsWith http");
 			shouldWeUploadFile = true;
 		}
-		log.debug("mediaTypeInt." +mediaTypeInt );
-		if(mediaTypeInt == AppConstants.TEXTTYPE)
-		{
-			log.debug("mediaTypeInt. TEXTTYPE" +mediaTypeInt );
+		log.debug("mediaTypeInt." + mediaTypeInt);
+		if (mediaTypeInt == AppConstants.TEXTTYPE) {
+			log.debug("mediaTypeInt. TEXTTYPE" + mediaTypeInt);
 			isTextData = true;
 			shouldWeUploadFile = false;
+		} else {
+			log.debug("mediaTypeInt. NOT TEXTTYPE");
 		}
-		else
-		{
-			log.debug("mediaTypeInt. NOT TEXTTYPE"  );
-		}
-		if( shouldWeUploadFile )
-		{
-			log.debug("Uploading file info" );
+		if (shouldWeUploadFile) {
+			log.debug("Uploading file info");
 			if (pataHome == null) {
 				if (OSValidator.isUnix()) {
 					pataHome = AppConstants.UPLOAD_FOLDER_LINUX;
@@ -755,9 +736,9 @@ public class RestNewResourceMapApp {
 					pataHome = AppConstants.UPLOAD_FOLDER_WIN;
 					log.debug("WINDOWS ENV");
 				}
-	
+
 			}
-	
+
 			if (OSValidator.isUnix()) {
 				mediaServerUrl = AppConstants.MEDIA_SERVER_URL_UBUNTU;
 				log.debug("UNIX ENV");
@@ -766,7 +747,7 @@ public class RestNewResourceMapApp {
 				mediaServerUrl = AppConstants.MEDIA_SERVER_URL;
 				log.debug("WINDOWS ENV");
 			}
-	
+
 			try {
 				switch (mediaTypeInt) {
 				case AppConstants.AUDIOTYPE:
@@ -774,31 +755,30 @@ public class RestNewResourceMapApp {
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_AUDIO;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
-	
+					urlLinkToMedia = urlLinkToMedia + "//" + time + userName + newFilename;
+
 					break;
 				case AppConstants.IMAGETYPE:
-	
+
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_IMAGES;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
-	
+					urlLinkToMedia = urlLinkToMedia + "//" + time + userName + newFilename;
+
 					break;
 				case AppConstants.TEXTTYPE:
 					// No upload just store ;
 					shouldWeUploadFile = false;
-					
-	
+
 					break;
 				case AppConstants.VIDEOTYPE:
 					storageDirectory = pataHome + "//" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					urlLinkToMedia = mediaServerUrl + "/" + AppConstants.MEDIA_APP_NAME + "/"
 							+ AppConstants.MEDIA_ROOT_FOLDER_NAME + "/" + AppConstants.UPLOAD_FOLDER_VIDEO;
 					shouldWeUploadFile = true;
-					urlLinkToMedia = urlLinkToMedia + "//" + time+userName+newFilename;
-	
+					urlLinkToMedia = urlLinkToMedia + "//" + time + userName + newFilename;
+
 					break;
 				}
 			} catch (Exception e) {
@@ -807,62 +787,55 @@ public class RestNewResourceMapApp {
 				retValue2.setMessage("Error creating media" + e);
 				retValue2.setStatus("NOTOK");
 				return retValue2;
-	
+
 			}
-			
+
 			log.debug("UPload time=" + time);
-			String downLoadFileName = storageDirectory + "//" + time+userName+newFilename;
-			 contentType = file.getContentType();
+			String downLoadFileName = storageDirectory + "//" + time + userName + newFilename;
+			contentType = file.getContentType();
 			// directory exists - no create directory ;
-	
+
 			if (!file.isEmpty()) {
 				try {
 					byte[] bytes = file.getBytes();
-					
+
 					log.debug("UPload File Size=" + bytes.length);
 					log.debug("UPload File Name=" + newFilename);
 					// Creating the directory to store file
 					// Create the file on server
-					
-					
-					 
+
 					File serverFile = new File(downLoadFileName);
-					if(serverFile.exists())
-					{
+					if (serverFile.exists()) {
 						serverFile = new File(downLoadFileName);
 					}
 					BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 					stream.write(bytes);
 					stream.close();
 					log.debug("Server File Location=" + serverFile.getAbsolutePath());
-	
+
 				} catch (Exception e) {
 					retValue2.setCode(440);
-					retValue2.setMessage("Exception while copying file "+e);
+					retValue2.setMessage("Exception while copying file " + e);
 					retValue2.setStatus("NOTOK");
-					 
+
 					return retValue2;
 				}
 			} else {
 				retValue2.setCode(440);
 				retValue2.setMessage("File is empty");
 				retValue2.setStatus("NOTOK");
-				 
+
 				return retValue2;
 			}
-		}
-		else
-		{
-			
-			
+		} else {
+
 			urlLinkToMedia = decodeUrl;
-		}		
-		 
+		}
+
 		MediaResponse retValue = new MediaResponse();
 		log.debug("createMediaData called");
-		retValue = createMediaData(title, description, address, category, language, latitude, longitude,
-				urlLinkToMedia , groupId, appId, userId,userName, contentType, mediaTypeInt,
-				urlLinkToMedia, userAgent);
+		retValue = createMediaData(title, description, address, category, language, latitude, longitude, urlLinkToMedia,
+				groupId, appId, userId, userName, contentType, mediaTypeInt, urlLinkToMedia, userAgent);
 
 		return retValue;
 	}
@@ -871,7 +844,8 @@ public class RestNewResourceMapApp {
 	// app/{appId}/user/{userId}/group/{groupId
 	private MediaResponse createMediaData(String title, String description, String address, String category,
 			String language, String latitude, String longitude, String fileurl, Integer groupId, String appName,
-			Integer userId, String loginName,String contentType, Integer mediaType, String fileLink, String userAgent) {
+			Integer userId, String loginName, String contentType, Integer mediaType, String fileLink,
+			String userAgent) {
 
 		HeritageMediaDTO heritageMediaEntityDTO = null;
 		heritageMediaEntityDTO = new HeritageMediaDTO();
@@ -881,17 +855,14 @@ public class RestNewResourceMapApp {
 		heritageMediaEntityDTO.setLongitude(Double.valueOf(longitude));
 		heritageMediaEntityDTO.setTitle(title);
 		heritageMediaEntityDTO.setDescription("  " + description);
-	//	Long groupIdlongVar = groupId.longValue();
-		
+		// Long groupIdlongVar = groupId.longValue();
+
 		Long groupIdlongVar = new Long(1);
-		if(groupId == null || groupId == 0 )
-		{
+		if (groupId == null || groupId == 0) {
 			Optional<HeritageGroup> g2 = groupRepository.findOneByName("Default");
 			groupIdlongVar = g2.get().getId();
-		}
-		else
-		{
-		                  groupIdlongVar = groupId.longValue();
+		} else {
+			groupIdlongVar = groupId.longValue();
 		}
 		heritageMediaEntityDTO.setGroupId(groupIdlongVar);
 		// contentType
@@ -903,7 +874,7 @@ public class RestNewResourceMapApp {
 		Long userIdLongVar = userId.longValue();
 		heritageMediaEntityDTO.setUserId(userIdLongVar);
 		heritageMediaEntityDTO.setUserLogin(loginName);
-		//heritageMediaEntityDTO.setUserLogin();
+		// heritageMediaEntityDTO.setUserLogin();
 		MediaResponse retValue = new MediaResponse();
 
 		HeritageApp heritageAppNameId = heritageAppNameRepository.findByName(appName);
@@ -922,7 +893,7 @@ public class RestNewResourceMapApp {
 		if (hCategory != null) {
 			heritageMediaEntityDTO.setCategoryId(hCategory.getId());
 		} else {
-			log.debug("Media Creation failed - HeritageCategory name -  "+category);
+			log.debug("Media Creation failed - HeritageCategory name -  " + category);
 			retValue.setCode(441);
 			retValue.setMessage("Media Creation failed HeritageCategory -  " + category + " -INVALID CATEGORY");
 			retValue.setStatus("NOTOK");
@@ -933,7 +904,7 @@ public class RestNewResourceMapApp {
 		if (hLanguage != null) {
 			heritageMediaEntityDTO.setLanguageId(hLanguage.getId());
 		} else {
-			log.debug("Media Creation failed - HeritageLanguage name -  "+language);
+			log.debug("Media Creation failed - HeritageLanguage name -  " + language);
 			retValue.setCode(441);
 			retValue.setMessage("Media Creation failed -  HeritageLanguage - " + language + "- INVALID LANGUAGE");
 			retValue.setStatus("NOTOK");
@@ -976,10 +947,9 @@ public class RestNewResourceMapApp {
 		retValue.setStatus("OK");
 		return retValue;
 	}
-	
-	private String uploadTime()
-	{
-		
+
+	private String uploadTime() {
+
 		DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
 		String data = df.format(new Date());
 		return data;
@@ -1017,68 +987,72 @@ public class RestNewResourceMapApp {
 		return Optional.ofNullable(heritageAppNameDTO).map(result -> new ResponseEntity<>(result, HttpStatus.OK))
 				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
 	}
-	
-	//get array as heritagemedia
-	
+
+	// get array as heritagemedia
+
 	@CrossOrigin
 	@RequestMapping(value = "/mapplist", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@Transactional(readOnly = true)
-	
-	public ResponseEntity<List<HeritageMediaDTO>>   getAllMediaHeritageMediaEntitysAsArray() throws URISyntaxException {
+
+	public ResponseEntity<List<HeritageMediaDTO>> getAllMediaHeritageMediaEntitysAsArray() throws URISyntaxException {
 
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
-		
-		  HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(heritageList.stream()
-	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
-	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
-		
+
+		HttpHeaders headers = new HttpHeaders();
+		return new ResponseEntity<>(heritageList.stream().map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+				.collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);
+
 	}
-	
+
 	@CrossOrigin
-	@RequestMapping(value ="/mapplist/app/{appId}", method = { RequestMethod.GET,
+	@RequestMapping(value = "/mapplist/app/{appId}", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@Transactional(readOnly = true)
-	
-	public ResponseEntity<List<HeritageMediaDTO>>  getMediaForAppHeritageMediaEntitysAsArray(@PathVariable("appId") String appId) throws URISyntaxException {
-		
-		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		
+
+	public ResponseEntity<List<HeritageMediaDTO>> getMediaForAppHeritageMediaEntitysAsArray(
+			@PathVariable("appId") String appId) throws URISyntaxException {
+
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
 		log.debug("getMediaForAppHeritageMediaEntitysAsArray   Appname " + appId);
-		if(appId == null)
-		{
-		
+		if (appId == null) {
+
 			HttpHeaders headers = new HttpHeaders();
-			return new ResponseEntity<>(heritageFilterList.stream()
-		            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
-		            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);	
-			
+			return new ResponseEntity<>(
+					heritageFilterList.stream().map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+							.collect(Collectors.toCollection(LinkedList::new)),
+					headers, HttpStatus.OK);
+
 		}
 
-		for(HeritageMedia m : heritageList)
-		{
-			if(m != null || m.getHeritageApp() != null || m.getHeritageApp().getName() != null)
-			{
-				int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);			
-				if(result == 0 )
-				{				
-					heritageFilterList.add(m);
-				}
-			}
-	
-		}	
-		
+		int result = -1;
+		for (HeritageMedia m : heritageList) {
+
+			if (m != null)
+				if (m.getHeritageApp() != null)
+					if (m.getHeritageApp().getName() != null) {
+						try {
+							result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
+						} catch (Exception e) {
+							log.debug(" m.getHeritageApp().getName() " + e);
+						}
+						if (result == 0) {
+							heritageFilterList.add(m);
+						}
+					}
+
+		}
+
 		HttpHeaders headers = new HttpHeaders();
-		return new ResponseEntity<>(heritageFilterList.stream()
-	            .map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
-	            .collect(Collectors.toCollection(LinkedList::new)), headers, HttpStatus.OK);	
-		
+		return new ResponseEntity<>(
+				heritageFilterList.stream().map(heritageMediaMapper::heritageMediaToHeritageMediaDTO)
+						.collect(Collectors.toCollection(LinkedList::new)),
+				headers, HttpStatus.OK);
+
 	}
-
-
 
 	// mapp/
 	@CrossOrigin
@@ -1088,49 +1062,52 @@ public class RestNewResourceMapApp {
 	@Transactional(readOnly = true)
 	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSON() throws URISyntaxException {
 
-		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();		 
+		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		FeatureCollection totalCollection = convertListToFeatures(heritageList);
 		return totalCollection;
-	}	
-	
+	}
+
 	@CrossOrigin
 	@RequestMapping(value = "/mapp/app/{appId}", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@Transactional(readOnly = true)
-	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSONForApp(@PathVariable("appId") String appId) throws URISyntaxException {
+	public FeatureCollection getAllHeritageMediaEntitysAsGeoJSONForApp(@PathVariable("appId") String appId)
+			throws URISyntaxException {
 
-		//check if appId is valid;
-		
-		//return null 
+		// check if appId is valid;
+
+		// return null
 		FeatureCollection totalCollection = new FeatureCollection();
 		List<HeritageMedia> heritageList = heritageMediaEntityService.findAllAsAList();
 		List<HeritageMedia> heritageFilterList = new ArrayList<HeritageMedia>();
 		log.debug("getAllHeritageMediaEntitysAsGeoJSONForApp   Appname " + appId);
-		if(appId == null)
-		{
-		
-			return  totalCollection ;
+		if (appId == null) {
+
+			return totalCollection;
 		}
-		
-		for(HeritageMedia m : heritageList)
-		{
+		int result = -1;
+
+		for (HeritageMedia m : heritageList) {
 			//
-			if(m != null || m.getHeritageApp() != null || m.getHeritageApp().getName() != null)
-			{
-				int result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
-				
-				if(result == 0 )
-				{
-					
-					heritageFilterList.add(m);
-				}
-			
+			if (m != null)
+				if (m.getHeritageApp() != null)
+					if (m.getHeritageApp().getName() != null) {
+						
+						try {
+							result = m.getHeritageApp().getName().compareToIgnoreCase(appId);
+						} catch (Exception e) {
+							log.debug(" m.getHeritageApp().getName() " + e);
+						}
+						if (result == 0) {		
+							heritageFilterList.add(m);
+						}
+
 			}
 			//
-			
+
 		}
-		
+
 		totalCollection = convertListToFeatures(heritageFilterList);
 
 		return totalCollection;
@@ -1260,24 +1237,21 @@ public class RestNewResourceMapApp {
 
 	}
 	///
-	
+
 	@CrossOrigin
 	@RequestMapping(value = "/getCurrentStorageSize/user/{userId}", method = { RequestMethod.GET,
 			RequestMethod.POST }, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	public @ResponseBody Integer getCurrentStorageSize(@PathVariable String userId) {
-		
+
 		Optional<User> u = userRepository.findOneByLogin(userId);
 		User user = null;
-		if (u.isPresent())
-		{
+		if (u.isPresent()) {
 
-			user = u.get();	
+			user = u.get();
 			return user.getDataStored();
 		}
 		return -1;
-
-		
 
 	}
 
